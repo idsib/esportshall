@@ -1,13 +1,13 @@
 <div align="center">
 
-<img src="frontend/public/images/logos/esportshall.png" alt="EsportsHall Logo" width="400"/>
+<img src="frontend/public/images/logos/esportshall.png" alt="EsportsHall Logo" width="200"/>
 
 # EsportsHall
 
 [![Next.js](https://img.shields.io/badge/Next.js-15.0-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![Supabase](https://img.shields.io/badge/Supabase-Latest-green?style=for-the-badge&logo=supabase)](https://supabase.com/)
-[![Tailwind](https://img.shields.io/badge/Tailwind-3.0-blue?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
-[![Bun](https://img.shields.io/badge/Bun-1.0-orange?style=for-the-badge&logo=bun)](https://bun.sh/)
+[![Tailwind](https://img.shields.io/badge/Tailwind-4.0.3-blue?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
+[![Bun](https://img.shields.io/badge/Bun-1.2.2-orange?style=for-the-badge&logo=bun)](https://bun.sh/)
 [![Vercel](https://img.shields.io/badge/Vercel-White?style=for-the-badge&logo=vercel)](https://vercel.com/)
 
 **La plataforma definitiva para la comunidad española de esports**
@@ -59,7 +59,7 @@ EsportsHall es una plataforma integral para la comunidad española de esports, o
 
 **Frontend**
 - Next.js 15 + React 19 (SSR/ISR)
-- Tailwind CSS 3 (Diseño responsive)
+- Tailwind CSS 4 (Diseño responsive)
 - Supabase Auth (Autenticación social)
 - Vercel (Deployment y hosting)
 
