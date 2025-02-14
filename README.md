@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="frontend/public/images/logos/esportshall.png" alt="EsportsHall Logo" width="200"/>
+<img src="/public/images/logos/esportshall.png" alt="EsportsHall Logo" width="200"/>
 
 # EsportsHall
 
