@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "esportshall",
   "version": "0.1.0",
   "private": true,
@@ -9,19 +10,38 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@t3-oss/env-core": "^0.12.0",
+    "@tailwindcss/postcss": "^4.0.6",
+    "@vercel/postgres": "^0.10.0",
+    "drizzle-orm": "^0.39.3",
+    "framer-motion": "^12.4.2",
+    "hono": "^4.7.0",
+    "jsonwebtoken": "^9.0.2",
+    "lucide-react": "^0.475.0",
+    "next": "^15.1.7",
+    "nextjs": "^0.0.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "next": "15.1.6"
+    "tailwind": "^4.0.0",
+    "vercel": "^41.1.0",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
-    "typescript": "^5",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
-    "eslint": "^9",
-    "eslint-config-next": "15.1.6",
-    "@eslint/eslintrc": "^3"
+    "@eslint/eslintrc": "^3.2.0",
+    "@tailwindcss/forms": "^0.5.10",
+    "@tailwindcss/typography": "^0.5.16",
+    "@types/jsonwebtoken": "^9.0.8",
+    "@types/node": "^20.17.17",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "@typescript-eslint/eslint-plugin": "^8.24.0",
+    "@typescript-eslint/parser": "^8.24.0",
+    "autoprefixer": "^10.4.20",
+    "drizzle-kit": "^0.30.4",
+    "eslint": "^9.20.1",
+    "eslint-config-next": "^15.1.7",
+    "postcss": "^8.5.2",
+    "tailwindcss": "^4.0.6",
+    "typescript": "^5.7.3"
   }
 }
