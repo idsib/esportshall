@@ -3,7 +3,7 @@
 
   # EsportsHall
 
-  [![Next.js](https://img.shields.io/badge/Next.js-14.1.0-black?style=flat-square&logo=next.js)](https://nextjs.org/)
+  [![Next.js](https://img.shields.io/badge/Next.js-14.1.3-black?style=flat-square&logo=next.js)](https://nextjs.org/)
   [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17.0-blue?style=flat-square&logo=postgresql)](https://neon.tech)
   [![Tailwind](https://img.shields.io/badge/Tailwind-3.4.1-38bdf8?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
   [![Bun](https://img.shields.io/badge/Bun-1.0.26-f9f1e1?style=flat-square&logo=bun)](https://bun.sh/)

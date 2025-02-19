@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import { useTheme } from "../../context/theme-context"
 
 interface Pixel {
   x: number
@@ -17,6 +18,7 @@ export function AnimatedBackground() {
   const mouseRef = useRef({ x: 0, y: 0 })
   const pixelsRef = useRef<Pixel[]>([])
   const animationFrameRef = useRef<number | null>(null)
+  const { theme } = useTheme()
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -25,7 +27,7 @@ export function AnimatedBackground() {
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
-    const isDarkMode = document.documentElement.classList.contains('dark')
+    const isDarkMode = theme === 'dark'
 
     const getPixelColor = () => {
       if (isDarkMode) {
@@ -103,8 +105,8 @@ export function AnimatedBackground() {
 
     const handleMouseMove = (e: MouseEvent) => {
       mouseRef.current = {
-        x: e.x,
-        y: e.y,
+        x: e.clientX,
+        y: e.clientY,
       }
     }
 
@@ -121,7 +123,7 @@ export function AnimatedBackground() {
         cancelAnimationFrame(animationFrameRef.current)
       }
     }
-  }, [])
+  }, [theme])
 
   return (
     <canvas 
