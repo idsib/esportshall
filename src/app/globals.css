@@ -1,20 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 0, 0, 0;
-  --background-end-rgb: 0, 0, 0;
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-start-rgb));
-}
-
 @layer base {
   body {
-    @apply min-h-screen text-white bg-black;
+    @apply min-h-screen bg-light-200 dark:bg-dark-100 text-gray-900 dark:text-white;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-6 py-2.5 bg-brand-yellow text-dark-100 rounded-lg font-semibold;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-2.5 border-2 border-brand-yellow text-brand-yellow
+           rounded-lg font-semibold transition-all duration-300
+           hover:bg-brand-yellow/10 hover:shadow-lg hover:shadow-brand-yellow/20
+           active:transform active:scale-95;
+  }
+
+  .card {
+    @apply p-6 rounded-xl backdrop-blur-md
+           border border-white/10 bg-white/5
+           dark:bg-dark-200/50 dark:border-dark-300
+           transition-all duration-300
+           hover:border-brand-yellow hover:shadow-lg hover:shadow-brand-yellow/10;
+  }
+
+  .container {
+    @apply w-full mx-auto px-4 max-w-7xl;
+  }
+
+  .nav-link {
+    @apply text-gray-600 dark:text-gray-300 
+           hover:text-brand-yellow dark:hover:text-brand-yellow
+           transition-colors duration-300;
+  }
+}
+
+@layer utilities {
+  .backdrop-blur-sm {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .transition-all {
+    transition: all 0.2s ease-in-out;
+  }
+}
+
+/* Mejoras para el scroll suave */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Mejoras para el contraste y legibilidad */
+.text-brand-yellow {
+  color: #FFD700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+/* Mejoras para los botones */
+button {
+  transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+/* Animaciones suaves para los elementos interactivos */
+.transition-all {
+  transition-duration: 200ms;
+}
+
+/* Contenedor responsivo */
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
   }
 }

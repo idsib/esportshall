@@ -29,13 +29,9 @@ export function AnimatedBackground() {
 
     const getPixelColor = () => {
       if (isDarkMode) {
-        return `rgba(255, 215, 0, ${Math.random() * 0.2 + 0.05})`  // Dorado más intenso en modo oscuro
+        return `rgba(255, 215, 0, ${Math.random() * 0.2 + 0.05})`
       }
-      return `rgba(218, 165, 32, ${Math.random() * 0.3 + 0.1})`   // Dorado más visible en modo claro
-    }
-
-    const getPixelSize = () => {
-      return isDarkMode ? 8 : 10 // Píxeles más pequeños en ambos modos
+      return `rgba(218, 165, 32, ${Math.random() * 0.3 + 0.1})`
     }
 
     const resize = () => {
@@ -46,8 +42,8 @@ export function AnimatedBackground() {
 
     const initPixels = () => {
       pixelsRef.current = []
-      const gridSize = isDarkMode ? 40 : 45 // Grid más denso
-      const pixelSize = getPixelSize()
+      const gridSize = isDarkMode ? 40 : 45
+      const pixelSize = isDarkMode ? 8 : 10
       const cols = Math.ceil(canvas.width / gridSize)
       const rows = Math.ceil(canvas.height / gridSize)
 
@@ -74,8 +70,8 @@ export function AnimatedBackground() {
       pixelsRef.current.forEach((pixel) => {
         ctx.fillStyle = pixel.color
         if (!isDarkMode) {
-          ctx.shadowColor = 'rgba(218, 165, 32, 0.15)' // Sombra más sutil
-          ctx.shadowBlur = 5 // Menos blur
+          ctx.shadowColor = 'rgba(218, 165, 32, 0.15)'
+          ctx.shadowBlur = 5
         }
         ctx.fillRect(pixel.x, pixel.y, pixel.size, pixel.size)
         ctx.shadowBlur = 0
@@ -83,7 +79,7 @@ export function AnimatedBackground() {
         const dx = mouseRef.current.x - (pixel.x + pixel.size / 2)
         const dy = mouseRef.current.y - (pixel.y + pixel.size / 2)
         const distance = Math.sqrt(dx * dx + dy * dy)
-        const maxDistance = isDarkMode ? 100 : 80 // Radio de interacción más pequeño
+        const maxDistance = isDarkMode ? 100 : 80
 
         if (distance < maxDistance) {
           const force = (maxDistance - distance) / maxDistance
@@ -112,20 +108,6 @@ export function AnimatedBackground() {
       }
     }
 
-    // Observar cambios en el tema
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.attributeName === 'class') {
-          initPixels()  // Reinicializar píxeles cuando cambie el tema
-        }
-      })
-    })
-
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class']
-    })
-
     window.addEventListener("resize", resize)
     window.addEventListener("mousemove", handleMouseMove)
 
@@ -135,7 +117,6 @@ export function AnimatedBackground() {
     return () => {
       window.removeEventListener("resize", resize)
       window.removeEventListener("mousemove", handleMouseMove)
-      observer.disconnect()
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current)
       }
@@ -149,4 +130,4 @@ export function AnimatedBackground() {
       style={{ pointerEvents: "none" }} 
     />
   )
-}
+} 
