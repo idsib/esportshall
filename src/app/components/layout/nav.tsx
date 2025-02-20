@@ -4,9 +4,9 @@ import Image from "next/image"
 import Link from "next/link"
 import { Sun, Moon, Menu, X } from "lucide-react"
 import { useState } from "react"
-import { useTheme } from "../context/theme-context"
+import { useTheme } from "../../context/theme-context"
 
-export default function Nav() {
+export function Nav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const { theme, setTheme } = useTheme()
 
@@ -29,7 +29,6 @@ export default function Nav() {
             <span className="font-bold text-gray-900 dark:text-white">EsportsHall</span>
           </Link>
 
-          {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
             <Link href="#" className="nav-link">Torneos</Link>
             <Link href="#" className="nav-link">Equipos</Link>
@@ -48,7 +47,6 @@ export default function Nav() {
             </button>
           </div>
 
-          {/* Mobile Menu Button */}
           <button 
             className="md:hidden p-2"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -60,7 +58,6 @@ export default function Nav() {
           </button>
         </div>
 
-        {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t border-gray-200 dark:border-dark-300">
             <div className="flex flex-col space-y-4">
@@ -92,5 +89,4 @@ export default function Nav() {
       </div>
     </nav>
   )
-}
-
+} 
