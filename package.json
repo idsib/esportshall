@@ -12,16 +12,24 @@
     "framer-motion": "latest",
     "lucide-react": "latest",
     "next": "latest",
+    "next-themes": "^0.2.1",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "hono": "^3.12.0",
+    "zod": "^3.22.4",
+    "@t3-oss/env-core": "^0.7.1",
+    "drizzle-orm": "^0.29.3",
+    "@neondatabase/serverless": "^0.7.2"
   },
   "devDependencies": {
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
-    "autoprefixer": "latest",
-    "postcss": "latest",
-    "tailwindcss": "latest",
-    "typescript": "latest"
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.24",
+    "tailwindcss": "^3.3.2",
+    "typescript": "latest",
+    "eslint": "^8.56.0",
+    "eslint-config-next": "^13.5.4"
   }
 }

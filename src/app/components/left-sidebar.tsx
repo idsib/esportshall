@@ -1,19 +1,25 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
-import { Ionicons } from '@expo/vector-icons';
+import { 
+  LayoutGrid, 
+  Home, 
+  Compass, 
+  MessageCircle, 
+  Bell, 
+  Settings, 
+  LogOut 
+} from 'lucide-react';
 import Image from 'next/image';
 
-type IconName = React.ComponentProps<typeof Ionicons>['name'];
-
-const menuItems: Array<{ icon: IconName; activeIcon: IconName; label: string; path: string }> = [
-    { icon: 'grid-outline', activeIcon: 'grid', label: 'Parrilla', path: '/grid' },
-    { icon: 'home-outline', activeIcon: 'home', label: 'Inicio', path: '/main' },
-    { icon: 'compass-outline', activeIcon: 'compass', label: 'Explorar', path: '/explore' },
-    { icon: 'chatbubbles-outline', activeIcon: 'chatbubbles', label: 'Mensajes', path: '/messages' },
-    { icon: 'notifications-outline', activeIcon: 'notifications', label: 'Notificaciones', path: '/notifications' },
-    { icon: 'settings-outline', activeIcon: 'settings', label: 'Configuración', path: '/settings' },
-    { icon: 'exit-outline', activeIcon: 'exit', label: 'Salir', path: '/exit' },
+const menuItems = [
+    { icon: LayoutGrid, label: 'Parrilla', path: '/grid' },
+    { icon: Home, label: 'Inicio', path: '/main' },
+    { icon: Compass, label: 'Explorar', path: '/explore' },
+    { icon: MessageCircle, label: 'Mensajes', path: '/messages' },
+    { icon: Bell, label: 'Notificaciones', path: '/notifications' },
+    { icon: Settings, label: 'Configuración', path: '/settings' },
+    { icon: LogOut, label: 'Salir', path: '/exit' },
 ];
 
 export default function Sidebar({ onClose }: { onClose?: () => void }) {
@@ -38,6 +44,7 @@ export default function Sidebar({ onClose }: { onClose?: () => void }) {
                 <div className="flex flex-col">
                     {menuItems.map((item) => {
                         const isActive = pathname === item.path;
+                        const IconComponent = item.icon;
                         return (
                             <button
                                 key={item.path}
@@ -51,8 +58,7 @@ export default function Sidebar({ onClose }: { onClose?: () => void }) {
                                     onClose?.();
                                 }}
                             >
-                                <Ionicons
-                                    name={isActive ? item.activeIcon : item.icon}
+                                <IconComponent
                                     size={26}
                                     className="mr-4"
                                 />
