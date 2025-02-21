@@ -30,10 +30,9 @@ export function AnimatedBackground() {
     const isDarkMode = theme === 'dark'
 
     const getPixelColor = () => {
-      if (isDarkMode) {
-        return `rgba(255, 215, 0, ${Math.random() * 0.2 + 0.05})`
-      }
-      return `rgba(218, 165, 32, ${Math.random() * 0.3 + 0.1})`
+      return isDarkMode 
+        ? `rgba(255, 215, 0, ${Math.random() * 0.2 + 0.05})`
+        : `rgba(255, 215, 0, ${Math.random() * 0.25 + 0.1})`
     }
 
     const resize = () => {
@@ -44,8 +43,8 @@ export function AnimatedBackground() {
 
     const initPixels = () => {
       pixelsRef.current = []
-      const gridSize = isDarkMode ? 40 : 45
-      const pixelSize = isDarkMode ? 8 : 10
+      const gridSize = 40
+      const pixelSize = 8
       const cols = Math.ceil(canvas.width / gridSize)
       const rows = Math.ceil(canvas.height / gridSize)
 
@@ -71,25 +70,25 @@ export function AnimatedBackground() {
 
       pixelsRef.current.forEach((pixel) => {
         ctx.fillStyle = pixel.color
-        if (!isDarkMode) {
-          ctx.shadowColor = 'rgba(218, 165, 32, 0.15)'
-          ctx.shadowBlur = 5
-        }
+        ctx.shadowColor = isDarkMode 
+          ? 'rgba(255, 215, 0, 0.15)' 
+          : 'rgba(255, 215, 0, 0.25)'
+        ctx.shadowBlur = isDarkMode ? 5 : 8
         ctx.fillRect(pixel.x, pixel.y, pixel.size, pixel.size)
         ctx.shadowBlur = 0
 
         const dx = mouseRef.current.x - (pixel.x + pixel.size / 2)
         const dy = mouseRef.current.y - (pixel.y + pixel.size / 2)
         const distance = Math.sqrt(dx * dx + dy * dy)
-        const maxDistance = isDarkMode ? 100 : 80
+        const maxDistance = 100
 
         if (distance < maxDistance) {
           const force = (maxDistance - distance) / maxDistance
-          const targetSize = pixel.baseSize * (1 + force * (isDarkMode ? 0.3 : 0.2))
+          const targetSize = pixel.baseSize * (1 + force * (isDarkMode ? 0.3 : 0.4))
           pixel.size += (targetSize - pixel.size) * 0.1
 
-          pixel.x += dx * (isDarkMode ? 0.01 : 0.005) * force
-          pixel.y += dy * (isDarkMode ? 0.01 : 0.005) * force
+          pixel.x += dx * 0.01 * force
+          pixel.y += dy * 0.01 * force
         } else {
           pixel.size += (pixel.baseSize - pixel.size) * 0.1
           pixel.x += (pixel.baseX - pixel.x) * 0.05

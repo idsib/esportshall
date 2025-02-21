@@ -1,11 +1,10 @@
 export default function TermsOfService() {
     return (
-        <div className="pb-12 px-4 min-h-screen">
+        <div className="pt-24 pb-12 px-4 min-h-screen bg-gray-50 dark:bg-dark-100">
             <div className="max-w-4xl mx-auto">
                 <h1 className="text-4xl font-bold text-brand-yellow text-center mb-12">
                     Términos de Servicio
                 </h1>
-                
                 <div className="space-y-8 text-gray-800 dark:text-gray-200 bg-white dark:bg-dark-200 p-8 rounded-xl shadow-lg">
                     <section>
                         <h3 className="text-2xl font-semibold text-brand-yellow mb-4">1. Aceptación de los Términos</h3>
