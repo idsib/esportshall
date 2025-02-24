@@ -14,5 +14,85 @@
   "Marca eSports": {
     "link": "https://www.marca.com/esports.html",
     "rss": "https://e00-marca.uecdn.es/rss/esports.xml"
+  },
+  "3DJuegos": {
+    "link": "https://www.3djuegos.com/",
+    "rss": "https://www.3djuegos.com/rss/rss.php"
+  },
+  "Vandal": {
+    "link": "https://vandal.elespanol.com/",
+    "rss": "https://vandal.elespanol.com/rss/vandal.xml"
+  },
+  "Meristation": {
+    "link": "https://as.com/meristation/",
+    "rss": "https://as.com/rss/meristation/portada.xml"
+  },
+  "IGN España": {
+    "link": "https://es.ign.com/",
+    "rss": "https://es.ign.com/feed.xml"
+  },
+  "LevelUp": {
+    "link": "https://www.levelup.com/",
+    "rss": "https://www.levelup.com/rss"
+  },
+  "VidaExtra": {
+    "link": "https://www.vidaextra.com/",
+    "rss": "https://www.vidaextra.com/rss"
+  },
+  "Kotaku en Español": {
+    "link": "https://es.gizmodo.com/tag/kotaku",
+    "rss": "https://es.gizmodo.com/rss"
+  },
+  "Red Bull eSports": {
+    "link": "https://www.redbull.com/es-es/tags/esports",
+    "rss": "https://www.redbull.com/es-es/rss/tag/esports"
+  },
+  "Millenium": {
+    "link": "https://www.millenium.gg/",
+    "rss": "https://www.millenium.gg/rss"
+  },
+  "Gamereactor España": {
+    "link": "https://www.gamereactor.es/",
+    "rss": "https://www.gamereactor.es/rss/"
+  },
+  "Esports Bureau": {
+    "link": "https://esportsbureau.com/",
+    "rss": "https://esportsbureau.com/feed/"
+  },
+  "Zona MMORPG": {
+    "link": "https://www.zonammorpg.com/",
+    "rss": "https://www.zonammorpg.com/feed/"
+  },
+  "Mundo Deportivo - AlfaBeta": {
+    "link": "https://www.mundodeportivo.com/alfabeta/",
+    "rss": "https://www.mundodeportivo.com/rss/alfabeta.xml"
+  },
+  "Xataka": {
+    "link": "https://www.xataka.com/",
+    "rss": "https://www.xataka.com/tag/videojuegos/rss"
+  },
+  "Tarreo": {
+    "link": "https://www.tarreo.com/",
+    "rss": "https://www.tarreo.com/rss"
+  },
+  "NextN": {
+    "link": "https://www.nextn.es/",
+    "rss": "https://www.nextn.es/feed/"
+  },
+  "MuyComputer": {
+    "link": "https://www.muycomputer.com/",
+    "rss": "https://www.muycomputer.com/feed/"
+  },
+  "Digital Trends en Español": {
+    "link": "https://es.digitaltrends.com/videojuego/",
+    "rss": "https://es.digitaltrends.com/videojuego/feed/"
+  },
+  "Andro4all Juegos": {
+    "link": "https://www.lavanguardia.com/andro4all/juegos/",
+    "rss": "https://www.lavanguardia.com/andro4all/juegos/rss.xml"
+  },
+  "El Desmarque Videojuegos": {
+    "link": "https://www.eldesmarque.com/videojuegos/",
+    "rss": "https://www.eldesmarque.com/videojuegos/rss"
   }
 }
