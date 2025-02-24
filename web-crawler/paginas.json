@@ -1,0 +1,18 @@
+{
+  "HobbyConsolas": {
+    "link": "https://www.hobbyconsolas.com/",
+    "rss": "https://www.hobbyconsolas.com/rss/videojuegos"
+  },
+  "Eurogamer": {
+    "link": "https://www.eurogamer.es/",
+    "rss": "https://www.eurogamer.es/?format=rss"
+  },
+  "Movistar eSports": {
+    "link": "https://esports.as.com/",
+    "rss": "https://esports.as.com/rss.xml"
+  },
+  "Marca eSports": {
+    "link": "https://www.marca.com/esports.html",
+    "rss": "https://e00-marca.uecdn.es/rss/esports.xml"
+  }
+}
