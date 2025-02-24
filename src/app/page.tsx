@@ -87,7 +87,10 @@ export default function Home() {
                   <button className="btn-primary">
                     Empezar Ahora
                   </button>
-                  <button className="btn-secondary">
+                  <button 
+                    className="btn-secondary"
+                    onClick={() => router.push('/about')}
+                  >
                     Saber Más
                   </button>
                 </motion.div>
