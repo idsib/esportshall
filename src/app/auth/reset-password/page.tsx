@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { ArrowLeft } from 'lucide-react'
-import Nav from "../../components/nav"
+import Nav from "../../components/layout/nav"
 import { Footer } from "../../components/footer"
 
 export default function ResetPassword() {

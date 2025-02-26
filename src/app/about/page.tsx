@@ -1,7 +1,7 @@
 "use client"
 
 import { useRouter } from 'next/navigation'
-import Nav from "../components/nav"
+import Nav from "../components/layout/nav"
 import { Footer } from "../components/layout/footer"
 import { Trophy, Users, Globe, Target, Award, Rocket, ArrowLeft } from "lucide-react"
 
