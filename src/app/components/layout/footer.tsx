@@ -1,11 +1,12 @@
 "use client"
 
 import Image from "next/image"
-import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { useTheme } from "../../context/theme-context"
 
 export function Footer() {
   const { theme } = useTheme()
+  const router = useRouter()
 
   return (
     <footer className="w-full py-8 mt-20 border-t dark:border-white/10 border-gray-200 bg-white/70 dark:bg-dark-100/70 backdrop-blur-md">
@@ -13,7 +14,10 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Logo y descripción */}
           <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center space-x-2 mb-4">
+            <div 
+              className="flex items-center space-x-2 mb-4 cursor-pointer" 
+              onClick={() => router.push('/')}
+            >
               <Image
                 src="/images/esportshall.png"
                 alt="EsportsHall Logo"
@@ -32,9 +36,9 @@ export function Footer() {
           <div>
             <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Enlaces Rápidos</h3>
             <ul className="space-y-2">
-              <li><Link href="#" className="nav-link">Torneos</Link></li>
-              <li><Link href="#" className="nav-link">Equipos</Link></li>
-              <li><Link href="#" className="nav-link">Comunidad</Link></li>
+              <li><button onClick={() => router.push('/torneos')} className="nav-link">Torneos</button></li>
+              <li><button onClick={() => router.push('/equipos')} className="nav-link">Equipos</button></li>
+              <li><button onClick={() => router.push('/comunidad')} className="nav-link">Comunidad</button></li>
             </ul>
           </div>
 
@@ -57,7 +61,11 @@ export function Footer() {
                   GitHub
                 </a>
               </li>
-              <li><a href="#" className="nav-link">Twitter</a></li>
+              <li>
+                <button onClick={() => window.open('https://twitter.com', '_blank')} className="nav-link">
+                  Twitter
+                </button>
+              </li>
             </ul>
           </div>
         </div>
@@ -69,12 +77,24 @@ export function Footer() {
               © {new Date().getFullYear()} EsportsHall. Todos los derechos reservados.
             </p>
             <div className="flex space-x-4 mt-4 md:mt-0">
-              <Link href="#" className="text-gray-600 dark:text-gray-300 text-sm hover:text-brand-yellow">
+              <button 
+                onClick={() => router.push('/policy/terms-of-service')} 
+                className="text-gray-600 dark:text-gray-300 text-sm hover:text-brand-yellow"
+              >
                 Términos y Condiciones
-              </Link>
-              <Link href="#" className="text-gray-600 dark:text-gray-300 text-sm hover:text-brand-yellow">
+              </button>
+              <button 
+                onClick={() => router.push('/policy/privacy-policy')} 
+                className="text-gray-600 dark:text-gray-300 text-sm hover:text-brand-yellow"
+              >
                 Política de Privacidad
-              </Link>
+              </button>
+              <button 
+                onClick={() => router.push('/policy/cookies-policy')} 
+                className="text-gray-600 dark:text-gray-300 text-sm hover:text-brand-yellow"
+              >
+                Política de Cookies
+              </button>
             </div>
           </div>
         </div>

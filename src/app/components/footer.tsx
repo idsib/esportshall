@@ -83,7 +83,7 @@ export function Footer() {
               <Link href="#" className="text-gray-600 dark:text-gray-300 text-sm hover:text-brand-yellow dark:hover:text-brand-yellow transition-colors">
                 Términos y Condiciones
               </Link>
-              <Link href="#" className="text-gray-600 dark:text-gray-300 text-sm hover:text-brand-yellow dark:hover:text-brand-yellow transition-colors">
+              <Link href="/cookies-policy" className="text-gray-600 dark:text-gray-300 text-sm hover:text-brand-yellow dark:hover:text-brand-yellow transition-colors">
                 Política de Privacidad
               </Link>
             </div>

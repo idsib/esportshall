@@ -4,8 +4,9 @@ import dynamic from "next/dynamic"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { Trophy, Users, Gamepad2, ArrowRight } from "lucide-react"
-import { Nav } from "./components/layout/nav"
+import Nav from "./components/layout/nav"
 import { AnimatedBackground } from "./components/ui/animated-background"
+import { useRouter } from 'next/navigation'
 
 // Carga dinámica del Footer
 const Footer = dynamic(() => import("./components/layout/footer").then(mod => mod.Footer), {
@@ -30,6 +31,8 @@ const pageTransition = {
 }
 
 export default function Home() {
+  const router = useRouter()
+
   return (
     <AnimatePresence>
       <motion.div
@@ -81,10 +84,16 @@ export default function Home() {
                   className="flex justify-center gap-4 pt-8"
                   variants={fadeInUp}
                 >
-                  <button className="btn-primary">
+                  <button 
+                    onClick={() => router.push('/auth/login')}
+                    className="btn-primary"
+                  >
                     Empezar Ahora
                   </button>
-                  <button className="btn-secondary">
+                  <button 
+                    onClick={() => router.push('/about')}
+                    className="btn-secondary"
+                  >
                     Saber Más
                   </button>
                 </motion.div>
@@ -152,10 +161,15 @@ export default function Home() {
                   <p className="text-xl text-gray-400">
                     Únete a miles de jugadores y equipos que ya son parte de la revolución del esport español.
                   </p>
-                  <button className="btn-primary inline-flex items-center gap-2 group">
-                    Comenzar Ahora
-                    <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-                  </button>
+                  <div className="flex flex-col items-center gap-4">
+                    <button 
+                      onClick={() => router.push('/auth/login')}
+                      className="btn-primary inline-flex items-center gap-2 group"
+                    >
+                      Comenzar Ahora
+                      <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+                    </button>
+                  </div>
                 </motion.div>
               </div>
             </section>
