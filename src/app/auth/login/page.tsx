@@ -6,7 +6,7 @@ import Image from 'next/image'
 import Nav from "../../components/layout/nav"
 import { Footer } from "../../components/footer"
 import { useTheme } from "../../context/theme-context"
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { initializeGoogleAuth } from '@/lib/google-auth'
 import { signIn, useSession } from "next-auth/react"
 
@@ -14,6 +14,12 @@ export default function Login() {
     const { data: session } = useSession()
     const router = useRouter()
     const { theme } = useTheme()
+
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+        remember: false
+    })
 
     useEffect(() => {
         if (session) {
@@ -25,6 +31,24 @@ export default function Login() {
         // Inicializar Google Auth
         initializeGoogleAuth();
     }, []);
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value, type, checked } = e.target
+        setFormData(prev => ({
+            ...prev,
+            [name]: type === 'checkbox' ? checked : value
+        }))
+    }
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        try {
+            // Aquí iría la lógica para enviar los datos al backend
+            console.log('Datos del formulario:', formData)
+        } catch (error) {
+            console.error('Error al iniciar sesión:', error)
+        }
+    }
 
     const handleGoogleLogin = async () => {
         try {

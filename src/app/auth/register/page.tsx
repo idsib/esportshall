@@ -6,13 +6,21 @@ import Image from 'next/image'
 import Nav from "../../components/layout/nav"
 import { Footer } from "../../components/footer"
 import { useTheme } from "../../context/theme-context"
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { signIn, useSession } from "next-auth/react"
 
 export default function Register() {
     const { data: session } = useSession()
     const router = useRouter()
     const { theme } = useTheme()
+
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        terms: false
+    })
 
     useEffect(() => {
         if (session) {
@@ -29,6 +37,28 @@ export default function Register() {
             })
         } catch (error) {
             console.error('Error al registrarse con Google:', error)
+        }
+    }
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value, type, checked } = e.target
+        setFormData(prev => ({
+            ...prev,
+            [name]: type === 'checkbox' ? checked : value
+        }))
+    }
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        if (!formData.terms) {
+            alert('Debes aceptar los términos y condiciones')
+            return
+        }
+        try {
+            // Aquí iría la lógica para enviar los datos al backend
+            console.log('Datos del formulario:', formData)
+        } catch (error) {
+            console.error('Error al registrar:', error)
         }
     }
 
@@ -82,7 +112,7 @@ export default function Register() {
                                 </div>
                             </div>
 
-                            <form className="space-y-6">
+                            <form onSubmit={handleSubmit} className="space-y-6">
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
                                         <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -91,8 +121,12 @@ export default function Register() {
                                         <input
                                             type="text"
                                             id="firstName"
+                                            name="firstName"
+                                            value={formData.firstName}
+                                            onChange={handleInputChange}
                                             className="w-full px-4 py-2 rounded-lg border dark:border-dark-300 bg-white dark:bg-dark-300 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-colors"
                                             placeholder="Pablo"
+                                            required
                                         />
                                     </div>
                                     <div>
@@ -102,8 +136,12 @@ export default function Register() {
                                         <input
                                             type="text"
                                             id="lastName"
+                                            name="lastName"
+                                            value={formData.lastName}
+                                            onChange={handleInputChange}
                                             className="w-full px-4 py-2 rounded-lg border dark:border-dark-300 bg-white dark:bg-dark-300 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-colors"
                                             placeholder="Torres"
+                                            required
                                         />
                                     </div>
                                 </div>
@@ -115,8 +153,12 @@ export default function Register() {
                                     <input
                                         type="email"
                                         id="email"
+                                        name="email"
+                                        value={formData.email}
+                                        onChange={handleInputChange}
                                         className="w-full px-4 py-2 rounded-lg border dark:border-dark-300 bg-white dark:bg-dark-300 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-colors"
                                         placeholder="tu@email.com"
+                                        required
                                     />
                                 </div>
 
@@ -127,8 +169,12 @@ export default function Register() {
                                     <input
                                         type="password"
                                         id="password"
+                                        name="password"
+                                        value={formData.password}
+                                        onChange={handleInputChange}
                                         className="w-full px-4 py-2 rounded-lg border dark:border-dark-300 bg-white dark:bg-dark-300 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-colors"
                                         placeholder="••••••••"
+                                        required
                                     />
                                 </div>
 
@@ -136,6 +182,9 @@ export default function Register() {
                                     <input
                                         type="checkbox"
                                         id="terms"
+                                        name="terms"
+                                        checked={formData.terms}
+                                        onChange={handleInputChange}
                                         className="h-4 w-4 rounded border-gray-300 text-brand-yellow focus:ring-brand-yellow focus:ring-offset-0 transition duration-150 ease-in-out"
                                     />
                                     <label htmlFor="terms" className="ml-2 block text-sm text-gray-700 dark:text-gray-300 select-none cursor-pointer">

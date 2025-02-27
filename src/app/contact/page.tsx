@@ -15,11 +15,43 @@ export default function Contact() {
         message: '',
         newsletter: false
     })
+    const [file, setFile] = useState<File | null>(null)
+    const [isSubmitting, setIsSubmitting] = useState(false)
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+        const { name, value, type } = e.target
+        setFormData(prev => ({
+            ...prev,
+            [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
+        }))
+    }
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const selectedFile = e.target.files?.[0]
+        if (selectedFile) {
+            setFile(selectedFile)
+        }
+    }
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        // Implementar lógica de envío
-        console.log(formData)
+        setIsSubmitting(true)
+        try {
+            // Aquí iría la lógica para enviar los datos al backend
+            const formDataToSend = new FormData()
+            Object.entries(formData).forEach(([key, value]) => {
+                formDataToSend.append(key, value.toString())
+            })
+            if (file) {
+                formDataToSend.append('file', file)
+            }
+            console.log('Datos del formulario:', formData)
+            console.log('Archivo:', file)
+        } catch (error) {
+            console.error('Error al enviar el formulario:', error)
+        } finally {
+            setIsSubmitting(false)
+        }
     }
 
     return (
@@ -56,7 +88,7 @@ export default function Contact() {
                                     type="text"
                                     id="name"
                                     value={formData.name}
-                                    onChange={(e) => setFormData({...formData, name: e.target.value})}
+                                    onChange={handleInputChange}
                                     className="w-full px-4 py-2 rounded-lg border dark:border-dark-300 bg-white dark:bg-dark-300 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-colors"
                                     placeholder="Inserta tu nombre"
                                     required
@@ -71,7 +103,7 @@ export default function Contact() {
                                     type="email"
                                     id="email"
                                     value={formData.email}
-                                    onChange={(e) => setFormData({...formData, email: e.target.value})}
+                                    onChange={handleInputChange}
                                     className="w-full px-4 py-2 rounded-lg border dark:border-dark-300 bg-white dark:bg-dark-300 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-colors"
                                     placeholder="tu@email.com"
                                     required
@@ -85,7 +117,7 @@ export default function Contact() {
                                 <select
                                     id="role"
                                     value={formData.role}
-                                    onChange={(e) => setFormData({...formData, role: e.target.value})}
+                                    onChange={handleInputChange}
                                     className="w-full px-4 py-2 rounded-lg border dark:border-dark-300 bg-white dark:bg-dark-300 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-colors"
                                     required
                                 >
@@ -105,7 +137,7 @@ export default function Contact() {
                                 <textarea
                                     id="message"
                                     value={formData.message}
-                                    onChange={(e) => setFormData({...formData, message: e.target.value})}
+                                    onChange={handleInputChange}
                                     rows={4}
                                     className="w-full px-4 py-2 rounded-lg border dark:border-dark-300 bg-white dark:bg-dark-300 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-colors"
                                     placeholder="Cuéntanos sobre tu experiencia y motivación..."
@@ -118,7 +150,7 @@ export default function Contact() {
                                     type="checkbox"
                                     id="newsletter"
                                     checked={formData.newsletter}
-                                    onChange={(e) => setFormData({...formData, newsletter: e.target.checked})}
+                                    onChange={handleInputChange}
                                     className="h-4 w-4 text-brand-yellow focus:ring-brand-yellow border-gray-300 rounded"
                                 />
                                 <label htmlFor="newsletter" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
@@ -139,12 +171,7 @@ export default function Contact() {
                                             id="file" 
                                             className="hidden" 
                                             accept=".pdf,.doc,.docx"
-                                            onChange={(e) => {
-                                                const file = e.target.files?.[0];
-                                                if (file) {
-                                                    console.log('Archivo seleccionado:', file);
-                                                }
-                                            }}
+                                            onChange={handleFileChange}
                                         />
                                     </label>
                                 </div>
@@ -153,8 +180,9 @@ export default function Contact() {
                             <button
                                 type="submit"
                                 className="w-full btn-primary py-2 flex items-center justify-center space-x-2"
+                                disabled={isSubmitting}
                             >
-                                <span>Enviar Solicitud</span>
+                                <span>{isSubmitting ? 'Enviando...' : 'Enviar Solicitud'}</span>
                                 <Send className="w-4 h-4" />
                             </button>
                         </form>
