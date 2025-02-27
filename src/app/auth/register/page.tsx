@@ -8,6 +8,8 @@ import { Footer } from "../../components/footer"
 import { useTheme } from "../../context/theme-context"
 import { useEffect, useState } from 'react'
 import { signIn, useSession } from "next-auth/react"
+import {registerUserInBackend} from "../../../../backend/main"
+
 
 export default function Register() {
     const { data: session } = useSession()
@@ -202,6 +204,7 @@ export default function Register() {
                                 <button
                                     type="submit"
                                     className="w-full btn-primary py-2"
+                                    onClick={() => registerUserInBackend(formData.firstName, formData.lastName, formData.email, formData.password)}
                                 >
                                     Crear Cuenta
                                 </button>
@@ -210,7 +213,7 @@ export default function Register() {
                             <p className="text-center text-sm text-gray-600 dark:text-gray-300">
                                 ¿Ya tienes una cuenta?{' '}
                                 <button
-                                    onClick={() => router.push('/auth/login')}
+                                    onClick={() => console.log(formData)/* router.push('/auth/login') */}
                                     className="text-brand-yellow hover:text-yellow-600 transition-colors"
                                 >
                                     Inicia sesión
