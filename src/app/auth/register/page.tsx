@@ -5,22 +5,47 @@ import { ArrowLeft } from 'lucide-react'
 import Image from 'next/image'
 import Nav from "../../components/layout/nav"
 import { Footer } from "../../components/footer"
+import { useTheme } from "../../context/theme-context"
+import { useEffect } from 'react'
+import { signIn, useSession } from "next-auth/react"
 
 export default function Register() {
+    const { data: session } = useSession()
     const router = useRouter()
+    const { theme } = useTheme()
+
+    useEffect(() => {
+        if (session) {
+            router.push('/')
+        }
+    }, [session, router])
+
+    const handleGoogleRegister = async () => {
+        try {
+            await signIn('google', {
+                callbackUrl: '/',
+                popup: true,
+                redirect: false
+            })
+        } catch (error) {
+            console.error('Error al registrarse con Google:', error)
+        }
+    }
 
     return (
         <>
             <Nav />
             <div className="pt-24 pb-12 px-4 min-h-screen bg-gray-50 dark:bg-dark-100">
                 <div className="max-w-md mx-auto">
-                    <button
-                        onClick={() => router.push('/')}
-                        className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-brand-yellow transition-colors mb-8"
-                    >
-                        <ArrowLeft className="w-5 h-5" />
-                        <span>Volver al inicio</span>
-                    </button>
+                    <div className="flex justify-start mb-8">
+                        <button
+                            onClick={() => router.push('/')}
+                            className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-brand-yellow transition-colors"
+                        >
+                            <ArrowLeft className="w-5 h-5" />
+                            <span>Volver al inicio</span>
+                        </button>
+                    </div>
 
                     <div className="bg-white dark:bg-dark-200 rounded-xl shadow-lg p-8">
                         <div className="text-center mb-8">
@@ -34,11 +59,11 @@ export default function Register() {
 
                         <div className="space-y-6">
                             <button
-                                onClick={() => {/* Implementar registro con Google */}}
+                                onClick={handleGoogleRegister}
                                 className="w-full flex items-center justify-center space-x-2 px-4 py-2 border border-gray-300 dark:border-dark-300 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-dark-300 transition-colors"
                             >
                                 <Image
-                                    src="/images/google.svg"
+                                    src={theme === 'dark' ? '/images/google-dark.svg' : '/images/google-light.svg'}
                                     alt="Google"
                                     width={20}
                                     height={20}
@@ -67,7 +92,7 @@ export default function Register() {
                                             type="text"
                                             id="firstName"
                                             className="w-full px-4 py-2 rounded-lg border dark:border-dark-300 bg-white dark:bg-dark-300 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-colors"
-                                            placeholder="John"
+                                            placeholder="Pablo"
                                         />
                                     </div>
                                     <div>
@@ -78,7 +103,7 @@ export default function Register() {
                                             type="text"
                                             id="lastName"
                                             className="w-full px-4 py-2 rounded-lg border dark:border-dark-300 bg-white dark:bg-dark-300 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-colors"
-                                            placeholder="Doe"
+                                            placeholder="Torres"
                                         />
                                     </div>
                                 </div>
@@ -111,9 +136,9 @@ export default function Register() {
                                     <input
                                         type="checkbox"
                                         id="terms"
-                                        className="h-4 w-4 text-brand-yellow focus:ring-brand-yellow border-gray-300 rounded"
+                                        className="h-4 w-4 rounded border-gray-300 text-brand-yellow focus:ring-brand-yellow focus:ring-offset-0 transition duration-150 ease-in-out"
                                     />
-                                    <label htmlFor="terms" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
+                                    <label htmlFor="terms" className="ml-2 block text-sm text-gray-700 dark:text-gray-300 select-none cursor-pointer">
                                         Acepto los{' '}
                                         <button
                                             type="button"

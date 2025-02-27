@@ -12,14 +12,30 @@
 
 @layer components {
   .btn-primary {
-    @apply px-6 py-2.5 bg-brand-yellow text-dark-100 rounded-lg font-semibold;
+    @apply bg-brand-yellow text-gray-900 font-semibold px-6 py-2.5 rounded-lg 
+    hover:bg-yellow-600 transition-colors duration-200 
+    focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2 
+    dark:focus:ring-offset-dark-100;
   }
 
   .btn-secondary {
-    @apply px-6 py-2.5 border-2 border-brand-yellow text-brand-yellow
-           rounded-lg font-semibold transition-all duration-300
-           hover:bg-brand-yellow/10 hover:shadow-lg hover:shadow-brand-yellow/20
-           active:transform active:scale-95;
+    @apply bg-transparent border-2 border-gray-300 dark:border-gray-600 text-gray-700 
+    dark:text-gray-300 font-semibold px-6 py-2.5 rounded-lg 
+    hover:border-brand-yellow hover:text-brand-yellow transition-colors duration-200 
+    focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2 
+    dark:focus:ring-offset-dark-100;
+  }
+
+  .btn-outline {
+    @apply border-2 border-brand-yellow text-brand-yellow font-semibold px-6 py-2.5 
+    rounded-lg hover:bg-brand-yellow hover:text-gray-900 transition-colors duration-200 
+    focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2 
+    dark:focus:ring-offset-dark-100;
+  }
+
+  .btn-ghost {
+    @apply text-gray-600 dark:text-gray-400 hover:text-brand-yellow dark:hover:text-brand-yellow 
+    transition-colors duration-200 font-medium;
   }
 
   .card {
@@ -35,9 +51,7 @@
   }
 
   .nav-link {
-    @apply text-gray-600 dark:text-gray-300 
-           hover:text-brand-yellow dark:hover:text-brand-yellow
-           transition-colors duration-300;
+    @apply text-gray-600 dark:text-gray-300 hover:text-brand-yellow transition-colors;
   }
 }
 

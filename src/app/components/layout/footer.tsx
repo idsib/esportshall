@@ -36,8 +36,8 @@ export function Footer() {
           <div>
             <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Enlaces Rápidos</h3>
             <ul className="space-y-2">
-              <li><button onClick={() => router.push('/torneos')} className="nav-link">Torneos</button></li>
-              <li><button onClick={() => router.push('/equipos')} className="nav-link">Equipos</button></li>
+              <li><button onClick={() => router.push('/esports')} className="nav-link">Esports</button></li>
+              <li><button onClick={() => router.push('/teams')} className="nav-link">Equipos</button></li>
               <li><button onClick={() => router.push('/comunidad')} className="nav-link">Comunidad</button></li>
             </ul>
           </div>
@@ -62,8 +62,8 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <button onClick={() => window.open('https://twitter.com', '_blank')} className="nav-link">
-                  Twitter
+                <button onClick={() => router.push('/about')} className="nav-link">
+                  Sobre Nosotros
                 </button>
               </li>
             </ul>

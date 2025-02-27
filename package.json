@@ -9,17 +9,18 @@
     "lint": "bun --bun next lint"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^0.7.2",
+    "@t3-oss/env-core": "^0.7.1",
+    "drizzle-orm": "^0.29.3",
     "framer-motion": "latest",
+    "hono": "^3.12.0",
     "lucide-react": "latest",
     "next": "latest",
+    "next-auth": "^4.24.11",
     "next-themes": "^0.2.1",
     "react": "latest",
     "react-dom": "latest",
-    "hono": "^3.12.0",
-    "zod": "^3.22.4",
-    "@t3-oss/env-core": "^0.7.1",
-    "drizzle-orm": "^0.29.3",
-    "@neondatabase/serverless": "^0.7.2"
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/node": "latest",
