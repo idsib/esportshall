@@ -1,7 +1,7 @@
 "use client"
 
 import { useRouter, usePathname } from "next/navigation";
-import Nav from "../components/nav";
+import Nav from "../components/layout/nav";
 import { Footer } from "../components/layout/footer";
 
 export default function PolicyLayout({

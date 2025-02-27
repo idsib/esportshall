@@ -1,14 +1,15 @@
 "use client"
 
 import Image from "next/image"
-import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { Sun, Moon, Menu, X } from "lucide-react"
 import { useState } from "react"
 import { useTheme } from "../../context/theme-context"
 
-export function Nav() {
+export default function Nav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const { theme, setTheme } = useTheme()
+  const router = useRouter()
 
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark")
@@ -18,7 +19,10 @@ export function Nav() {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/70 dark:bg-dark-100/70 backdrop-blur-md border-b border-gray-200 dark:border-dark-300">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <Link href="/" className="flex items-center space-x-2">
+          <button 
+            onClick={() => router.push('/')}
+            className="flex items-center space-x-2"
+          >
             <Image
               src="/images/esportshall.png"
               alt="EsportsHall Logo"
@@ -27,12 +31,14 @@ export function Nav() {
               className="w-10 h-10"
             />
             <span className="font-bold text-gray-900 dark:text-white">EsportsHall</span>
-          </Link>
+          </button>
 
+          {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link href="#" className="nav-link">Torneos</Link>
-            <Link href="#" className="nav-link">Equipos</Link>
-            <Link href="#" className="nav-link">Comunidad</Link>
+            <button onClick={() => router.push('/about')} className="nav-link">Sobre  Nosotros</button>
+            <button onClick={() => router.push('/tournaments')} className="nav-link">Torneos</button>
+            <button onClick={() => router.push('/teams')} className="nav-link">Equipos</button>
+            <button onClick={() => router.push('/community')} className="nav-link">Comunidad</button>
             <button 
               onClick={toggleTheme}
               className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-200 transition-colors"
@@ -42,11 +48,15 @@ export function Nav() {
                 <Moon className="w-5 h-5 text-gray-600" />
               }
             </button>
-            <button className="btn-primary">
+            <button 
+              onClick={() => router.push('/auth/login')}
+              className="btn-primary"
+            >
               Empezar Ahora
             </button>
           </div>
 
+          {/* Mobile Menu Button */}
           <button 
             className="md:hidden p-2"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -58,13 +68,18 @@ export function Nav() {
           </button>
         </div>
 
+        {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t border-gray-200 dark:border-dark-300">
             <div className="flex flex-col space-y-4">
-              <Link href="#" className="nav-link">Torneos</Link>
-              <Link href="#" className="nav-link">Equipos</Link>
-              <Link href="#" className="nav-link">Comunidad</Link>
-              <button className="btn-primary w-full">
+              <button onClick={() => router.push('/about')} className="nav-link">Sobre Nosotros</button>
+              <button onClick={() => router.push('/tournaments')} className="nav-link">Torneos</button>
+              <button onClick={() => router.push('/teams')} className="nav-link">Equipos</button>
+              <button onClick={() => router.push('/community')} className="nav-link">Comunidad</button>
+              <button 
+                onClick={() => router.push('/auth/login')}
+                className="btn-primary w-full"
+              >
                 Empezar Ahora
               </button>
               <button 
@@ -89,4 +104,4 @@ export function Nav() {
       </div>
     </nav>
   )
-} 
+}
