@@ -1,7 +1,5 @@
 <div align="center">
-  <img src="/public/images/esportshall-text.png" alt="EsportsHall Logo" width="150"/>
-
-  # EsportsHall
+  <img src="/public/images/esportshall-text.png" alt="EsportsHall Logo" width="400"/>
 
   [![Next.js](https://img.shields.io/badge/Next.js-14.1.3-black?style=flat-square&logo=next.js)](https://nextjs.org/)
   [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17.0-blue?style=flat-square&logo=postgresql)](https://neon.tech)

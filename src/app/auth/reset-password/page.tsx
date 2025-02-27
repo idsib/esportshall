@@ -13,13 +13,15 @@ export default function ResetPassword() {
             <Nav />
             <div className="pt-24 pb-12 px-4 min-h-screen bg-gray-50 dark:bg-dark-100">
                 <div className="max-w-md mx-auto">
-                    <button
-                        onClick={() => router.push('/auth/login')}
-                        className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-brand-yellow transition-colors mb-8"
-                    >
-                        <ArrowLeft className="w-5 h-5" />
-                        <span>Volver a inicio de sesión</span>
-                    </button>
+                    <div className="flex justify-start mb-8">
+                        <button
+                            onClick={() => router.push('/auth/login')}
+                            className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-brand-yellow transition-colors"
+                        >
+                            <ArrowLeft className="w-5 h-5" />
+                            <span>Volver a inicio de sesión</span>
+                        </button>
+                    </div>
 
                     <div className="bg-white dark:bg-dark-200 rounded-xl shadow-lg p-8">
                         <div className="text-center mb-8">
