@@ -46,7 +46,7 @@ const Games = () => {
         {
             id: 5,
             title: 'Pac-Man',
-            image: 'hhttps://static.bandainamcoent.eu/high/pac-man/pac-man-99/00-page-setup/pacman_header_mobile.jpg',
+            image: 'https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/media/image/2020/04/pac-man-1931043.jpg?tf=3840x',
             link: '/games/pacman',
             genre: 'Arcade',
             description: 'El videojuego arcade más famoso de todos los tiempos'
