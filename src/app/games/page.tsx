@@ -1,13 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft } from 'lucide-react';
 import Nav from "../components/layout/nav";
 import { Footer } from "../components/layout/footer";
 
 const Games = () => {
     const router = useRouter();
+    const [currentSlide, setCurrentSlide] = useState(0);
 
     // Aquí se añaden los juegos que se quieran mostrar en la página, si se quiere añadir un nuevo se tiene que hacer debajo de los demás con un id superior.
     const games = [
@@ -61,6 +61,23 @@ const Games = () => {
         },
     ];
 
+    // Automatic Carousel
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentSlide((prev) => (prev + 1) % games.length);
+        }, 5000); // Change 5 seconds
+
+        return () => clearInterval(timer);
+    }, [games.length]);
+
+    const nextSlide = () => {
+        setCurrentSlide((prev) => (prev + 1) % games.length);
+    };
+
+    const prevSlide = () => {
+        setCurrentSlide((prev) => (prev - 1 + games.length) % games.length);
+    };
+
     const genres = Array.from(new Set(games.map(game => game.genre)));
 
     const categories = [
@@ -80,19 +97,47 @@ const Games = () => {
         <>
             <Nav />
             <div className="min-h-screen bg-gray-50 dark:bg-dark-100">
-                {/* Hero Section */}
+                {/* Hero Section with Carousel */}
                 <div className="relative h-[50vh] w-full">
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-50 dark:to-dark-100 z-10" />
-                    <img
-                        src={games[0].image}
-                        alt="Featured Game"
-                        className="w-full h-full object-cover"
-                    />
+                    
+                    {/* Carousel */}
+                    <div className="relative w-full h-full overflow-hidden">
+                        {games.map((game, index) => (
+                            <div
+                                key={game.id}
+                                className={`absolute w-full h-full transition-transform duration-700 ease-in-out ${
+                                    index === currentSlide ? 'translate-x-0' : index < currentSlide ? '-translate-x-full' : 'translate-x-full'
+                                }`}
+                            >
+                                <img
+                                    src={game.image}
+                                    alt={game.title}
+                                    className="w-full h-full object-cover"
+                                />
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Carousel Indicators */}
+                    <div className="absolute bottom-20 left-1/2 -translate-x-1/2 z-20 flex space-x-2">
+                        {games.map((_, index) => (
+                            <button
+                                key={index}
+                                onClick={() => setCurrentSlide(index)}
+                                className={`w-2 h-2 rounded-full transition-colors ${
+                                    index === currentSlide ? 'bg-brand-yellow' : 'bg-white/50 hover:bg-white/75'
+                                }`}
+                            />
+                        ))}
+                    </div>
+
+                    {/* Game Info */}
                     <div className="absolute bottom-0 left-0 p-8 z-20">
-                        <h1 className="text-4xl font-bold text-white mb-2">{games[0].title}</h1>
-                        <p className="text-gray-200 mb-4">{games[0].description}</p>
+                        <h1 className="text-4xl font-bold text-white mb-2">{games[currentSlide].title}</h1>
+                        <p className="text-gray-200 mb-4">{games[currentSlide].description}</p>
                         <button
-                            onClick={() => handleGameClick(games[0].link)}
+                            onClick={() => handleGameClick(games[currentSlide].link)}
                             className="bg-brand-yellow hover:bg-yellow-600 text-black px-6 py-2 rounded-full transition-colors"
                         >
                             Jugar Ahora
@@ -106,7 +151,6 @@ const Games = () => {
                         onClick={() => router.push('/')}
                         className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-brand-yellow transition-colors mb-6"
                     >
-                        <ArrowLeft className="w-5 h-5" />
                         <span>Volver al inicio</span>
                     </button>
 
