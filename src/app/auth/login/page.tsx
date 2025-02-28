@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import { ArrowLeft } from 'lucide-react'
 import Image from 'next/image'
 import Nav from "../../components/layout/nav"
-import { Footer } from "../../components/footer"
+import { Footer } from "../../components/layout/footer"
 import { useTheme } from "../../context/theme-context"
 import { useEffect, useState } from 'react'
 import { initializeGoogleAuth } from '@/lib/google-auth'

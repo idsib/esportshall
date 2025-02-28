@@ -1,55 +1,118 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { ArrowLeft } from 'lucide-react';
+import Nav from "../components/layout/nav";
+import { Footer } from "../components/layout/footer";
 
 const Games = () => {
     const router = useRouter();
 
     const games = [
-        { id: 1, title: 'AxoFlip', image: 'https://i.natgeofe.com/n/de94c416-6d23-45f5-9708-e8d56289268e/naturepl_01132178_3x2.jpg', link: '/games/axoflip', genre: 'Action' },
-        { id: 2, title: 'The Snake', image: 'https://www.snakegame.net/media/google-snake-game.png', link: '/games/thesnake', genre: 'Action' },
-        { id: 3, title: 'Floppy Bird', image: 'https://cloudfront-us-east-1.images.arcpublishing.com/elespectador/47DP3QPAENGJXC6W7WXEZY7MM4.jpg', link: '/games/floppybird', genre: 'Action' },
+        { 
+            id: 1, 
+            title: 'AxoFlip', 
+            image: 'https://i.natgeofe.com/n/de94c416-6d23-45f5-9708-e8d56289268e/naturepl_01132178_3x2.jpg', 
+            link: '/games/axoflip', 
+            genre: 'Action',
+            description: 'Un juego de plataformas único con un axolotl como protagonista'
+        },
+        { 
+            id: 2, 
+            title: 'The Snake', 
+            image: 'https://www.snakegame.net/media/google-snake-game.png', 
+            link: '/games/thesnake', 
+            genre: 'Arcade',
+            description: 'El clásico juego de la serpiente con un toque moderno'
+        },
+        { 
+            id: 3, 
+            title: 'Floppy Bird', 
+            image: 'https://cloudfront-us-east-1.images.arcpublishing.com/elespectador/47DP3QPAENGJXC6W7WXEZY7MM4.jpg', 
+            link: '/games/floppybird', 
+            genre: 'Arcade',
+            description: 'Una versión única del famoso juego Flappy Bird'
+        },
+        // Añade más juegos aquí...
     ];
 
+    // Obtener géneros únicos de los juegos
     const genres = Array.from(new Set(games.map(game => game.genre)));
+    
+    const categories = [
+        { id: 'new', title: 'Nuevos Juegos', games: games },
+        ...genres.map(genre => ({
+            id: genre.toLowerCase(),
+            title: genre,
+            games: games.filter(game => game.genre === genre)
+        }))
+    ];
 
     const handleGameClick = (link: string) => {
         router.push(link);
     };
 
     return (
-        <div className="pt-24 pb-12 px-4 min-h-screen bg-gray-50 dark:bg-dark-100">
-            <div className="max-w-4xl mx-auto">
-                <h1 className="text-4xl font-bold text-brand-yellow text-center mb-12">
-                    Esports Hall Games
-                </h1>
+        <>
+            <Nav />
+            <div className="min-h-screen bg-gray-50 dark:bg-dark-100">
+                {/* Hero Section */}
+                <div className="relative h-[50vh] w-full">
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-50 dark:to-dark-100 z-10" />
+                    <img 
+                        src={games[0].image} 
+                        alt="Featured Game" 
+                        className="w-full h-full object-cover"
+                    />
+                    <div className="absolute bottom-0 left-0 p-8 z-20">
+                        <h1 className="text-4xl font-bold text-white mb-2">{games[0].title}</h1>
+                        <p className="text-gray-200 mb-4">{games[0].description}</p>
+                        <button 
+                            onClick={() => handleGameClick(games[0].link)}
+                            className="bg-brand-yellow hover:bg-yellow-600 text-black px-6 py-2 rounded-full transition-colors"
+                        >
+                            Jugar Ahora
+                        </button>
+                    </div>
+                </div>
 
-                <div className="space-y-8 text-gray-800 dark:text-gray-200 bg-white dark:bg-dark-200 p-8 rounded-xl shadow-lg">
-                    <section>
-                        <h3 className="text-2xl font-semibold text-brand-yellow mb-4">Disfruta de los mejores juegos de navegador.</h3>
-                    </section>
+                {/* Back Button */}
+                <div className="container mx-auto px-4 py-6">
+                    <button
+                        onClick={() => router.push('/')}
+                        className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-brand-yellow transition-colors mb-6"
+                    >
+                        <ArrowLeft className="w-5 h-5" />
+                        <span>Volver al inicio</span>
+                    </button>
 
-                    <section>
-                        <h3 className="text-2xl font-semibold text-brand-yellow mb-4">Más Populares</h3>
-                        <div className="flex overflow-x-auto space-x-4">
-                            {games.map((game) => (
-                                <div key={game.id} className="min-w-[200px] rounded-lg overflow-hidden shadow-lg cursor-pointer" onClick={() => handleGameClick(game.link)}>
-                                    <img src={game.image} alt={game.title} className="w-full h-32 object-cover" />
-                                    <div className="p-2 text-center">{game.title}</div>
-                                </div>
-                            ))}
-                        </div>
-                    </section>
-
-                    {genres.map((genre) => (
-                        <section key={genre}>
-                            <h3 className="text-2xl font-semibold text-brand-yellow mb-4">{genre}</h3>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                                {games.filter(game => game.genre === genre).map((game) => (
-                                    <div key={game.id} className="rounded-lg overflow-hidden shadow-lg cursor-pointer" onClick={() => handleGameClick(game.link)}>
-                                        <img src={game.image} alt={game.title} className="w-full h-32 object-cover" />
-                                        <div className="p-2 text-center">{game.title}</div>
+                    {/* Categories */}
+                    {categories.map((category) => (
+                        <section key={category.id} className="mb-12">
+                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                                {category.title}
+                            </h2>
+                            <div className="flex space-x-6 overflow-x-auto pb-6 scrollbar-hide">
+                                {category.games.map((game) => (
+                                    <div 
+                                        key={game.id}
+                                        className="flex-none w-[250px] transform transition-transform hover:scale-105 cursor-pointer"
+                                        onClick={() => handleGameClick(game.link)}
+                                    >
+                                        <div className="relative rounded-lg overflow-hidden shadow-lg">
+                                            <img 
+                                                src={game.image} 
+                                                alt={game.title} 
+                                                className="w-full h-[150px] object-cover"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity">
+                                                <div className="absolute bottom-0 p-4 w-full">
+                                                    <h3 className="text-white font-semibold">{game.title}</h3>
+                                                    <p className="text-gray-200 text-sm">{game.genre}</p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 ))}
                             </div>
@@ -57,7 +120,8 @@ const Games = () => {
                     ))}
                 </div>
             </div>
-        </div>
+            <Footer />
+        </>
     );
 };
 

@@ -20,6 +20,7 @@
     "next-themes": "^0.2.1",
     "react": "latest",
     "react-dom": "latest",
+    "react-hot-toast": "^2.5.2",
     "zod": "^3.22.4"
   },
   "devDependencies": {
@@ -27,10 +28,10 @@
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "autoprefixer": "^10.4.14",
+    "eslint": "^8.56.0",
+    "eslint-config-next": "^13.5.4",
     "postcss": "^8.4.24",
     "tailwindcss": "^3.3.2",
-    "typescript": "latest",
-    "eslint": "^8.56.0",
-    "eslint-config-next": "^13.5.4"
+    "typescript": "latest"
   }
 }
