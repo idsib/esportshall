@@ -14,7 +14,7 @@ const Games = () => {
         {
             id: 1,
             title: 'AxoFlip',
-            image: 'https://img.freepik.com/fotos-premium/ilustracion-creativa-axolotl-descansando-pacificamente-roca-rodeado-brillantes-plantas-acuaticas-ambiente-azul-sereno_167689-5323.jpg',
+            image: 'public/images/axoflip portada.png',
             link: '/games/axoflip',
             genre: 'Action',
             description: 'Un juego de plataformas único con un axolotl como protagonista'
@@ -54,7 +54,7 @@ const Games = () => {
         {
             id: 6,
             title: '2048',
-            image: 'https://images.crazygames.com/games/2048/cover_16x9-1707828856995.png?auto=format,compress&q=75&cs=strip',
+            image: 'public/images/2048 portada.png',
             link: '/games/2048',
             genre: 'Puzzle',
             description: 'El juego de lógica matemática que te hará pensar'
