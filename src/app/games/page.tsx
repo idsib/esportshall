@@ -14,7 +14,7 @@ const Games = () => {
         {
             id: 1,
             title: 'AxoFlip',
-            image: 'public/images/axoflip portada.png',
+            image: '/images/axoflip.png',
             link: '/games/axoflip',
             genre: 'Action',
             description: 'Un juego de plataformas único con un axolotl como protagonista'
@@ -54,7 +54,7 @@ const Games = () => {
         {
             id: 6,
             title: '2048',
-            image: 'public/images/2048 portada.png',
+            image: '/images/2048.png',
             link: '/games/2048',
             genre: 'Puzzle',
             description: 'El juego de lógica matemática que te hará pensar'
