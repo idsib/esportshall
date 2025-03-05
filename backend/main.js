@@ -1,5 +1,5 @@
-/* const bcrypt = require('bcrypt');
-const saltRounds = 10; */
+const crypto = require('crypto');
+const salt = crypto.randomBytes(16).toString('hex');
 
 export const GetUsers = async () => {
   await fetch('http://localhost:5000/users'
@@ -14,23 +14,17 @@ export const GetUsers = async () => {
 export const registerUserInBackend = async (name, surname, email, password) => {
   const completeName = name + " " + surname;
   // Criptamos la contraseña con bcypt.
-  /* let hasedPassword;
-   bcrypt.genSalt(saltRounds, (err, salt) => {
-    if (err) {
-      return;
-    }
-  });
-
-   bcrypt.hash(password, salt, (err, hash) => {
-    if (err) {
-      return;
-    }
-    hasedPassword = hash;
-    console.log('Hashed password:', hash);
-  }); */
-  const userData = [completeName, email, password];
+  const hasedPassword = crypto.pbkdf2Sync(password, salt, 
+    1000, 64, `sha512`).toString(`hex`)
+ 
+  const userData = ({ 
+    "completeName"    : completeName,
+    "email"  : email,
+    "password"    : hasedPassword 
+});
+  console.log("Aqui los datos en el fetch: " + JSON.stringify(userData));
   
-  await fetch('http://localhost:5000/users', {
+  await fetch('http://localhost:5001/users', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

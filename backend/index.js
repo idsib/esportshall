@@ -17,6 +17,7 @@ app.use(express.json());
 // CREATE
 app.post("/users", async (req, res) => {
   const { completeName, email, password } = req.body;
+  console.log(completeName, email, password);
   try {
     const result = await pool.query("INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *", [completeName, email, password]);
     res.json(result.rows[0]);
@@ -62,6 +63,6 @@ app.delete("/users/:id", async (req, res) => {
   }
 });
 
-app.listen(5000, () => {
+app.listen(5001, () => {
   console.log("Server running on port 5000");
 });
