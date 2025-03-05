@@ -14,12 +14,25 @@ const pool = new Pool({
 app.use(cors()); 
 app.use(express.json()); 
 
-// CREATE
-app.post("/users", async (req, res) => {
+// Registrar usuario en el backend
+app.post("users/register", async (req, res) => {
   const { completeName, email, password } = req.body;
   console.log(completeName, email, password);
   try {
     const result = await pool.query("INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *", [completeName, email, password]);
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error('Error al insertar usuario:', err);
+    res.status(500).json({ message: 'Error al crear usuario' });
+  }
+});
+
+app.post("users/login", async (req, res) => {
+  const { email, password } = req.body;
+  console.log(completeName, email, password);
+  try {
+    const result = await pool.query("SELECT (email, password) FROM users WHERE email = $1 AND password = $2", [email, password])
+    console.log(result);
     res.json(result.rows[0]);
   } catch (err) {
     console.error('Error al insertar usuario:', err);
