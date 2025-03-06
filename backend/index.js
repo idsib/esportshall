@@ -20,7 +20,7 @@ app.post("users/register", async (req, res) => {
   console.log(completeName, email, password);
   try {
     const result = await pool.query("INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *", [completeName, email, password]);
-    res.json(result.rows[0]);
+    res.json(result);
   } catch (err) {
     console.error('Error al insertar usuario:', err);
     res.status(500).json({ message: 'Error al crear usuario' });
@@ -76,6 +76,6 @@ app.delete("/users/:id", async (req, res) => {
   }
 });
 
-app.listen(5001, () => {
+app.listen(5000, () => {
   console.log("Server running on port 5000");
 });
