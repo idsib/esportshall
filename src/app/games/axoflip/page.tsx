@@ -105,20 +105,23 @@ const AxoFlip: React.FC = () => {
     }
 
     // Función para obtener la posición del puntero/touch
+    
     function T(a: MouseEvent | TouchEvent) {
       let pageX: number, pageY: number;
-      if (a instanceof TouchEvent) {
+    
+      if ('touches' in a) {
         const touch = a.touches[0] || a.changedTouches[0];
         pageX = touch.pageX;
         pageY = touch.pageY;
       } else {
-        pageX = a.pageX;
-        pageY = a.pageY;
+        pageX = (a as MouseEvent).pageX;
+        pageY = (a as MouseEvent).pageY;
       }
+    
       ia = pageX - canvas.offsetLeft;
       ja = pageY - canvas.offsetTop;
     }
-
+    
     // Agregar listeners para mouse y touch
     const mouseDownHandler = (a: MouseEvent) => {
       K = true;
