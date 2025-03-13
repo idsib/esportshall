@@ -3,8 +3,7 @@
 import { useRouter, usePathname } from "next/navigation";
 import Nav from "../components/layout/nav";
 import { Footer } from "../components/layout/footer";
-import { Leagues} from "../../../backend/leagues";
-import { Lives } from "../../../backend/lives";
+
 
 export default function PolicyLayout({
     children,
@@ -44,8 +43,8 @@ export default function PolicyLayout({
                         <button
                             onClick={() => router.push('/policy/terms-of-service')}
                             className={`text-sm transition-colors ${pathname === '/policy/terms-of-service'
-                                    ? 'text-brand-yellow'
-                                    : 'text-gray-600 dark:text-gray-300 hover:text-brand-yellow'
+                                ? 'text-brand-yellow'
+                                : 'text-gray-600 dark:text-gray-300 hover:text-brand-yellow'
                                 }`}
                         >
                             Términos de Servicio
@@ -53,8 +52,8 @@ export default function PolicyLayout({
                         <button
                             onClick={() => router.push('/policy/privacy-policy')}
                             className={`text-sm transition-colors ${pathname === '/policy/privacy-policy'
-                                    ? 'text-brand-yellow'
-                                    : 'text-gray-600 dark:text-gray-300 hover:text-brand-yellow'
+                                ? 'text-brand-yellow'
+                                : 'text-gray-600 dark:text-gray-300 hover:text-brand-yellow'
                                 }`}
                         >
                             Política de Privacidad
@@ -62,30 +61,11 @@ export default function PolicyLayout({
                         <button
                             onClick={() => router.push('/policy/cookies-policy')}
                             className={`text-sm transition-colors ${pathname === '/policy/cookies-policy'
-                                    ? 'text-brand-yellow'
-                                    : 'text-gray-600 dark:text-gray-300 hover:text-brand-yellow'
+                                ? 'text-brand-yellow'
+                                : 'text-gray-600 dark:text-gray-300 hover:text-brand-yellow'
                                 }`}
                         >
                             Política de Cookies
-                        </button>
-                        
-                        <button
-                            onClick={() => Leagues()}
-                            className={`text-sm transition-colors ${pathname === '/policy/cookies-policy'
-                                    ? 'text-brand-yellow'
-                                    : 'text-gray-600 dark:text-gray-300 hover:text-brand-yellow'
-                                }`}
-                        >
-                            LeaguesAPI
-                        </button>
-                        <button
-                            onClick={() => Lives()}
-                            className={`text-sm transition-colors ${pathname === '/policy/cookies-policy'
-                                    ? 'text-brand-yellow'
-                                    : 'text-gray-600 dark:text-gray-300 hover:text-brand-yellow'
-                                }`}
-                        >
-                            LivesAPI
                         </button>
                     </div>
                 </div>
