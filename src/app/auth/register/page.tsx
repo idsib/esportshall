@@ -8,6 +8,7 @@ import { Footer } from "../../components/layout/footer"
 import { useTheme } from "../../context/theme-context"
 import { useEffect, useState } from 'react'
 import { signIn, useSession } from "next-auth/react"
+import {registerUserInBackend} from "../../../../backend/main"
 
 export default function Register() {
     const { data: session } = useSession()
@@ -204,6 +205,8 @@ export default function Register() {
                                 <button
                                     type="submit"
                                     className="w-full btn-primary py-2"
+                                    
+                                    onClick={() => registerUserInBackend(formData.firstName, formData.lastName, formData.email, formData.password)}
                                 >
                                     Crear Cuenta
                                 </button>

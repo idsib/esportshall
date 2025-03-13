@@ -21,7 +21,7 @@ export default function Noticias() {
   const [cargando, setCargando] = useState(true);
 
   useEffect(() => {
-    fetch("/noticias.json") // Ruta donde se guardan las noticias
+    fetch("/noticias.json") // Ruta donde se guardan las noticias con el formato
       .then((res) => res.json())
       .then((data: NoticiasData) => {
         setNoticias(data);
@@ -48,8 +48,8 @@ export default function Noticias() {
               <h2 id="pagina" className="text-xl font-semibold">{pagina.pagina}</h2>
             </div>
 
-            {pagina.articulos.map((articulo, idx) => (
-              <div key={idx} className="bg-white shadow-md p-4 mb-4 rounded-lg">
+            {pagina.articulos.map((articulo, idx) => ( // formato de las noticias en el JSON
+              <div key={idx} className="bg-white shadow-md p-4 mb-4 rounded-lg"> 
                 <h4 id="titulo" className="text-lg font-bold">{articulo.titulo}</h4>
                 <p id="texto" className="text-gray-700">{articulo.texto}</p>
                 <a
