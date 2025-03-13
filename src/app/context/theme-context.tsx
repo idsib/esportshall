@@ -11,12 +11,17 @@ type ThemeContextProviderProps = {
 type ThemeContextType = {
   theme: Theme
   setTheme: React.Dispatch<React.SetStateAction<Theme>>
+  toggleTheme: () => void
 }
 
 const ThemeContext = createContext<ThemeContextType | null>(null)
 
 export function ThemeProvider({ children }: ThemeContextProviderProps) {
   const [theme, setTheme] = useState<Theme>("dark")
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === "dark" ? "light" : "dark")
+  }
 
   useEffect(() => {
     const localTheme = window.localStorage.getItem("theme") as Theme | null
@@ -32,7 +37,7 @@ export function ThemeProvider({ children }: ThemeContextProviderProps) {
   }, [theme])
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
+    <ThemeContext.Provider value={{ theme, setTheme, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   )

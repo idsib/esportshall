@@ -35,31 +35,6 @@ export default function Nav() {
             </span>
           </button>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex flex-1 justify-center items-center space-x-8">
-            <button
-              onClick={() => router.push("/esports")}
-              className="nav-link"
-            >
-              Esports
-            </button>
-            <button onClick={() => router.push("/teams")} className="nav-link">
-              Equipos
-            </button>
-            <button
-              onClick={() => router.push("/community")}
-              className="nav-link"
-            >
-              Comunidad
-            </button>
-            <button
-              onClick={() => router.push("/contact")}
-              className="nav-link"
-            >
-              Contacto
-            </button>
-          </div>
-
           <div className="hidden md:flex items-center space-x-4">
             <button
               onClick={toggleTheme}

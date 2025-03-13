@@ -24,14 +24,14 @@ export default function Register() {
 
     useEffect(() => {
         if (session) {
-            router.push('/')
+            router.push('/main')
         }
     }, [session, router])
 
     const handleGoogleRegister = async () => {
         try {
             await signIn('google', {
-                callbackUrl: '/',
+                callbackUrl: '/main',
                 popup: true,
                 redirect: false
             })
@@ -57,6 +57,8 @@ export default function Register() {
         try {
             // Aquí iría la lógica para enviar los datos al backend
             console.log('Datos del formulario:', formData)
+            // Después de un registro exitoso
+            router.push('/main')
         } catch (error) {
             console.error('Error al registrar:', error)
         }
