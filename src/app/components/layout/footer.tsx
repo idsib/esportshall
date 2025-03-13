@@ -67,6 +67,11 @@ export function Footer() {
                   Sobre Nosotros
                 </button>
               </li>
+              <li>
+                <button onClick={() => router.push('/contact')} className="nav-link">
+                  Contacto
+                </button>
+              </li>
             </ul>
           </div>
         </div>
