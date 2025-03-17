@@ -2,11 +2,11 @@
 import { Suspense } from "react"
 import dynamic from "next/dynamic"
 import Image from "next/image"
+import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { Trophy, Users, Gamepad2, ArrowRight } from "lucide-react"
 import Nav from "./components/layout/nav"
 import { AnimatedBackground } from "./components/ui/animated-background"
-import { useRouter } from 'next/navigation'
 
 // Carga dinámica del Footer
 const Footer = dynamic(() => import("./components/layout/footer").then(mod => mod.Footer), {
@@ -31,8 +31,6 @@ const pageTransition = {
 }
 
 export default function Home() {
-  const router = useRouter()
-
   return (
     <AnimatePresence>
       <motion.div
@@ -84,18 +82,18 @@ export default function Home() {
                   className="flex justify-center gap-4 pt-8"
                   variants={fadeInUp}
                 >
-                  <button 
-                    onClick={() => router.push('/auth/login')}
+                  <Link 
+                    href="/auth/login"
                     className="btn-primary"
                   >
                     Empezar Ahora
-                  </button>
-                  <button 
-                    onClick={() => router.push('/about')}
+                  </Link>
+                  <Link 
+                    href="/about"
                     className="btn-secondary"
                   >
                     Saber Más
-                  </button>
+                  </Link>
                 </motion.div>
               </motion.div>
             </div>
@@ -162,13 +160,13 @@ export default function Home() {
                     Únete a miles de jugadores y equipos que ya son parte de la revolución del esport español.
                   </p>
                   <div className="flex flex-col items-center gap-4">
-                    <button 
-                      onClick={() => router.push('/auth/login')}
+                    <Link 
+                      href="/auth/login"
                       className="btn-primary inline-flex items-center gap-2 group"
                     >
                       Comenzar Ahora
                       <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-                    </button>
+                    </Link>
                   </div>
                 </motion.div>
               </div>

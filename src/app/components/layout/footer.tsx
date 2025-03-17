@@ -1,12 +1,11 @@
 "use client"
 
 import Image from "next/image"
-import { useRouter } from "next/navigation"
+import Link from "next/link"
 import { useTheme } from "../../context/theme-context"
 
 export function Footer() {
   const { theme } = useTheme()
-  const router = useRouter()
 
   return (
     <footer className="w-full py-8 mt-20 border-t dark:border-white/10 border-gray-200 bg-white/70 dark:bg-dark-100/70 backdrop-blur-md">
@@ -14,9 +13,9 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Logo y descripción */}
           <div className="col-span-1 md:col-span-2">
-            <div 
-              className="flex items-center space-x-2 mb-4 cursor-pointer" 
-              onClick={() => router.push('/')}
+            <Link 
+              href="/"
+              className="flex items-center space-x-2 mb-4"
             >
               <Image
                 src="/images/esportshall.png"
@@ -26,7 +25,7 @@ export function Footer() {
                 className="w-8 h-8"
               />
               <span className="font-bold text-gray-900 dark:text-white">EsportsHall</span>
-            </div>
+            </Link>
             <p className="text-gray-600 dark:text-gray-300 text-sm">
               La plataforma centralizada de esports en España. Conectamos jugadores, equipos y torneos en una única comunidad.
             </p>
@@ -36,10 +35,10 @@ export function Footer() {
           <div>
             <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Enlaces Rápidos</h3>
             <ul className="space-y-2">
-              <li><button onClick={() => router.push('/esports')} className="nav-link">Esports</button></li>
-              <li><button onClick={() => router.push('/games')} className="nav-link">Juegos</button></li>
-              <li><button onClick={() => router.push('/teams')} className="nav-link">Equipos</button></li>
-              <li><button onClick={() => router.push('/comunidad')} className="nav-link">Comunidad</button></li>
+              <li><Link href="/esports" className="nav-link">Esports</Link></li>
+              <li><Link href="/games" className="nav-link">Juegos</Link></li>
+              <li><Link href="/teams" className="nav-link">Equipos</Link></li>
+              <li><Link href="/comunidad" className="nav-link">Comunidad</Link></li>
             </ul>
           </div>
 
@@ -63,14 +62,14 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <button onClick={() => router.push('/about')} className="nav-link">
+                <Link href="/about" className="nav-link">
                   Sobre Nosotros
-                </button>
+                </Link>
               </li>
               <li>
-                <button onClick={() => router.push('/contact')} className="nav-link">
+                <Link href="/contact" className="nav-link">
                   Contacto
-                </button>
+                </Link>
               </li>
             </ul>
           </div>
@@ -83,24 +82,24 @@ export function Footer() {
               © {new Date().getFullYear()} EsportsHall. Todos los derechos reservados.
             </p>
             <div className="flex space-x-4 mt-4 md:mt-0">
-              <button 
-                onClick={() => router.push('/policy/terms-of-service')} 
+              <Link 
+                href="/policy/terms-of-service" 
                 className="text-gray-600 dark:text-gray-300 text-sm hover:text-brand-yellow"
               >
                 Términos y Condiciones
-              </button>
-              <button 
-                onClick={() => router.push('/policy/privacy-policy')} 
+              </Link>
+              <Link 
+                href="/policy/privacy-policy" 
                 className="text-gray-600 dark:text-gray-300 text-sm hover:text-brand-yellow"
               >
                 Política de Privacidad
-              </button>
-              <button 
-                onClick={() => router.push('/policy/cookies-policy')} 
+              </Link>
+              <Link 
+                href="/policy/cookies-policy" 
                 className="text-gray-600 dark:text-gray-300 text-sm hover:text-brand-yellow"
               >
                 Política de Cookies
-              </button>
+              </Link>
             </div>
           </div>
         </div>

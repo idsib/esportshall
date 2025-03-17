@@ -1,6 +1,7 @@
 "use client"
 
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 import Nav from "../components/layout/nav";
 import { Footer } from "../components/layout/footer";
 
@@ -9,7 +10,6 @@ export default function PolicyLayout({
 }: {
     children: React.ReactNode
 }) {
-    const router = useRouter();
     const pathname = usePathname();
 
     return (
@@ -18,8 +18,8 @@ export default function PolicyLayout({
             {/* Header with Navigation */}
             <header className="fixed top-16 left-0 right-0 bg-white/70 dark:bg-dark-100/70 backdrop-blur-md z-40 border-b dark:border-white/10 border-gray-200">
                 <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-                    <button
-                        onClick={() => router.push('/')}
+                    <Link
+                        href="/"
                         className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-brand-yellow transition-colors"
                     >
                         <svg 
@@ -35,12 +35,12 @@ export default function PolicyLayout({
                             />
                         </svg>
                         <span>Inicio</span>
-                    </button>
+                    </Link>
 
                     {/* Navigation moved here */}
                     <div className="flex items-center space-x-8">
-                        <button 
-                            onClick={() => router.push('/policy/terms-of-service')}
+                        <Link 
+                            href="/policy/terms-of-service"
                             className={`text-sm transition-colors ${
                                 pathname === '/policy/terms-of-service'
                                 ? 'text-brand-yellow'
@@ -48,9 +48,9 @@ export default function PolicyLayout({
                             }`}
                         >
                             Términos de Servicio
-                        </button>
-                        <button 
-                            onClick={() => router.push('/policy/privacy-policy')}
+                        </Link>
+                        <Link 
+                            href="/policy/privacy-policy"
                             className={`text-sm transition-colors ${
                                 pathname === '/policy/privacy-policy'
                                 ? 'text-brand-yellow'
@@ -58,9 +58,9 @@ export default function PolicyLayout({
                             }`}
                         >
                             Política de Privacidad
-                        </button>
-                        <button 
-                            onClick={() => router.push('/policy/cookies-policy')}
+                        </Link>
+                        <Link 
+                            href="/policy/cookies-policy"
                             className={`text-sm transition-colors ${
                                 pathname === '/policy/cookies-policy'
                                 ? 'text-brand-yellow'
@@ -68,7 +68,7 @@ export default function PolicyLayout({
                             }`}
                         >
                             Política de Cookies
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </header>

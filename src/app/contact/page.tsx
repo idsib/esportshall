@@ -1,13 +1,12 @@
 "use client"
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { ArrowLeft, Send, Upload } from 'lucide-react'
 import Nav from "../components/layout/nav"
 import { Footer } from "../components/layout/footer"
 
 export default function Contact() {
-    const router = useRouter()
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -60,13 +59,13 @@ export default function Contact() {
             <div className="pt-24 pb-12 px-4 min-h-screen bg-gray-50 dark:bg-dark-100">
                 <div className="max-w-2xl mx-auto">
                     <div className="flex justify-start mb-8">
-                        <button
-                            onClick={() => router.push('/')}
+                        <Link
+                            href="/"
                             className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-brand-yellow transition-colors"
                         >
                             <ArrowLeft className="w-5 h-5" />
                             <span>Volver al inicio</span>
-                        </button>
+                        </Link>
                     </div>
 
                     <div className="bg-white dark:bg-dark-200 rounded-xl shadow-lg p-8">
@@ -87,6 +86,7 @@ export default function Contact() {
                                 <input
                                     type="text"
                                     id="name"
+                                    name="name"
                                     value={formData.name}
                                     onChange={handleInputChange}
                                     className="w-full px-4 py-2 rounded-lg border dark:border-dark-300 bg-white dark:bg-dark-300 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-colors"
@@ -102,6 +102,7 @@ export default function Contact() {
                                 <input
                                     type="email"
                                     id="email"
+                                    name="email"
                                     value={formData.email}
                                     onChange={handleInputChange}
                                     className="w-full px-4 py-2 rounded-lg border dark:border-dark-300 bg-white dark:bg-dark-300 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-colors"
@@ -116,6 +117,7 @@ export default function Contact() {
                                 </label>
                                 <select
                                     id="role"
+                                    name="role"
                                     value={formData.role}
                                     onChange={handleInputChange}
                                     className="w-full px-4 py-2 rounded-lg border dark:border-dark-300 bg-white dark:bg-dark-300 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-colors"
@@ -136,6 +138,7 @@ export default function Contact() {
                                 </label>
                                 <textarea
                                     id="message"
+                                    name="message"
                                     value={formData.message}
                                     onChange={handleInputChange}
                                     rows={4}
@@ -149,6 +152,7 @@ export default function Contact() {
                                 <input
                                     type="checkbox"
                                     id="newsletter"
+                                    name="newsletter"
                                     checked={formData.newsletter}
                                     onChange={handleInputChange}
                                     className="h-4 w-4 text-brand-yellow focus:ring-brand-yellow border-gray-300 rounded"

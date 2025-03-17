@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { Sun, Moon, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { useTheme } from "../../context/theme-context";
@@ -9,7 +9,6 @@ import { useTheme } from "../../context/theme-context";
 export default function Nav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
-  const router = useRouter();
 
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
@@ -19,10 +18,7 @@ export default function Nav() {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/70 dark:bg-dark-100/70 backdrop-blur-md border-b border-gray-200 dark:border-dark-300">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <button
-            onClick={() => router.push("/")}
-            className="flex items-center space-x-2"
-          >
+          <Link href="/" className="flex items-center space-x-2">
             <Image
               src="/images/esportshall.png"
               alt="EsportsHall Logo"
@@ -33,7 +29,7 @@ export default function Nav() {
             <span className="font-bold text-gray-900 dark:text-white">
               EsportsHall
             </span>
-          </button>
+          </Link>
 
           <div className="hidden md:flex items-center space-x-4">
             <button
@@ -46,12 +42,9 @@ export default function Nav() {
                 <Moon className="w-5 h-5 text-gray-600" />
               )}
             </button>
-            <button
-              onClick={() => router.push("/auth/login")}
-              className="btn-primary"
-            >
+            <Link href="/auth/login" className="btn-primary">
               Empezar Ahora
-            </button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -71,36 +64,21 @@ export default function Nav() {
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t border-gray-200 dark:border-dark-300">
             <div className="flex flex-col space-y-4">
-              <button
-                onClick={() => router.push("/about")}
-                className="nav-link"
-              >
+              <Link href="/about" className="nav-link">
                 Sobre Nosotros
-              </button>
-              <button
-                onClick={() => router.push("/tournaments")}
-                className="nav-link"
-              >
+              </Link>
+              <Link href="/tournaments" className="nav-link">
                 Torneos
-              </button>
-              <button
-                onClick={() => router.push("/teams")}
-                className="nav-link"
-              >
+              </Link>
+              <Link href="/teams" className="nav-link">
                 Equipos
-              </button>
-              <button
-                onClick={() => router.push("/community")}
-                className="nav-link"
-              >
+              </Link>
+              <Link href="/community" className="nav-link">
                 Comunidad
-              </button>
-              <button
-                onClick={() => router.push("/auth/login")}
-                className="btn-primary w-full"
-              >
+              </Link>
+              <Link href="/auth/login" className="btn-primary w-full">
                 Empezar Ahora
-              </button>
+              </Link>
               <button
                 onClick={toggleTheme}
                 className="flex items-center space-x-2 nav-link"

@@ -1,12 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import Nav from "../components/layout/nav";
 import { Footer } from "../components/layout/footer";
 
 const Games = () => {
-    const router = useRouter();
     const [currentSlide, setCurrentSlide] = useState(0);
 
     // Aquí se añaden los juegos que se quieran mostrar en la página, si se quiere añadir un nuevo se tiene que hacer debajo de los demás con un id superior.
@@ -89,10 +88,6 @@ const Games = () => {
         }))
     ];
 
-    const handleGameClick = (link: string) => {
-        router.push(link);
-    };
-
     return (
         <>
             <Nav />
@@ -136,23 +131,23 @@ const Games = () => {
                     <div className="absolute bottom-0 left-0 p-8 z-20">
                         <h1 className="text-4xl font-bold text-white mb-2">{games[currentSlide].title}</h1>
                         <p className="text-gray-200 mb-4">{games[currentSlide].description}</p>
-                        <button
-                            onClick={() => handleGameClick(games[currentSlide].link)}
+                        <Link
+                            href={games[currentSlide].link}
                             className="bg-brand-yellow hover:bg-yellow-600 text-black px-6 py-2 rounded-full transition-colors"
                         >
                             Jugar Ahora
-                        </button>
+                        </Link>
                     </div>
                 </div>
 
                 {/* Back Button */}
                 <div className="container mx-auto px-4 py-6">
-                    <button
-                        onClick={() => router.push('/')}
+                    <Link
+                        href="/"
                         className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-brand-yellow transition-colors mb-6"
                     >
                         <span>Volver al inicio</span>
-                    </button>
+                    </Link>
 
                     {/* Categories */}
                     {categories.map((category) => (
@@ -162,10 +157,10 @@ const Games = () => {
                             </h2>
                             <div className="flex space-x-6 overflow-x-auto pb-6 scrollbar-hide">
                                 {category.games.map((game) => (
-                                    <div
+                                    <Link
                                         key={game.id}
-                                        className="flex-none w-[250px] transform transition-transform hover:scale-105 cursor-pointer"
-                                        onClick={() => handleGameClick(game.link)}
+                                        href={game.link}
+                                        className="flex-none w-[250px] transform transition-transform hover:scale-105"
                                     >
                                         <div className="relative rounded-lg overflow-hidden shadow-lg">
                                             <img
@@ -180,7 +175,7 @@ const Games = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </Link>
                                 ))}
                             </div>
                         </section>

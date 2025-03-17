@@ -1,26 +1,24 @@
 "use client"
 
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import Nav from "../components/layout/nav"
 import { Footer } from "../components/layout/footer"
 import { Trophy, Users, Globe, Target, Award, Rocket, ArrowLeft } from "lucide-react"
 
 export default function About() {
-    const router = useRouter();
-
     return (
         <>
             <Nav />
             <div className="pt-24 pb-12 px-4 min-h-screen bg-gray-50 dark:bg-dark-100">
                 <div className="max-w-7xl mx-auto">
                     {/* Botón Volver */}
-                    <button
-                        onClick={() => router.push('/')}
+                    <Link
+                        href="/"
                         className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-brand-yellow transition-colors mb-8"
                     >
                         <ArrowLeft className="w-5 h-5" />
                         <span>Volver al Inicio</span>
-                    </button>
+                    </Link>
 
                     {/* Sección Hero */}
                     <div className="text-center mb-16">

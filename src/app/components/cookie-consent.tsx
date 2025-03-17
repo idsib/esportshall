@@ -1,12 +1,11 @@
 "use client"
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { X } from 'lucide-react';
 
 export default function CookieConsent() {
     const [showConsent, setShowConsent] = useState(false);
-    const router = useRouter();
 
     useEffect(() => {
         // Verificar si ya se aceptaron las cookies
@@ -55,12 +54,12 @@ export default function CookieConsent() {
                     >
                         Aceptar cookies
                     </button>
-                    <button
-                        onClick={() => router.push('/policy/cookies-policy')}
+                    <Link
+                        href="/policy/cookies-policy"
                         className="text-sm text-gray-600 dark:text-gray-300 hover:text-brand-yellow transition-colors"
                     >
                         Ver política de cookies
-                    </button>
+                    </Link>
                 </div>
             </div>
         </div>

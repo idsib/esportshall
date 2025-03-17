@@ -1,13 +1,12 @@
 "use client"
 
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import Nav from "../../components/layout/nav"
-import Footer from '../../../components/layout/footer'
+import { Footer } from "../../components/layout/footer"
 import { useState } from 'react'
 
 export default function ResetPassword() {
-    const router = useRouter()
     const [email, setEmail] = useState('')
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null)
@@ -38,13 +37,13 @@ export default function ResetPassword() {
             <div className="pt-24 pb-12 px-4 min-h-screen bg-gray-50 dark:bg-dark-100">
                 <div className="max-w-md mx-auto">
                     <div className="flex justify-start mb-8">
-                        <button
-                            onClick={() => router.push('/auth/login')}
+                        <Link
+                            href="/auth/login"
                             className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-brand-yellow transition-colors"
                         >
                             <ArrowLeft className="w-5 h-5" />
                             <span>Volver a inicio de sesión</span>
-                        </button>
+                        </Link>
                     </div>
 
                     <div className="bg-white dark:bg-dark-200 rounded-xl shadow-lg p-8">

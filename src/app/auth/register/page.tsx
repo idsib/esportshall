@@ -1,18 +1,18 @@
 "use client"
 
-import { useRouter } from 'next/navigation'
 import { ArrowLeft } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 import Nav from "../../components/layout/nav"
 import { Footer } from "../../components/layout/footer"
 import { useTheme } from "../../context/theme-context"
 import { useEffect, useState } from 'react'
 import { signIn, useSession } from "next-auth/react"
+import { redirect } from 'next/navigation'
 import {registerUserInBackend} from "../../../../backend/main"
 
 export default function Register() {
     const { data: session } = useSession()
-    const router = useRouter()
     const { theme } = useTheme()
 
     const [formData, setFormData] = useState({
@@ -25,9 +25,9 @@ export default function Register() {
 
     useEffect(() => {
         if (session) {
-            router.push('/main')
+            redirect('/main')
         }
-    }, [session, router])
+    }, [session])
 
     const handleGoogleRegister = async () => {
         try {
@@ -59,7 +59,7 @@ export default function Register() {
             // Aquí iría la lógica para enviar los datos al backend
             console.log('Datos del formulario:', formData)
             // Después de un registro exitoso
-            router.push('/main')
+            redirect('/main')
         } catch (error) {
             console.error('Error al registrar:', error)
         }
@@ -71,13 +71,13 @@ export default function Register() {
             <div className="pt-24 pb-12 px-4 min-h-screen bg-gray-50 dark:bg-dark-100">
                 <div className="max-w-md mx-auto">
                     <div className="flex justify-start mb-8">
-                        <button
-                            onClick={() => router.push('/')}
+                        <Link
+                            href="/"
                             className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-brand-yellow transition-colors"
                         >
                             <ArrowLeft className="w-5 h-5" />
                             <span>Volver al inicio</span>
-                        </button>
+                        </Link>
                     </div>
 
                     <div className="bg-white dark:bg-dark-200 rounded-xl shadow-lg p-8">
@@ -192,20 +192,18 @@ export default function Register() {
                                     />
                                     <label htmlFor="terms" className="ml-2 block text-sm text-gray-700 dark:text-gray-300 select-none cursor-pointer">
                                         Acepto los{' '}
-                                        <button
-                                            type="button"
-                                            onClick={() => router.push('/policy/terms-of-service')}
+                                        <Link
+                                            href="/policy/terms-of-service"
                                             className="text-brand-yellow hover:text-yellow-600 transition-colors"
                                         >
                                             términos y condiciones
-                                        </button>
+                                        </Link>
                                     </label>
                                 </div>
 
                                 <button
                                     type="submit"
                                     className="w-full btn-primary py-2"
-                                    
                                     onClick={() => registerUserInBackend(formData.firstName, formData.lastName, formData.email, formData.password)}
                                 >
                                     Crear Cuenta
@@ -214,12 +212,12 @@ export default function Register() {
 
                             <p className="text-center text-sm text-gray-600 dark:text-gray-300">
                                 ¿Ya tienes una cuenta?{' '}
-                                <button
-                                    onClick={() => router.push('/auth/login')}
+                                <Link
+                                    href="/auth/login"
                                     className="text-brand-yellow hover:text-yellow-600 transition-colors"
                                 >
                                     Inicia sesión
-                                </button>
+                                </Link>
                             </p>
                         </div>
                     </div>

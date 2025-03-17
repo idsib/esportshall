@@ -1,18 +1,18 @@
 "use client"
 
-import { useRouter } from 'next/navigation'
 import { ArrowLeft } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 import Nav from "../../components/layout/nav"
 import { Footer } from "../../components/layout/footer"
 import { useTheme } from "../../context/theme-context"
 import { useEffect, useState } from 'react'
 import { initializeGoogleAuth } from '@/lib/google-auth'
 import { signIn, useSession } from "next-auth/react"
+import { redirect } from 'next/navigation'
 
 export default function Login() {
     const { data: session } = useSession()
-    const router = useRouter()
     const { theme } = useTheme()
 
     const [formData, setFormData] = useState({
@@ -23,9 +23,9 @@ export default function Login() {
 
     useEffect(() => {
         if (session) {
-            router.push('/main')
+            redirect('/main')
         }
-    }, [session, router])
+    }, [session])
 
     useEffect(() => {
         // Inicializar Google Auth
@@ -46,7 +46,7 @@ export default function Login() {
             // Aquí iría la lógica para enviar los datos al backend
             console.log('Datos del formulario:', formData)
             // Después de un inicio de sesión exitoso
-            router.push('/main')
+            redirect('/main')
         } catch (error) {
             console.error('Error al iniciar sesión:', error)
         }
@@ -70,13 +70,13 @@ export default function Login() {
             <div className="pt-24 pb-12 px-4 min-h-screen bg-gray-50 dark:bg-dark-100">
                 <div className="max-w-md mx-auto">
                     <div className="flex justify-start mb-8">
-                        <button
-                            onClick={() => router.push('/')}
+                        <Link
+                            href="/"
                             className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-brand-yellow transition-colors"
                         >
                             <ArrowLeft className="w-5 h-5" />
                             <span>Volver al inicio</span>
-                        </button>
+                        </Link>
                     </div>
 
                     <div className="bg-white dark:bg-dark-200 rounded-xl shadow-lg p-8">
@@ -114,7 +114,7 @@ export default function Login() {
                                 </div>
                             </div>
 
-                            <form className="space-y-6">
+                            <form className="space-y-6" onSubmit={handleSubmit}>
                                 <div>
                                     <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                         Email
@@ -122,6 +122,9 @@ export default function Login() {
                                     <input
                                         type="email"
                                         id="email"
+                                        name="email"
+                                        value={formData.email}
+                                        onChange={handleInputChange}
                                         className="w-full px-4 py-2 rounded-lg border dark:border-dark-300 bg-white dark:bg-dark-300 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-colors"
                                         placeholder="tu@email.com"
                                     />
@@ -134,6 +137,9 @@ export default function Login() {
                                     <input
                                         type="password"
                                         id="password"
+                                        name="password"
+                                        value={formData.password}
+                                        onChange={handleInputChange}
                                         className="w-full px-4 py-2 rounded-lg border dark:border-dark-300 bg-white dark:bg-dark-300 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-colors"
                                         placeholder="••••••••"
                                     />
@@ -144,6 +150,9 @@ export default function Login() {
                                         <input
                                             type="checkbox"
                                             id="remember"
+                                            name="remember"
+                                            checked={formData.remember}
+                                            onChange={handleInputChange}
                                             className="h-4 w-4 rounded border-gray-300 text-brand-yellow focus:ring-brand-yellow focus:ring-offset-0 transition duration-150 ease-in-out"
                                         />
                                         <label htmlFor="remember" className="ml-2 block text-sm text-gray-700 dark:text-gray-300 select-none cursor-pointer">
@@ -151,13 +160,12 @@ export default function Login() {
                                         </label>
                                     </div>
 
-                                    <button
-                                        type="button"
-                                        onClick={() => router.push('/auth/reset-password')}
+                                    <Link
+                                        href="/auth/reset-password"
                                         className="text-sm text-brand-yellow hover:text-yellow-600 transition-colors"
                                     >
                                         ¿Olvidaste tu contraseña?
-                                    </button>
+                                    </Link>
                                 </div>
 
                                 <button
@@ -170,12 +178,12 @@ export default function Login() {
 
                             <p className="text-center text-sm text-gray-600 dark:text-gray-300">
                                 ¿No tienes una cuenta?{' '}
-                                <button
-                                    onClick={() => router.push('/auth/register')}
+                                <Link
+                                    href="/auth/register"
                                     className="text-brand-yellow hover:text-yellow-600 transition-colors"
                                 >
                                     Regístrate
-                                </button>
+                                </Link>
                             </p>
                         </div>
                     </div>

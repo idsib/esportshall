@@ -1,6 +1,7 @@
 'use client';
 
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 import { 
   LayoutGrid, 
   Home, 
@@ -24,7 +25,6 @@ const menuItems = [
 
 export default function Sidebar({ onClose }: { onClose?: () => void }) {
     const pathname = usePathname();
-    const router = useRouter();
 
     return (
         <div className="relative w-[280px] h-full border-r border-gray-200 dark:border-gray-700 bg-white dark:bg-black">
@@ -46,24 +46,22 @@ export default function Sidebar({ onClose }: { onClose?: () => void }) {
                         const isActive = pathname === item.path;
                         const IconComponent = item.icon;
                         return (
-                            <button
+                            <Link
                                 key={item.path}
+                                href={item.path}
                                 className={`flex items-center px-6 py-4 text-lg transition ${
                                     isActive
                                         ? 'text-blue-700 dark:text-blue-500'
                                         : 'text-black dark:text-white'
                                 }`}
-                                onClick={() => {
-                                    router.push(item.path);
-                                    onClose?.();
-                                }}
+                                onClick={onClose}
                             >
                                 <IconComponent
                                     size={26}
                                     className="mr-4"
                                 />
                                 {item.label}
-                            </button>
+                            </Link>
                         );
                     })}
                 </div>
