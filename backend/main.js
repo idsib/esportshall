@@ -24,7 +24,7 @@ export const registerUserInBackend = async (name, surname, email, password) => {
 });
   console.log("Aqui los datos en el fetch: " + JSON.stringify(userData));
   
-  await fetch('http://localhost:5000/users/register', {
+  await fetch('http://localhost:5001/users/register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ export const logUserInBackend = async (email, password) => {
 });
   console.log("Aqui los datos en el fetch: " + JSON.stringify(userData));
   
-  await fetch('http://localhost:5001/users/login', {
+  await fetch('http://localhost:5000/users/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
