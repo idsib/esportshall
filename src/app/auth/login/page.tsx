@@ -23,7 +23,7 @@ export default function Login() {
 
     useEffect(() => {
         if (session) {
-            router.push('/')
+            router.push('/main')
         }
     }, [session, router])
 
@@ -45,6 +45,8 @@ export default function Login() {
         try {
             // Aquí iría la lógica para enviar los datos al backend
             console.log('Datos del formulario:', formData)
+            // Después de un inicio de sesión exitoso
+            router.push('/main')
         } catch (error) {
             console.error('Error al iniciar sesión:', error)
         }
@@ -53,7 +55,7 @@ export default function Login() {
     const handleGoogleLogin = async () => {
         try {
             await signIn('google', {
-                callbackUrl: '/',
+                callbackUrl: '/main',
                 popup: true,
                 redirect: false
             })

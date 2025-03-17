@@ -26,8 +26,13 @@ const handler = NextAuth({
         },
         async jwt({ token, user, account, profile }) {
             return token
+        },
+        async redirect({ url, baseUrl }) {
+            // Redirigir a /main después del inicio de sesión
+            if (url.startsWith(baseUrl)) return url
+            return baseUrl + '/main'
         }
     }
 })
 
-export { handler as GET, handler as POST } 
+export { handler as GET, handler as POST }

@@ -5,7 +5,7 @@ from newspaper import Article
 import os
 
 # Límite de descarga eliminado de momento (puede que lo vuelva a poner pero alto)
-# limite = 50
+# limite = 50 / comentado de momento
 
 # Archivo donde se guardarán las noticias
 JSON_FILE = "noticias.json"
@@ -33,7 +33,7 @@ def obtener_noticias():
         # Obtener enlaces ya guardados para evitar duplicados
         enlaces_guardados = {articulo["link"] for articulo in datos["Noticias"][pagina]["articulos"]}
 
-        # Si hay RSS, descargar desde el feed
+        # Si hay RSS, descargar desde el feed xml
         if "rss" in valor:
             feed = fp.parse(valor["rss"])
             for entrada in feed.entries:
@@ -52,6 +52,8 @@ def obtener_noticias():
                         print(f"Error en {entrada.link}: {e}")
 
         # Si no hay RSS, se usa Newspaper
+        # Really Simple Syndication, es un formato de estructuración de datos en XML que facilita el acceso automatizado a la información contenida en un sitio de Internet
+        # Newspaper són los articulos normales que se publican en la web
         else:
             hoja = newspaper.build(valor["link"], memoize_articles=False)
             for contenido in hoja.articles:
@@ -68,7 +70,7 @@ def obtener_noticias():
                     except Exception as e:
                         print(f"Error en {contenido.url}: {e}")
 
-# Ejecutar la descarga de noticias
+# Ejecutar la descarga de las noticias
 obtener_noticias()
 
 # Guardar en el archivo JSON (noticias.json) actualizado sin duplicados

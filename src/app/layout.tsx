@@ -1,40 +1,34 @@
-import "./globals.css"
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
-import { ThemeProvider } from "./context/theme-context"
-import CookieConsent from './components/cookie-consent'
-import Script from 'next/script'
-import { AuthProvider } from "./providers/auth-provider"
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import './globals.css';
+import { ThemeProvider } from './context/theme-context';
+import { AuthProvider } from './providers/auth-provider';
+import CookieConsent from './components/cookie-consent';
+import Script from 'next/script';
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: "EsportsHall - La Plataforma de Esports en España",
-  description: "La plataforma centralizada de esports en España. Torneos, equipos, y más.",
-}
+  title: 'EsportsHall - Tu Comunidad de Esports',
+  description: 'La plataforma definitiva para la comunidad de esports',
+};
 
 export default function RootLayout({
   children,
-}: {
-  children: React.ReactNode
-}) {
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html lang="es" suppressHydrationWarning>
-      <head>
-        <Script
-          src="https://accounts.google.com/gsi/client"
-          strategy="afterInteractive"
-        />
-      </head>
-      <body className={`${inter.className} bg-gray-50 dark:bg-dark-100 text-gray-900 dark:text-white transition-colors duration-300`}>
-        <AuthProvider>
-          <ThemeProvider>
+      <body className={inter.className}>
+        <ThemeProvider>
+          <AuthProvider>
             {children}
             <CookieConsent />
-          </ThemeProvider>
-        </AuthProvider>
+          </AuthProvider>
+        </ThemeProvider>
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX" strategy="afterInteractive" />
       </body>
     </html>
-  )
+  );
 }
-
