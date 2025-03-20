@@ -46,59 +46,10 @@ export default function Nav() {
               Empezar Ahora
             </Link>
           </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden p-2"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? (
-              <X className="w-6 h-6 text-gray-600 dark:text-gray-300" />
-            ) : (
-              <Menu className="w-6 h-6 text-gray-600 dark:text-gray-300" />
-            )}
-          </button>
         </div>
-
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-200 dark:border-dark-300">
-            <div className="flex flex-col space-y-4">
-              <Link href="/about" className="nav-link">
-                Sobre Nosotros
-              </Link>
-              <Link href="/tournaments" className="nav-link">
-                Torneos
-              </Link>
-              <Link href="/teams" className="nav-link">
-                Equipos
-              </Link>
-              <Link href="/community" className="nav-link">
-                Comunidad
-              </Link>
-              <Link href="/auth/login" className="btn-primary w-full">
-                Empezar Ahora
-              </Link>
-              <button
-                onClick={toggleTheme}
-                className="flex items-center space-x-2 nav-link"
-              >
-                {theme === "dark" ? (
-                  <>
-                    <Sun className="w-5 h-5" />
-                    <span>Modo Claro</span>
-                  </>
-                ) : (
-                  <>
-                    <Moon className="w-5 h-5" />
-                    <span>Modo Oscuro</span>
-                  </>
-                )}
-              </button>
-            </div>
-          </div>
-        )}
       </div>
     </nav>
   );
 }
+
+              
