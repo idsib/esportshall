@@ -89,6 +89,12 @@ export default function Home() {
                     Empezar Ahora
                   </Link>
                   <Link 
+                    href="backend/prueba"
+                    className="btn-primary"
+                  >
+                    Prueba
+                  </Link>
+                  <Link 
                     href="/about"
                     className="btn-secondary"
                   >
