@@ -9,7 +9,11 @@ import { useTheme } from "../../context/theme-context"
 import { useEffect, useState } from 'react'
 import { signIn, useSession } from "next-auth/react"
 import { redirect } from 'next/navigation'
-import {registerUserInBackend} from "../../../../backend/main"
+
+//-backend-//
+import { neon } from '@neondatabase/serverless';
+import { create } from '../neon/actions'
+//-backend-//
 
 export default function Register() {
     const { data: session } = useSession()
@@ -28,6 +32,9 @@ export default function Register() {
             redirect('/main')
         }
     }, [session])
+
+    //-backend-//
+    //-backend-//
 
     const handleGoogleRegister = async () => {
         try {
@@ -115,7 +122,7 @@ export default function Register() {
                                 </div>
                             </div>
 
-                            <form onSubmit={handleSubmit} className="space-y-6">
+                            <form action={create} className="space-y-6">
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
                                         <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -204,7 +211,6 @@ export default function Register() {
                                 <button
                                     type="submit"
                                     className="w-full btn-primary py-2"
-                                    onClick={() => registerUserInBackend(formData.firstName, formData.lastName, formData.email, formData.password)}
                                 >
                                     Crear Cuenta
                                 </button>
