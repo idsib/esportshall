@@ -46,12 +46,13 @@ export default function Login() {
 
             if (result?.error) {
                 console.error('Error al iniciar sesión:', result.error)
-                // Aquí podrías mostrar un mensaje de error al usuario
+                alert('Credenciales incorrectas')
             } else {
                 router.push('/main')
             }
         } catch (error) {
             console.error('Error al iniciar sesión:', error)
+            alert('Error al iniciar sesión')
         }
     }
 

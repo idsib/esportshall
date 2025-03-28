@@ -4,40 +4,38 @@ import { createContext, useContext, useEffect, useState } from "react"
 
 type Theme = "light" | "dark"
 
-type ThemeContextProviderProps = {
-  children: React.ReactNode
-}
-
-type ThemeContextType = {
+interface ThemeContextType {
   theme: Theme
-  setTheme: React.Dispatch<React.SetStateAction<Theme>>
-  toggleTheme: () => void
+  setTheme: (theme: Theme) => void
 }
 
-const ThemeContext = createContext<ThemeContextType | null>(null)
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
-export function ThemeProvider({ children }: ThemeContextProviderProps) {
-  const [theme, setTheme] = useState<Theme>("dark")
-
-  const toggleTheme = () => {
-    setTheme(prev => prev === "dark" ? "light" : "dark")
-  }
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  const [theme, setTheme] = useState<Theme>("light")
 
   useEffect(() => {
-    const localTheme = window.localStorage.getItem("theme") as Theme | null
-    if (localTheme) {
-      setTheme(localTheme)
-      document.documentElement.className = localTheme
+    // Verificar si hay un tema guardado en localStorage
+    const savedTheme = localStorage.getItem("theme") as Theme | null
+    if (savedTheme) {
+      setTheme(savedTheme)
+      document.documentElement.classList.toggle("dark", savedTheme === "dark")
+    } else {
+      // Verificar preferencia del sistema
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
+      setTheme(prefersDark ? "dark" : "light")
+      document.documentElement.classList.toggle("dark", prefersDark)
     }
   }, [])
 
-  useEffect(() => {
-    window.localStorage.setItem("theme", theme)
-    document.documentElement.className = theme
-  }, [theme])
+  const handleThemeChange = (newTheme: Theme) => {
+    setTheme(newTheme)
+    localStorage.setItem("theme", newTheme)
+    document.documentElement.classList.toggle("dark", newTheme === "dark")
+  }
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, setTheme: handleThemeChange }}>
       {children}
     </ThemeContext.Provider>
   )
@@ -45,7 +43,7 @@ export function ThemeProvider({ children }: ThemeContextProviderProps) {
 
 export function useTheme() {
   const context = useContext(ThemeContext)
-  if (!context) {
+  if (context === undefined) {
     throw new Error("useTheme must be used within a ThemeProvider")
   }
   return context

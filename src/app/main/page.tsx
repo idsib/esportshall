@@ -1,12 +1,17 @@
 "use client";
 
 import { useState } from "react";
+import { useSession } from "next-auth/react";
 import MainLayout from "./components/layout/mainLayout";
 import { MessageSquare, Heart, MoreHorizontal, Repeat2 } from "lucide-react";
 import { useTheme } from "../context/theme-context";
+import Image from "next/image";
 
 export default function MainPage() {
   const { theme } = useTheme();
+  const { data: session } = useSession();
+  const userImage = session?.user?.image || '/images/esportshall.png';
+  
   const [tweets] = useState([
     {
       id: 1,
@@ -30,11 +35,16 @@ export default function MainPage() {
         {/* Tweet Composer */}
         <div className={`p-4 ${theme === 'dark' ? 'bg-dark-200/95' : 'bg-white'}`}>
           <div className="flex gap-4">
-            <img
-              src="/images/esportshall.png"
-              alt="Profile"
-              className="w-12 h-12 rounded-full"
-            />
+            <div className="relative w-12 h-12">
+              <Image
+                src={userImage}
+                alt="Profile"
+                className="rounded-full object-cover"
+                fill
+                sizes="48px"
+                priority
+              />
+            </div>
             <div className="flex-1">
               <textarea
                 placeholder="¿Qué está pasando en el mundo de los esports?"
@@ -48,7 +58,7 @@ export default function MainPage() {
               <div className="flex justify-between items-center pt-4">
                 <div className="ml-auto">
                   <button className="bg-yellow-400 text-black px-4 py-2 rounded-full font-bold hover:bg-yellow-500">
-                    Tweet
+                    Postear
                   </button>
                 </div>
               </div>
@@ -68,11 +78,15 @@ export default function MainPage() {
               }`}
             >
               <div className="flex gap-4">
-                <img
-                  src={tweet.user.avatar}
-                  alt={tweet.user.name}
-                  className="w-12 h-12 rounded-full"
-                />
+                <div className="relative w-12 h-12">
+                  <Image
+                    src={tweet.user.avatar}
+                    alt={tweet.user.name}
+                    className="rounded-full object-cover"
+                    fill
+                    sizes="48px"
+                  />
+                </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-2">
                     <span className={theme === 'dark' ? 'text-white' : 'text-gray-900 font-bold'}>
