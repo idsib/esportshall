@@ -40,50 +40,30 @@ export default function PolicyLayout({
 
                     {/* Navigation moved here */}
                     <div className="flex items-center space-x-8">
-<<<<<<< HEAD
                         <Link 
                             href="/policy/terms-of-service"
                             className={`text-sm transition-colors ${
                                 pathname === '/policy/terms-of-service'
-=======
-                        <button
-                            onClick={() => router.push('/policy/terms-of-service')}
-                            className={`text-sm transition-colors ${pathname === '/policy/terms-of-service'
->>>>>>> 2c458d85bca5b1b691cd59bccb06ca24d35b087e
                                 ? 'text-brand-yellow'
                                 : 'text-gray-600 dark:text-gray-300 hover:text-brand-yellow'
                                 }`}
                         >
                             Términos de Servicio
-<<<<<<< HEAD
                         </Link>
                         <Link 
                             href="/policy/privacy-policy"
                             className={`text-sm transition-colors ${
                                 pathname === '/policy/privacy-policy'
-=======
-                        </button>
-                        <button
-                            onClick={() => router.push('/policy/privacy-policy')}
-                            className={`text-sm transition-colors ${pathname === '/policy/privacy-policy'
->>>>>>> 2c458d85bca5b1b691cd59bccb06ca24d35b087e
                                 ? 'text-brand-yellow'
                                 : 'text-gray-600 dark:text-gray-300 hover:text-brand-yellow'
                                 }`}
                         >
                             Política de Privacidad
-<<<<<<< HEAD
                         </Link>
                         <Link 
                             href="/policy/cookies-policy"
                             className={`text-sm transition-colors ${
                                 pathname === '/policy/cookies-policy'
-=======
-                        </button>
-                        <button
-                            onClick={() => router.push('/policy/cookies-policy')}
-                            className={`text-sm transition-colors ${pathname === '/policy/cookies-policy'
->>>>>>> 2c458d85bca5b1b691cd59bccb06ca24d35b087e
                                 ? 'text-brand-yellow'
                                 : 'text-gray-600 dark:text-gray-300 hover:text-brand-yellow'
                                 }`}
