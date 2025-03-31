@@ -51,11 +51,10 @@ export default function TeamsPage() {
                 <div className="teams-container">
                     <h1 className="text-2xl font-bold">Equipos eSports</h1>
                     <ul>
-                        {Array.isArray(teams) && teams.length > 0 ? ( 
+                        {Array.isArray(teams) && teams.length > 0 ? (
                             teams.map((team: any) => (
                                 <li key={team.id} className="team-item">
                                     <p><strong>Nombre:</strong> {team.name}</p>
-                                    <p><strong>Acrónimo:</strong> {team.acronym}</p>
                                 </li>
                             ))
                         ) : (
