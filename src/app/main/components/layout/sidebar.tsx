@@ -2,14 +2,16 @@
 
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
-import { Home, Gamepad2, Users, Bell, Settings, Mail, Newspaper } from 'lucide-react';
-import { useTheme } from '../../../context/theme-context';
+import { Home, Gamepad2, Users, Bell, Settings, Mail, Newspaper, User } from 'lucide-react';
+import { useTheme } from '../../../../app/context/theme-context';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 export default function Sidebar() {
   const { theme } = useTheme();
   const router = useRouter();
   const pathname = usePathname();
+  const { data: session } = useSession();
 
   return (
     <aside className={`fixed left-0 top-16 h-[calc(100vh-4rem)] w-16 border-r flex flex-col items-center py-6 z-40 ${
@@ -83,6 +85,16 @@ export default function Sidebar() {
         </button>
         <button 
           onClick={() => router.push('/main/profile')}
+          className={`p-2 rounded-lg transition-colors ${
+            pathname === '/main/profile' 
+              ? 'text-yellow-400' 
+              : 'text-neutral-400 hover:text-yellow-400'
+          }`}
+        >
+          <User size={24} />
+        </button>
+        <button 
+          onClick={() => router.push('/main/profile')}
           className={`w-10 h-10 rounded-full overflow-hidden border-2 transition-colors ${
             pathname === '/main/profile'
               ? 'border-yellow-400'
@@ -92,7 +104,7 @@ export default function Sidebar() {
           }`}
         >
           <Image
-            src="/images/default-avatar.png"
+            src={session?.user?.image || '/images/esportshall.png'}
             alt="Profile"
             width={40}
             height={40}

@@ -9,6 +9,7 @@ import { useTheme } from "../../context/theme-context"
 import { useEffect, useState } from 'react'
 import { signIn, useSession } from "next-auth/react"
 import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 //-backend-//
 import { neon } from '@neondatabase/serverless';
@@ -18,6 +19,7 @@ import { create } from '../neon/actions'
 export default function Register() {
     const { data: session } = useSession()
     const { theme } = useTheme()
+    const router = useRouter()
 
     const [formData, setFormData] = useState({
         firstName: '',
@@ -63,10 +65,9 @@ export default function Register() {
             return
         }
         try {
-            // Aquí iría la lógica para enviar los datos al backend
-            console.log('Datos del formulario:', formData)
-            // Después de un registro exitoso
-            redirect('/main')
+            await create(new FormData(e.currentTarget))
+            // Después de un registro exitoso, redirigir al login
+            router.push('/auth/login')
         } catch (error) {
             console.error('Error al registrar:', error)
         }

@@ -5,18 +5,67 @@ import { Send, Upload, ArrowLeft } from 'lucide-react'
 import MainLayout from '../components/layout/mainLayout'
 import Link from 'next/link'
 
+interface ValorantFields {
+    agent: string;
+    role: string;
+    peakRank: string;
+}
+
+interface LolFields {
+    role: string;
+    champions: string;
+    peakRank: string;
+}
+
+interface CsgoFields {
+    role: string;
+    weapons: string;
+    peakRank: string;
+}
+
+interface RocketLeagueFields {
+    position: string;
+    car: string;
+    peakRank: string;
+}
+
+interface FifaFields {
+    formation: string;
+    playStyle: string;
+    peakRank: string;
+}
+
+interface FormData {
+    type: string;
+    name: string;
+    email: string;
+    phone: string;
+    game: string;
+    nickname: string;
+    rank: string;
+    experience: string;
+    valorant: ValorantFields;
+    lol: LolFields;
+    csgo: CsgoFields;
+    'rocket-league': RocketLeagueFields;
+    fifa: FifaFields;
+    teamName: string;
+    teamSize: string;
+    teamDescription: string;
+    message: string;
+    newsletter: boolean;
+}
+
 export default function Contact() {
-    const [formData, setFormData] = useState({
-        type: '', // 'player' o 'team'
+    const [formData, setFormData] = useState<FormData>({
+        type: '',
         name: '',
         email: '',
         phone: '',
         game: '',
-        // Campos específicos para jugadores
         nickname: '',
         rank: '',
         experience: '',
-        // Campos específicos por juego
         valorant: {
             agent: '',
             role: '',
@@ -42,11 +91,9 @@ export default function Contact() {
             playStyle: '',
             peakRank: ''
         },
-        // Campos específicos para equipos
         teamName: '',
         teamSize: '',
         teamDescription: '',
-        // Campos comunes
         message: '',
         newsletter: false
     })
@@ -54,10 +101,26 @@ export default function Contact() {
     const [isSubmitting, setIsSubmitting] = useState(false)
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-        const { name, value, type } = e.target
-        setFormData(prev => ({
-            ...prev,
-        }))
+        const { name, value } = e.target
+        
+        if (name.includes('.')) {
+            const [gameKey, field] = name.split('.')
+            setFormData(prev => {
+                const game = gameKey as keyof Pick<FormData, 'valorant' | 'lol' | 'csgo' | 'rocket-league' | 'fifa'>
+                return {
+                    ...prev,
+                    [game]: {
+                        ...prev[game],
+                        [field]: value
+                    }
+                }
+            })
+        } else {
+            setFormData(prev => ({
+                ...prev,
+                [name]: value
+            }))
+        }
     }
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,16 +136,82 @@ export default function Contact() {
         try {
             // Aquí va la lógica para enviar los datos al backend
             const formDataToSend = new FormData()
-            Object.entries(formData).forEach(([key, value]) => {
-                formDataToSend.append(key, value.toString())
-            })
+            
+            // Aplanar los datos del formulario para enviarlos
+            const flattenFormData = (obj: any, prefix = '') => {
+                Object.keys(obj).forEach(key => {
+                    if (typeof obj[key] === 'object' && obj[key] !== null) {
+                        flattenFormData(obj[key], `${prefix}${key}.`)
+                    } else {
+                        formDataToSend.append(`${prefix}${key}`, obj[key].toString())
+                    }
+                })
+            }
+            
+            flattenFormData(formData)
+            
             if (file) {
                 formDataToSend.append('file', file)
             }
+            
             console.log('Datos del formulario:', formData)
             console.log('Archivo:', file)
+            
+            // Aquí iría la llamada a la API
+            // await fetch('/api/contact', {
+            //     method: 'POST',
+            //     body: formDataToSend
+            // })
+            
+            // Resetear el formulario después del envío exitoso
+            setFormData({
+                type: '',
+                name: '',
+                email: '',
+                phone: '',
+                game: '',
+                nickname: '',
+                rank: '',
+                experience: '',
+                valorant: {
+                    agent: '',
+                    role: '',
+                    peakRank: ''
+                },
+                lol: {
+                    role: '',
+                    champions: '',
+                    peakRank: ''
+                },
+                csgo: {
+                    role: '',
+                    weapons: '',
+                    peakRank: ''
+                },
+                'rocket-league': {
+                    position: '',
+                    car: '',
+                    peakRank: ''
+                },
+                fifa: {
+                    formation: '',
+                    playStyle: '',
+                    peakRank: ''
+                },
+                teamName: '',
+                teamSize: '',
+                teamDescription: '',
+                message: '',
+                newsletter: false
+            })
+            setFile(null)
+            
+            // Mostrar mensaje de éxito (puedes implementar un sistema de notificaciones)
+            alert('Formulario enviado con éxito')
+            
         } catch (error) {
             console.error('Error al enviar el formulario:', error)
+            alert('Error al enviar el formulario. Por favor, inténtalo de nuevo.')
         } finally {
             setIsSubmitting(false)
         }

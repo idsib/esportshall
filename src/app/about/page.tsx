@@ -4,8 +4,26 @@ import Link from 'next/link'
 import Nav from "../components/layout/nav"
 import { Footer } from "../components/layout/footer"
 import { Trophy, Users, Globe, Target, Award, Rocket, ArrowLeft } from "lucide-react"
+import { useState } from 'react'
+import toast from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
 
 export default function About() {
+    const [isLoading, setIsLoading] = useState(false)
+    const router = useRouter()
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        setIsLoading(true)
+        try {
+            // ... código de autenticación/registro ...
+        } catch (error) {
+            // ... manejo de errores ...
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
     return (
         <>
             <Nav />
