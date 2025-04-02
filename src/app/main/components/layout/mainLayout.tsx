@@ -17,7 +17,11 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
       <Header />
       <Sidebar />
       
-      <main className="pt-16 pl-16">
+      <main className={`pt-16 pl-16 ${
+        theme === 'dark' 
+          ? 'bg-dark-100' 
+          : 'bg-gray-50'
+      }`}>
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="grid grid-cols-12 gap-6">
             <div className="col-span-8">

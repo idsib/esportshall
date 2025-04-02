@@ -1,33 +1,59 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import MainLayout from "./components/layout/mainLayout";
 import { MessageSquare, Heart, MoreHorizontal, Repeat2 } from "lucide-react";
 import { useTheme } from "../context/theme-context";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+
+interface Tweet {
+  id: number;
+  user: {
+    name: string;
+    username: string;
+    avatar: string;
+  };
+  content: string;
+  timestamp: string;
+  likes: number;
+  replies: number;
+  retweets: number;
+}
+
+const initialTweets: Tweet[] = [
+  {
+    id: 1,
+    user: {
+      name: "EsportsHall",
+      username: "@esportshall",
+      avatar: "/images/esportshall.png",
+    },
+    content: "¡Nuevo torneo de League of Legends anunciado! 🎮",
+    timestamp: "2h",
+    likes: 42,
+    replies: 12,
+    retweets: 8,
+  },
+];
 
 export default function MainPage() {
   const { theme } = useTheme();
   const { data: session } = useSession();
+  const router = useRouter();
   const userImage = session?.user?.image || '/images/esportshall.png';
+  const [tweets] = useState<Tweet[]>(initialTweets);
   
-  const [tweets] = useState([
-    {
-      id: 1,
-      user: {
-        name: "EsportsHall",
-        username: "@esportshall",
-        avatar: "/images/esportshall.png",
-      },
-      content: "¡Nuevo torneo de League of Legends anunciado! 🎮",
-      timestamp: "2h",
-      likes: 42,
-      replies: 12,
-      retweets: 8,
-    },
-    // Añadir más tweets de ejemplo aquí
-  ]);
+  useEffect(() => {
+    if (!session) {
+      router.push('/auth/login');
+    }
+  }, [session, router]);
+
+  if (!session) {
+    return null;
+  }
 
   return (
     <MainLayout>

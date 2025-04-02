@@ -9,9 +9,13 @@ import { useRouter, usePathname } from 'next/navigation';
 export default function Header() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { theme, toggleTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const router = useRouter();
   const pathname = usePathname();
+
+  const toggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  };
 
   const navItems = [
     { name: 'Esports', path: '/main/news' },
