@@ -3,7 +3,7 @@
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import { Home, Gamepad2, Users, Bell, Settings, Mail, Newspaper, User } from 'lucide-react';
-import { useTheme } from '../../../../app/context/theme-context';
+import { useTheme } from '../../../../app/context/theme-context'
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 

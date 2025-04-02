@@ -16,9 +16,9 @@ export async function middleware(request: NextRequest) {
   }
 
   // Proteger las rutas que requieren autenticación
-  if (!token) {
-    return NextResponse.redirect(new URL('/auth/login', request.url));
-  }
+  // if (!token) {
+  //   return NextResponse.redirect(new URL('/auth/login', request.url));
+  // }
 
   return NextResponse.next();
 }
