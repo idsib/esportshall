@@ -12,8 +12,7 @@ import { redirect } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 
 //-backend-//
-import { neon } from '@neondatabase/serverless';
-import { create } from '../neon/actions'
+import { register } from '../neon/actions'
 //-backend-//
 
 export default function Register() {
@@ -65,7 +64,7 @@ export default function Register() {
             return
         }
         try {
-            await create(new FormData(e.currentTarget))
+            await register(new FormData(e.currentTarget))
             // Después de un registro exitoso, redirigir al login
             router.push('/auth/login')
         } catch (error) {
@@ -123,7 +122,7 @@ export default function Register() {
                                 </div>
                             </div>
 
-                            <form action={create} className="space-y-6">
+                            <form action={register} className="space-y-6">
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
                                         <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">

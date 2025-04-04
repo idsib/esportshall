@@ -10,6 +10,11 @@ import { useEffect, useState } from 'react'
 import { signIn, useSession } from "next-auth/react"
 import { useRouter } from 'next/navigation'
 
+//-backend-//
+import { login } from '../neon/actions'
+//-backend-//
+
+
 export default function Login() {
     const { data: session } = useSession()
     const { theme } = useTheme()
@@ -81,7 +86,7 @@ export default function Login() {
                             </p>
                         </div>
 
-                        <form onSubmit={handleSubmit} className="space-y-6">
+                        <form action={login} className="space-y-6">
                             <div>
                                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                     Email

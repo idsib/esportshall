@@ -8,6 +8,10 @@ import { Trophy, Users, Gamepad2, ArrowRight } from "lucide-react"
 import Nav from "./components/layout/nav"
 import { AnimatedBackground } from "./components/ui/animated-background"
 
+//-backend-//
+import { test } from './auth/neon/actions'
+//-backend-//
+
 // Carga dinámica del Footer
 const Footer = dynamic(() => import("./components/layout/footer").then(mod => mod.Footer), {
   ssr: false,
@@ -88,6 +92,7 @@ export default function Home() {
                   >
                     Empezar Ahora
                   </Link>
+                  <button onClick={test}> pruebita</button>
                   <Link 
                     href="/about"
                     className="btn-secondary"
