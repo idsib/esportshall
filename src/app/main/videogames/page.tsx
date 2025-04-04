@@ -54,7 +54,7 @@ export default function VideogamesPage() {
                         {Array.isArray(videogames) && videogames.length > 0 ? (
                             videogames.map((videogame: any) => (
                                 <li key={videogame.id} className="videogame-item">
-                                    <p><strong>Nombre:</strong> {videogame.name}</p>
+                                    <p>{videogame.name}</p>
                                 </li>
                             ))
                         ) : (
