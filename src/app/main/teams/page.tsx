@@ -54,7 +54,7 @@ export default function TeamsPage() {
                         {Array.isArray(teams) && teams.length > 0 ? (
                             teams.map((team: any) => (
                                 <li key={team.id} className="team-item">
-                                    <p><strong>Nombre:</strong> {team.name}</p>
+                                    <p>{team.name}</p>
                                 </li>
                             ))
                         ) : (
