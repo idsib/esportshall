@@ -1,5 +1,7 @@
 'use server'
 import { neon } from '@neondatabase/serverless';
+import { User } from './User'
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 
@@ -27,7 +29,7 @@ export async function login(formData: FormData) {
     // Insertar datos correctamente
     const user = await sql(
         'SELECT * FROM users WHERE email = $1',
-        [email] 
+        [email]
     );
 
     console.log("la contraseña guardada = " + user[0].password)
@@ -35,15 +37,15 @@ export async function login(formData: FormData) {
 
     if (bcrypt.compare(user[0].password, hashPass)) {
         
-    console.log('ok')
-    } else { 
+        
+    } else {
         console.log('no')
 
     }
-    
+
 }
 
-export async function  test() {
+export async function test() {
 
     // Insertar datos correctamente
     const prueba = await sql(
