@@ -43,18 +43,10 @@ export default function Login() {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
-            const result = await signIn('credentials', {
-                email: formData.email,
-                password: formData.password,
-                redirect: false,
-            })
-
-            if (result?.error) {
-                console.error('Error al iniciar sesión:', result.error)
-                alert('Credenciales incorrectas')
-            } else {
-                router.push('/main')
-            }
+            const token : any = await login(formData.email, formData.password)
+            await localStorage.setItem('token', token)
+            console.log(token);
+            router.push('/main')      
         } catch (error) {
             console.error('Error al iniciar sesión:', error)
             alert('Error al iniciar sesión')
@@ -86,7 +78,7 @@ export default function Login() {
                             </p>
                         </div>
 
-                        <form action={login} className="space-y-6">
+                        <form onSubmit={handleSubmit} className="space-y-6">
                             <div>
                                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                     Email

@@ -1,10 +1,8 @@
 'use server'
 import { neon } from '@neondatabase/serverless';
 import { User } from './User'
-const jwt = require('jsonwebtoken');
+import { hashMD5 } from './hashPass'
 const bcrypt = require('bcrypt');
-
-
 const sql = neon(`${process.env.DATABASE_URL}`);
 
 export async function register(formData: FormData) {
@@ -12,35 +10,31 @@ export async function register(formData: FormData) {
     const email = formData.get('email');
     const password = formData.get('password');
     const hashPass = await bcrypt.hash(password, 10)
-
-
-    // Insertar datos correctamente
     await sql(
         'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *',
         [completeName, email, hashPass]
     );
 }
 
-export async function login(formData: FormData) {
-    const email = formData.get('email');
-    const password = formData.get('password');
+export async function login(email : string, password : string) {
     const hashPass = await bcrypt.hash(password, 10)
-
-    // Insertar datos correctamente
     const user = await sql(
         'SELECT * FROM users WHERE email = $1',
         [email]
     );
-
-    console.log("la contraseña guardada = " + user[0].password)
-    console.log("la contraseña puesta y haseada = " + hashPass)
-
     if (bcrypt.compare(user[0].password, hashPass)) {
-        
-        
-    } else {
-        console.log('no')
+        try {
+            const token: string = await hashMD5(user[0].name);
+            await sql('INSERT INTO users (token) VALUES ($1)', [token]);
+            console.log('Almacenado en el localStorage y base de datos')
+            return token;
+        } catch (error) {
+            console.log('No almacenado en el localStorage y base de datos')
+            console.log('Error' + error)
 
+        }
+    } else {
+        console.log('Contraseña incorrecta')
     }
 
 }

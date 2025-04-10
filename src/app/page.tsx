@@ -9,7 +9,7 @@ import Nav from "./components/layout/nav"
 import { AnimatedBackground } from "./components/ui/animated-background"
 
 //-backend-//
-import { test } from './auth/neon/actions'
+import { hashMD5 } from './auth/neon/hashPass'
 //-backend-//
 
 // Carga dinámica del Footer
@@ -92,7 +92,7 @@ export default function Home() {
                   >
                     Empezar Ahora
                   </Link>
-                  <button onClick={test}> pruebita</button>
+                  <button onClick={hashMD5('hola')}> pruebita</button>
                   <Link 
                     href="/about"
                     className="btn-secondary"

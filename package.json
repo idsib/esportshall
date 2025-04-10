@@ -16,6 +16,7 @@
     "drizzle-orm": "^0.29.3",
     "framer-motion": "latest",
     "hono": "^3.12.0",
+    "js-md5": "^0.8.3",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "latest",
     "next": "^15.2.3",
