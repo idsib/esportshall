@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { useTheme } from '../../../../context/theme-context';
+import { useTheme } from '@/context/theme-context';
 import MainLayout from '../../components/layout/mainLayout';
 import { Plus, Search, TrendingUp, Clock, Star, Users, MessageSquare, Share2, Bookmark, MoreHorizontal } from 'lucide-react';
 import Link from 'next/link';
@@ -48,7 +48,13 @@ const posts = [
   }
 ];
 
-export default function CommunityPage({ params }: { params: { id: string } }) {
+interface PageProps {
+  params: {
+    id: string;
+  };
+}
+
+export default function CommunityPage({ params }: PageProps) {
   const { theme } = useTheme();
   const [activeTab, setActiveTab] = useState('hot');
 
