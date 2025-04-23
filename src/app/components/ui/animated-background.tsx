@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import { useTheme } from "../../context/theme-context"
+import { useTheme } from "@/context/theme-context"
 
 interface Pixel {
   x: number

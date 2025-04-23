@@ -3,10 +3,10 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
-import { useTheme } from '../../context/theme-context';
+import { useTheme } from '../../../context/theme-context';
 import EditProfileModal from './components/edit-profile-modal';
 import MainLayout from '../components/layout/mainLayout'
-import { Twitter, Instagram, Twitch, MapPin, Link as LinkIcon, Calendar, Trophy, Users, Settings } from 'lucide-react';
+import { Twitter, Instagram, Twitch, MapPin, Link as LinkIcon, Calendar, Trophy, Users, Settings, MessageCircle, Heart, Share2 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -22,10 +22,40 @@ export default function ProfilePage() {
     bio: 'Jugador de esports apasionado. Compitiendo en torneos y mejorando cada día.',
     location: 'España',
     website: 'esportshall.com',
-    twitter: '',
-    instagram: '',
-    twitch: '',
+    socialLinks: {
+      x: '',
+      instagram: '',
+      twitch: ''
+    },
+    favoriteCommunity: 'lol',
   });
+
+  const [posts, setPosts] = useState([
+    {
+      id: 1,
+      content: '¡Acabo de ganar mi primer torneo de League of Legends! 🎮🏆 #EsportsHall',
+      timestamp: '2024-03-15T14:30:00Z',
+      likes: 125,
+      comments: 23,
+      shares: 12,
+      community: 'lol'
+    },
+    {
+      id: 2,
+      content: 'Preparándome para el próximo torneo de Valorant. ¿Alguien quiere practicar? 🔫 #Valorant #EsportsHall',
+      timestamp: '2024-03-14T09:15:00Z',
+      likes: 89,
+      comments: 15,
+      shares: 8,
+      community: 'valorant'
+    }
+  ]);
+
+  const communities = [
+    { id: 'lol', name: 'League of Legends', icon: 'https://cdn.communitydragon.org/latest/champion/1/square' },
+    { id: 'valorant', name: 'Valorant', icon: 'https://media.valorant-api.com/agents/5f8d3a7f-467b-97f3-062c-13acf203c006/displayicon.png' },
+    { id: 'cs2', name: 'CS2', icon: '/cs2.png' }
+  ];
 
   useEffect(() => {
     if (!session) {
@@ -42,10 +72,20 @@ export default function ProfilePage() {
     setIsEditModalOpen(false);
   };
 
+  const formatTimeAgo = (timestamp: string) => {
+    const date = new Date(timestamp);
+    const now = new Date();
+    const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+    
+    if (diffInSeconds < 60) return 'Ahora';
+    if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)}m`;
+    if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)}h`;
+    return `${Math.floor(diffInSeconds / 86400)}d`;
+  };
+
   return (
     <MainLayout>
       <div className="flex-1 overflow-y-auto">
-        {/* Content */}
         <div className="max-w-4xl mx-auto px-4 py-3">
           {/* Profile Header */}
           <div className="relative mb-4">
@@ -81,9 +121,35 @@ export default function ProfilePage() {
             {/* Profile Info */}
             <div className="pt-14 sm:pt-16 px-4 sm:px-8">
               <div className="flex flex-col gap-1">
-                <h2 className={`text-xl sm:text-2xl font-bold ${
-                  theme === 'dark' ? 'text-white' : 'text-gray-900'
-                }`}>{profileData.name}</h2>
+                <div className="flex items-center gap-2">
+                  <h2 className={`text-xl sm:text-2xl font-bold ${
+                    theme === 'dark' ? 'text-white' : 'text-gray-900'
+                  }`}>{profileData.name}</h2>
+                  {profileData.favoriteCommunity && (
+                    <div className="flex items-center gap-1 px-2 py-1 rounded-full bg-brand-yellow/10">
+                      <div className="w-4 h-4 relative">
+                        {profileData.favoriteCommunity === 'cs2' ? (
+                          <Image
+                            src="/cs2.png"
+                            alt="CS2"
+                            width={16}
+                            height={16}
+                            className="object-contain rounded"
+                          />
+                        ) : (
+                          <img
+                            src={communities.find(c => c.id === profileData.favoriteCommunity)?.icon || ''}
+                            alt="Comunidad favorita"
+                            className="w-full h-full object-cover rounded"
+                          />
+                        )}
+                      </div>
+                      <span className="text-xs font-medium text-brand-yellow">
+                        {communities.find(c => c.id === profileData.favoriteCommunity)?.name}
+                      </span>
+                    </div>
+                  )}
+                </div>
                 <p className="text-gray-500">@{profileData.username}</p>
                 <p className={`mt-2 text-sm sm:text-base ${
                   theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
@@ -101,18 +167,18 @@ export default function ProfilePage() {
                   </div>
                 </div>
                 <div className="flex items-center gap-4 mt-2">
-                  {profileData.twitter && (
-                    <a href={`https://twitter.com/${profileData.twitter}`} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-brand-yellow">
+                  {profileData.socialLinks.x && (
+                    <a href={`https://twitter.com/${profileData.socialLinks.x}`} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-brand-yellow">
                       <Twitter size={20} />
                     </a>
                   )}
-                  {profileData.instagram && (
-                    <a href={`https://instagram.com/${profileData.instagram}`} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-brand-yellow">
+                  {profileData.socialLinks.instagram && (
+                    <a href={`https://instagram.com/${profileData.socialLinks.instagram}`} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-brand-yellow">
                       <Instagram size={20} />
                     </a>
                   )}
-                  {profileData.twitch && (
-                    <a href={`https://twitch.tv/${profileData.twitch}`} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-brand-yellow">
+                  {profileData.socialLinks.twitch && (
+                    <a href={`https://twitch.tv/${profileData.socialLinks.twitch}`} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-brand-yellow">
                       <Twitch size={20} />
                     </a>
                   )}
@@ -141,6 +207,20 @@ export default function ProfilePage() {
                 Resumen
               </button>
               <button
+                onClick={() => setActiveTab('posts')}
+                className={`py-4 px-1 border-b-2 font-medium text-sm whitespace-nowrap ${
+                  activeTab === 'posts'
+                    ? 'border-brand-yellow text-brand-yellow'
+                    : `border-transparent ${
+                        theme === 'dark' 
+                          ? 'text-gray-400 hover:text-gray-300' 
+                          : 'text-gray-500 hover:text-gray-700'
+                      } hover:border-gray-300`
+                }`}
+              >
+                Publicaciones
+              </button>
+              <button
                 onClick={() => setActiveTab('tournaments')}
                 className={`py-4 px-1 border-b-2 font-medium text-sm whitespace-nowrap ${
                   activeTab === 'tournaments'
@@ -154,25 +234,83 @@ export default function ProfilePage() {
               >
                 Torneos
               </button>
-              <button
-                onClick={() => setActiveTab('teams')}
-                className={`py-4 px-1 border-b-2 font-medium text-sm whitespace-nowrap ${
-                  activeTab === 'teams'
-                    ? 'border-brand-yellow text-brand-yellow'
-                    : `border-transparent ${
-                        theme === 'dark' 
-                          ? 'text-gray-400 hover:text-gray-300' 
-                          : 'text-gray-500 hover:text-gray-700'
-                      } hover:border-gray-300`
-                }`}
-              >
-                Equipos
-              </button>
             </nav>
           </div>
 
           {/* Tab Content */}
           <div className="space-y-6">
+            {activeTab === 'posts' && (
+              <div className="space-y-4">
+                {posts.map(post => (
+                  <div key={post.id} className={`p-4 rounded-xl ${
+                    theme === 'dark' ? 'bg-dark-200' : 'bg-white shadow-sm'
+                  }`}>
+                    <div className="flex items-start gap-3">
+                      <div className="w-10 h-10 rounded-full overflow-hidden">
+                        <Image
+                          src={session?.user?.image || '/images/esportshall.png'}
+                          alt="Profile"
+                          width={40}
+                          height={40}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2">
+                          <span className={`font-semibold ${
+                            theme === 'dark' ? 'text-white' : 'text-gray-900'
+                          }`}>{profileData.name}</span>
+                          <span className="text-gray-500">@{profileData.username}</span>
+                          <span className="text-gray-500">·</span>
+                          <span className="text-gray-500">{formatTimeAgo(post.timestamp)}</span>
+                          {post.community && (
+                            <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-brand-yellow/10">
+                              <div className="w-3 h-3 relative">
+                                {post.community === 'cs2' ? (
+                                  <Image
+                                    src="/cs2.png"
+                                    alt="CS2"
+                                    width={12}
+                                    height={12}
+                                    className="object-contain rounded"
+                                  />
+                                ) : (
+                                  <img
+                                    src={communities.find(c => c.id === post.community)?.icon || ''}
+                                    alt="Comunidad"
+                                    className="w-full h-full object-cover rounded"
+                                  />
+                                )}
+                              </div>
+                              <span className="text-xs font-medium text-brand-yellow">
+                                {communities.find(c => c.id === post.community)?.name}
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                        <p className={`mt-2 ${
+                          theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                        }`}>{post.content}</p>
+                        <div className="flex items-center gap-6 mt-4 text-gray-500">
+                          <button className="flex items-center gap-1 hover:text-brand-yellow">
+                            <MessageCircle size={18} />
+                            <span className="text-sm">{post.comments}</span>
+                          </button>
+                          <button className="flex items-center gap-1 hover:text-brand-yellow">
+                            <Heart size={18} />
+                            <span className="text-sm">{post.likes}</span>
+                          </button>
+                          <button className="flex items-center gap-1 hover:text-brand-yellow">
+                            <Share2 size={18} />
+                            <span className="text-sm">{post.shares}</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
             {activeTab === 'overview' && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className={`p-6 rounded-xl ${
@@ -234,95 +372,7 @@ export default function ProfilePage() {
                 </div>
               </div>
             )}
-
-            {activeTab === 'tournaments' && (
-              <div className={`p-6 rounded-xl ${
-                theme === 'dark' ? 'bg-dark-200' : 'bg-white shadow-sm'
-              }`}>
-                <h3 className={`text-lg font-semibold mb-4 ${
-                  theme === 'dark' ? 'text-white' : 'text-gray-900'
-                }`}>Historial de torneos</h3>
-                <div className="space-y-4">
-                  <div className={`flex items-center justify-between p-4 rounded-lg border ${
-                    theme === 'dark' ? 'border-dark-300' : 'border-gray-200'
-                  }`}>
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 bg-brand-yellow/10 rounded-lg">
-                        <Trophy className="text-brand-yellow" size={20} />
-                      </div>
-                      <div>
-                        <p className={`font-medium ${
-                          theme === 'dark' ? 'text-white' : 'text-gray-900'
-                        }`}>Torneo Nacional de League of Legends</p>
-                        <p className="text-sm text-gray-500">1º lugar - 15 de Abril, 2024</p>
-                      </div>
-                    </div>
-                    <div className="text-brand-yellow font-semibold">Ganador</div>
-                  </div>
-                  <div className={`flex items-center justify-between p-4 rounded-lg border ${
-                    theme === 'dark' ? 'border-dark-300' : 'border-gray-200'
-                  }`}>
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 bg-brand-yellow/10 rounded-lg">
-                        <Trophy className="text-brand-yellow" size={20} />
-                      </div>
-                      <div>
-                        <p className={`font-medium ${
-                          theme === 'dark' ? 'text-white' : 'text-gray-900'
-                        }`}>Campeonato Regional de Valorant</p>
-                        <p className="text-sm text-gray-500">3º lugar - 8 de Abril, 2024</p>
-                      </div>
-                    </div>
-                    <div className="text-gray-500">Tercer lugar</div>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {activeTab === 'teams' && (
-              <div className={`p-6 rounded-xl ${
-                theme === 'dark' ? 'bg-dark-200' : 'bg-white shadow-sm'
-              }`}>
-                <h3 className={`text-lg font-semibold mb-4 ${
-                  theme === 'dark' ? 'text-white' : 'text-gray-900'
-                }`}>Mis equipos</h3>
-                <div className="space-y-4">
-                  <div className={`flex items-center justify-between p-4 rounded-lg border ${
-                    theme === 'dark' ? 'border-dark-300' : 'border-gray-200'
-                  }`}>
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 bg-brand-yellow/10 rounded-lg">
-                        <Users className="text-brand-yellow" size={20} />
-                      </div>
-                      <div>
-                        <p className={`font-medium ${
-                          theme === 'dark' ? 'text-white' : 'text-gray-900'
-                        }`}>Team EsportsPro</p>
-                        <p className="text-sm text-gray-500">Capitán</p>
-                      </div>
-                    </div>
-                    <button className="text-brand-yellow hover:text-yellow-500">Ver equipo</button>
-                  </div>
-                  <div className={`flex items-center justify-between p-4 rounded-lg border ${
-                    theme === 'dark' ? 'border-dark-300' : 'border-gray-200'
-                  }`}>
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 bg-brand-yellow/10 rounded-lg">
-                        <Users className="text-brand-yellow" size={20} />
-                      </div>
-                      <div>
-                        <p className={`font-medium ${
-                          theme === 'dark' ? 'text-white' : 'text-gray-900'
-                        }`}>Gaming Elite</p>
-                        <p className="text-sm text-gray-500">Miembro</p>
-                      </div>
-                    </div>
-                    <button className="text-brand-yellow hover:text-yellow-500">Ver equipo</button>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>  
+          </div>
         </div>
       </div>
 
@@ -331,6 +381,8 @@ export default function ProfilePage() {
         isOpen={isEditModalOpen}
         onClose={() => setIsEditModalOpen(false)}
         onSave={handleSaveProfile}
+        initialData={profileData}
+        communities={communities}
       />
     </MainLayout>
   );

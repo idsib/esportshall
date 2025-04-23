@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from 'next/image';
 import { Search, Sun, Moon, Menu } from 'lucide-react';
-import { useTheme } from '../../../context/theme-context';
+import { useTheme } from '../../../../context/theme-context';
 import { useRouter, usePathname } from 'next/navigation';
 
 export default function Header() {
@@ -18,9 +18,9 @@ export default function Header() {
   };
 
   const navItems = [
-    { name: 'Esports', path: '/main/news' },
+    { name: 'Esports', path: '/main/esports' },
     { name: 'Equipos', path: '/main/teams' },
-    { name: 'Comunidad', path: '/main/community' },
+    { name: 'Comunidad', path: '/main/communities' },
     { name: 'Contacto', path: '/main/contact' },
   ];
 

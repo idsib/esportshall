@@ -16,7 +16,7 @@ import {
 import Image from 'next/image';
 import { useState } from 'react';
 import { signOut, useSession } from 'next-auth/react';
-import { useTheme } from '../context/theme-context';
+import { useTheme } from '@/context/theme-context';
 
 const menuItems = [
     { icon: LayoutGrid, label: 'Parrilla', path: '/grid' },

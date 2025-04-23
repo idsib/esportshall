@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Sun, Moon, Menu, X } from "lucide-react";
 import { useState } from "react";
-import { useTheme } from "../../context/theme-context";
+import { useTheme } from "@/context/theme-context";
 
 export default function Nav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
