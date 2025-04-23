@@ -12,7 +12,7 @@ import { redirect } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 
 //-backend-//
-import { register } from '../neon/actions'
+import { register } from '../neon/actionsServer'
 //-backend-//
 
 export default function Register() {

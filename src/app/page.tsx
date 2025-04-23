@@ -92,7 +92,8 @@ export default function Home() {
                   >
                     Empezar Ahora
                   </Link>
-                  <button onClick={hashMD5('hola')}> pruebita</button>
+                  <button onClick={function cosa(){console.log( new Date(Date.now())
+)}}> pruebita</button>
                   <Link 
                     href="/about"
                     className="btn-secondary"
