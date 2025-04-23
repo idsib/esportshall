@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { useTheme } from '../../../../context/theme-context';
+import { useTheme } from '@/context/theme-context';
 import MainLayout from '../components/layout/mainLayout';
 import { Plus, Search, TrendingUp, Clock, Star, ArrowUp, ArrowDown, MessageCircle, Share2, Bookmark, Users } from 'lucide-react';
 import Link from 'next/link';
