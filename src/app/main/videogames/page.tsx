@@ -10,7 +10,7 @@ export const fetchVideogames = async () => {
         method: 'GET',
         headers: {
             accept: 'application/json',
-            authorization: 'Bearer 3eYgBOgZIU9N5Wfgi15H2ASzZ0aIGB_zpLHl3fKZgTgSC9zbVq4'
+            authorization: 'Bearer 3eYgBOgZIU9N5Wfgi15H2ASzZ0aIGB_zpLHl3fKZgTgSC9zbVq4' // Token de autorización de Pandascore
         }
     };
 
