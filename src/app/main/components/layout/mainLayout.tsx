@@ -3,7 +3,7 @@
 import Header from './header';
 import Sidebar from './sidebar';
 import Calendar from './calendar';
-import { useTheme } from '../../../context/theme-context';
+import { useTheme } from '@/context/theme-context';
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
   const { theme } = useTheme();

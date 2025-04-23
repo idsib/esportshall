@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
-import { Home, Gamepad2, Users, Bell, Settings, Mail, Newspaper, User } from 'lucide-react';
-import { useTheme } from '../../../../app/context/theme-context'
+import { Home, Gamepad2, Bell, Settings, Mail, Newspaper, User } from 'lucide-react';
+import { useTheme } from '@/context/theme-context';
 import { useRouter } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
 
@@ -43,9 +43,9 @@ export default function Sidebar() {
           <Home size={24} />
         </button>
         <button 
-          onClick={() => router.push('/main/discover')}
+          onClick={() => router.push('/main/games')}
           className={`p-2 rounded-lg transition-colors ${
-            pathname === '/main/discover' 
+            pathname === '/main/games' 
               ? 'text-brand-yellow' 
               : theme === 'dark'
                 ? 'text-neutral-400 hover:text-brand-yellow'
@@ -55,16 +55,16 @@ export default function Sidebar() {
           <Gamepad2 size={24} />
         </button>
         <button 
-          onClick={() => router.push('/main/social')}
+          onClick={() => router.push('/main/news')}
           className={`p-2 rounded-lg transition-colors ${
-            pathname === '/main/social' 
+            pathname === '/main/news' 
               ? 'text-brand-yellow' 
               : theme === 'dark'
                 ? 'text-neutral-400 hover:text-brand-yellow'
                 : 'text-gray-500 hover:text-brand-yellow'
           }`}
         >
-          <Users size={24} />
+          <Newspaper size={24} />
         </button>
         <button 
           onClick={() => router.push('/main/notifications')}

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { useTheme } from '../../../context/theme-context';
+import { useTheme } from '@/context/theme-context';
 
 export default function Calendar() {
   const [currentDate] = useState(new Date());

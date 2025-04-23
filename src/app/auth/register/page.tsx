@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Nav from "../../components/layout/nav"
 import { Footer } from "../../components/layout/footer"
-import { useTheme } from "../../context/theme-context"
+import { useTheme } from "../../../context/theme-context"
 import { useEffect, useState } from 'react'
 import { signIn, useSession } from "next-auth/react"
 import { redirect } from 'next/navigation'

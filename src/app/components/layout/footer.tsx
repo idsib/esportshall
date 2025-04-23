@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { useTheme } from "../../context/theme-context"
+import { useTheme } from "@/context/theme-context"
 
 export function Footer() {
   const { theme } = useTheme()
