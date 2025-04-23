@@ -48,11 +48,13 @@ const posts = [
   }
 ];
 
-interface CommunityPageProps {
-  communityId: string;
-}
+type Props = {
+  params: {
+    id: string;
+  };
+};
 
-export default function CommunityPage({ communityId }: CommunityPageProps) {
+export default function Page({ params }: Props) {
   const { theme } = useTheme();
   const [activeTab, setActiveTab] = useState('hot');
 
