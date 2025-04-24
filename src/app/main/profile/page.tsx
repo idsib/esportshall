@@ -76,7 +76,7 @@ export default function ProfilePage() {
     const date = new Date(timestamp);
     const now = new Date();
     const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
-    
+
     if (diffInSeconds < 60) return 'Ahora';
     if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)}m`;
     if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)}h`;
@@ -104,9 +104,8 @@ export default function ProfilePage() {
 
             {/* Profile Photo */}
             <div className="absolute top-20 sm:top-24 left-4 sm:left-8">
-              <div className={`w-24 h-24 sm:w-32 sm:h-32 rounded-full ring-4 ${
-                theme === 'dark' ? 'ring-[#1c1c1c] bg-[#1c1c1c]' : 'ring-white bg-white'
-              } overflow-hidden`}>
+              <div className={`w-24 h-24 sm:w-32 sm:h-32 rounded-full ring-4 ${theme === 'dark' ? 'ring-[#1c1c1c] bg-[#1c1c1c]' : 'ring-white bg-white'
+                } overflow-hidden`}>
                 <Image
                   src={session?.user?.image || '/images/esportshall.png'}
                   alt="Profile"
@@ -122,9 +121,8 @@ export default function ProfilePage() {
             <div className="pt-14 sm:pt-16 px-4 sm:px-8">
               <div className="flex flex-col gap-1">
                 <div className="flex items-center gap-2">
-                  <h2 className={`text-xl sm:text-2xl font-bold ${
-                    theme === 'dark' ? 'text-white' : 'text-gray-900'
-                  }`}>{profileData.name}</h2>
+                  <h2 className={`text-xl sm:text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                    }`}>{profileData.name}</h2>
                   {profileData.favoriteCommunity && (
                     <div className="flex items-center gap-1 px-2 py-1 rounded-full bg-brand-yellow/10">
                       <div className="w-4 h-4 relative">
@@ -151,9 +149,8 @@ export default function ProfilePage() {
                   )}
                 </div>
                 <p className="text-gray-500">@{profileData.username}</p>
-                <p className={`mt-2 text-sm sm:text-base ${
-                  theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                }`}>{profileData.bio}</p>
+                <p className={`mt-2 text-sm sm:text-base ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                  }`}>{profileData.bio}</p>
                 <div className="flex flex-wrap items-center gap-4 mt-2 text-gray-500">
                   <div className="flex items-center gap-1">
                     <MapPin size={16} />
@@ -188,49 +185,42 @@ export default function ProfilePage() {
           </div>
 
           {/* Tabs */}
-          <div className={`border-b ${
-            theme === 'dark' ? 'border-dark-300' : 'border-gray-200'
-          } mb-6`}>
+          <div className={`border-b ${theme === 'dark' ? 'border-dark-300' : 'border-gray-200'
+            } mb-6`}>
             <nav className="flex space-x-8 overflow-x-auto">
               <button
                 onClick={() => setActiveTab('overview')}
-                className={`py-4 px-1 border-b-2 font-medium text-sm whitespace-nowrap ${
-                  activeTab === 'overview'
+                className={`py-4 px-1 border-b-2 font-medium text-sm whitespace-nowrap ${activeTab === 'overview'
                     ? 'border-brand-yellow text-brand-yellow'
-                    : `border-transparent ${
-                        theme === 'dark' 
-                          ? 'text-gray-400 hover:text-gray-300' 
-                          : 'text-gray-500 hover:text-gray-700'
-                      } hover:border-gray-300`
-                }`}
+                    : `border-transparent ${theme === 'dark'
+                      ? 'text-gray-400 hover:text-gray-300'
+                      : 'text-gray-500 hover:text-gray-700'
+                    } hover:border-gray-300`
+                  }`}
               >
                 Resumen
               </button>
               <button
                 onClick={() => setActiveTab('posts')}
-                className={`py-4 px-1 border-b-2 font-medium text-sm whitespace-nowrap ${
-                  activeTab === 'posts'
+                className={`py-4 px-1 border-b-2 font-medium text-sm whitespace-nowrap ${activeTab === 'posts'
                     ? 'border-brand-yellow text-brand-yellow'
-                    : `border-transparent ${
-                        theme === 'dark' 
-                          ? 'text-gray-400 hover:text-gray-300' 
-                          : 'text-gray-500 hover:text-gray-700'
-                      } hover:border-gray-300`
-                }`}
+                    : `border-transparent ${theme === 'dark'
+                      ? 'text-gray-400 hover:text-gray-300'
+                      : 'text-gray-500 hover:text-gray-700'
+                    } hover:border-gray-300`
+                  }`}
               >
                 Publicaciones
               </button>
               <button
                 onClick={() => setActiveTab('tournaments')}
-                className={`py-4 px-1 border-b-2 font-medium text-sm whitespace-nowrap ${
-                  activeTab === 'tournaments'
+                className={`py-4 px-1 border-b-2 font-medium text-sm whitespace-nowrap ${activeTab === 'tournaments'
                     ? 'border-brand-yellow text-brand-yellow'
-                    : `border-transparent ${
-                        theme === 'dark' 
-                          ? 'text-gray-400 hover:text-gray-300' 
-                          : 'text-gray-500 hover:text-gray-700'
-                      } hover:border-gray-300`
-                }`}
+                    : `border-transparent ${theme === 'dark'
+                      ? 'text-gray-400 hover:text-gray-300'
+                      : 'text-gray-500 hover:text-gray-700'
+                    } hover:border-gray-300`
+                  }`}
               >
                 Torneos
               </button>
@@ -242,9 +232,8 @@ export default function ProfilePage() {
             {activeTab === 'posts' && (
               <div className="space-y-4">
                 {posts.map(post => (
-                  <div key={post.id} className={`p-4 rounded-xl ${
-                    theme === 'dark' ? 'bg-dark-200' : 'bg-white shadow-sm'
-                  }`}>
+                  <div key={post.id} className={`p-4 rounded-xl ${theme === 'dark' ? 'bg-dark-200' : 'bg-white shadow-sm'
+                    }`}>
                     <div className="flex items-start gap-3">
                       <div className="w-10 h-10 rounded-full overflow-hidden">
                         <Image
@@ -257,9 +246,8 @@ export default function ProfilePage() {
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center gap-2">
-                          <span className={`font-semibold ${
-                            theme === 'dark' ? 'text-white' : 'text-gray-900'
-                          }`}>{profileData.name}</span>
+                          <span className={`font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                            }`}>{profileData.name}</span>
                           <span className="text-gray-500">@{profileData.username}</span>
                           <span className="text-gray-500">·</span>
                           <span className="text-gray-500">{formatTimeAgo(post.timestamp)}</span>
@@ -288,9 +276,8 @@ export default function ProfilePage() {
                             </div>
                           )}
                         </div>
-                        <p className={`mt-2 ${
-                          theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                        }`}>{post.content}</p>
+                        <p className={`mt-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                          }`}>{post.content}</p>
                         <div className="flex items-center gap-6 mt-4 text-gray-500">
                           <button className="flex items-center gap-1 hover:text-brand-yellow">
                             <MessageCircle size={18} />
@@ -313,21 +300,18 @@ export default function ProfilePage() {
             )}
             {activeTab === 'overview' && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className={`p-6 rounded-xl ${
-                  theme === 'dark' ? 'bg-dark-200' : 'bg-white shadow-sm'
-                }`}>
-                  <h3 className={`text-lg font-semibold mb-4 ${
-                    theme === 'dark' ? 'text-white' : 'text-gray-900'
-                  }`}>Próximos torneos</h3>
+                <div className={`p-6 rounded-xl ${theme === 'dark' ? 'bg-dark-200' : 'bg-white shadow-sm'
+                  }`}>
+                  <h3 className={`text-lg font-semibold mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                    }`}>Próximos torneos</h3>
                   <div className="space-y-4">
                     <div className="flex items-center gap-3">
                       <div className="p-2 bg-brand-yellow/10 rounded-lg">
                         <Calendar className="text-brand-yellow" size={20} />
                       </div>
                       <div>
-                        <p className={`font-medium ${
-                          theme === 'dark' ? 'text-white' : 'text-gray-900'
-                        }`}>Torneo Nacional de League of Legends</p>
+                        <p className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                          }`}>Torneo Nacional de League of Legends</p>
                         <p className="text-sm text-gray-500">15 de Abril, 2024</p>
                       </div>
                     </div>
@@ -336,21 +320,18 @@ export default function ProfilePage() {
                         <Calendar className="text-brand-yellow" size={20} />
                       </div>
                       <div>
-                        <p className={`font-medium ${
-                          theme === 'dark' ? 'text-white' : 'text-gray-900'
-                        }`}>Campeonato Regional de Valorant</p>
+                        <p className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                          }`}>Campeonato Regional de Valorant</p>
                         <p className="text-sm text-gray-500">22 de Abril, 2024</p>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div className={`p-6 rounded-xl ${
-                  theme === 'dark' ? 'bg-dark-200' : 'bg-white shadow-sm'
-                }`}>
-                  <h3 className={`text-lg font-semibold mb-4 ${
-                    theme === 'dark' ? 'text-white' : 'text-gray-900'
-                  }`}>Estadísticas</h3>
+                <div className={`p-6 rounded-xl ${theme === 'dark' ? 'bg-dark-200' : 'bg-white shadow-sm'
+                  }`}>
+                  <h3 className={`text-lg font-semibold mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                    }`}>Estadísticas</h3>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="text-center">
                       <div className="text-2xl font-bold text-brand-yellow">12</div>
