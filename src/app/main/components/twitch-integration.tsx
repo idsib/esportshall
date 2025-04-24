@@ -12,6 +12,7 @@ const TwitchIntegration: React.FC = () => {
         { name: 'Esportmaniacos', url: 'https://www.twitch.tv/esportmaniacos', isLive: false },
         { name: 'Caedrel', url: 'https://www.twitch.tv/caedrel', isLive: false },
         { name: 'LVPES', url: 'https://www.twitch.tv/lvpes', isLive: false },
+        { name: 'Galandarx', url: 'https://www.twitch.tv/galandarx', isLive: false },
     ];
 
     const [channelStatuses, setChannelStatuses] = useState<Channel[]>(channels);
@@ -68,7 +69,7 @@ const TwitchIntegration: React.FC = () => {
 
     return (
         <div>
-            <h1>¡Canales en directo!</h1>
+            <h1>Canales en directo</h1>
             <ul>
                 {channelStatuses.map((channel) => (
                     <li key={channel.name}>
