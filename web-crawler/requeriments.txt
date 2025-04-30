@@ -1,0 +1,5 @@
+pip install feedparser
+
+pip install newspaper3k   
+
+pip install lxml-html-clean
