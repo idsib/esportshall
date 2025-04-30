@@ -34,21 +34,6 @@ export default function Register() {
         }
     }, [session])
 
-    //-backend-//
-    //-backend-//
-
-    const handleGoogleRegister = async () => {
-        try {
-            await signIn('google', {
-                callbackUrl: '/main',
-                popup: true,
-                redirect: false
-            })
-        } catch (error) {
-            console.error('Error al registrarse con Google:', error)
-        }
-    }
-
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value, type, checked } = e.target
         setFormData(prev => ({
@@ -96,29 +81,9 @@ export default function Register() {
                                 Únete a la comunidad de EsportsHall
                             </p>
                         </div>
-
-                        <div className="space-y-6">
-                            <button
-                                onClick={handleGoogleRegister}
-                                className="w-full flex items-center justify-center space-x-2 px-4 py-2 border border-gray-300 dark:border-dark-300 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-dark-300 transition-colors"
-                            >
-                                <Image
-                                    src={theme === 'dark' ? '/images/google-dark.svg' : '/images/google-light.svg'}
-                                    alt="Google"
-                                    width={20}
-                                    height={20}
-                                />
-                                <span>Registrarse con Google</span>
-                            </button>
-
                             <div className="relative">
                                 <div className="absolute inset-0 flex items-center">
                                     <div className="w-full border-t border-gray-300 dark:border-dark-300"></div>
-                                </div>
-                                <div className="relative flex justify-center text-sm">
-                                    <span className="px-2 bg-white dark:bg-dark-200 text-gray-500 dark:text-gray-400">
-                                        O regístrate con email
-                                    </span>
                                 </div>
                             </div>
 
@@ -228,7 +193,6 @@ export default function Register() {
                         </div>
                     </div>
                 </div>
-            </div>
             <Footer />
         </>
     )
