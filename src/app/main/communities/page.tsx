@@ -33,8 +33,6 @@ const games = [
   { id: 'lol', name: 'League of Legends', icon: '⚔️' },
   { id: 'valorant', name: 'Valorant', icon: '🔫' },
   { id: 'csgo', name: 'CS:GO', icon: '🎯' },
-  { id: 'dota2', name: 'Dota 2', icon: '🏰' },
-  { id: 'fortnite', name: 'Fortnite', icon: '🏗️' },
 ];
 
 const communities: Community[] = [
@@ -107,46 +105,6 @@ const communities: Community[] = [
     ],
     description: 'La comunidad definitiva de CS:GO. Desde estrategias hasta skins, todo lo que necesitas saber sobre el juego.',
     trending: false
-  },
-  {
-    id: 'dota2',
-    name: 'Dota 2',
-    icon: 'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/abaddon.png',
-    members: 750000,
-    posts: [
-      {
-        id: 5,
-        title: 'El International 2024: Fechas y ubicación confirmadas',
-        content: 'Valve ha anunciado las fechas y la ubicación del próximo The International...',
-        author: 'DotaPro',
-        upvotes: 1200,
-        comments: 320,
-        timestamp: '1d',
-        game: 'dota2'
-      }
-    ],
-    description: 'Comunidad de Dota 2 en español. Aprende, comparte y mejora junto a otros jugadores.',
-    trending: false
-  },
-  {
-    id: 'fortnite',
-    name: 'Fortnite',
-    icon: 'https://cdn2.unrealengine.com/fortnite-character-1-1920x1080-1920x1080-0c0c3d7d9c3.jpg',
-    members: 1100000,
-    posts: [
-      {
-        id: 6,
-        title: 'Nueva temporada de Fortnite: ¡Todo lo que necesitas saber!',
-        content: 'Epic Games ha revelado los detalles de la próxima temporada de Fortnite...',
-        author: 'FortniteBuilder',
-        upvotes: 1500,
-        comments: 420,
-        timestamp: '4h',
-        game: 'fortnite'
-      }
-    ],
-    description: 'La comunidad más activa de Fortnite. Comparte tus construcciones, estrategias y momentos épicos.',
-    trending: true
   }
 ];
 
