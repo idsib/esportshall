@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import { es } from 'date-fns/locale';
 import MainLayout from '../components/layout/mainLayout';
@@ -8,55 +8,91 @@ import { useTheme } from '@/context/theme-context';
 import { Loader2, Search } from 'lucide-react';
 import { games } from '@/utils/newsSources';
 
-// Datos de ejemplo para las noticias
-const mockNews = [
-  {
-    title: "League of Legends: Nuevo campeón anunciado",
-    description: "Riot Games ha revelado el nuevo campeón que llegará próximamente al juego.",
-    url: "#",
-    urlToImage: "/images/news-featured.jpg",
-    publishedAt: new Date().toISOString(),
-    source: { name: "Riot Games" },
-    game: "lol"
-  },
-  {
-    title: "Valorant: Nuevo mapa en desarrollo",
-    description: "El equipo de desarrollo de Valorant está trabajando en un nuevo mapa que promete revolucionar el juego.",
-    url: "#",
-    urlToImage: "/images/news-1.jpg",
-    publishedAt: new Date(Date.now() - 3600000).toISOString(),
-    source: { name: "Valorant News" },
-    game: "valorant"
-  },
-  {
-    title: "CS2: Actualización de balance",
-    description: "Valve ha lanzado una nueva actualización de balance para CS2 con importantes cambios en las armas.",
-    url: "#",
-    urlToImage: "/images/news-2.jpg",
-    publishedAt: new Date(Date.now() - 7200000).toISOString(),
-    source: { name: "CS2 Updates" },
-    game: "cs2"
-  }
-];
+// Tipos para las noticias
+type Noticia = {
+  titulo: string;
+  texto: string;
+  link: string;
+};
+
+type FuenteNoticias = {
+  pagina: string;
+  link: string;
+  articulos: Noticia[];
+};
+
+type NoticiasData = {
+  Noticias: {
+    [key: string]: FuenteNoticias;
+  };
+};
 
 export default function NewsPage() {
   const { theme } = useTheme();
   const [selectedGame, setSelectedGame] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [noticias, setNoticias] = useState<Noticia[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const filteredNews = mockNews.filter(article => {
-    const matchesSearch = article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         article.description.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesGame = selectedGame === 'all' || article.game === selectedGame;
-    return matchesSearch && matchesGame;
+  useEffect(() => {
+    const cargarNoticias = async () => {
+      try {
+        const response = await fetch('/api/noticias');
+        if (!response.ok) {
+          throw new Error('Error al cargar las noticias');
+        }
+        const data: NoticiasData = await response.json();
+        
+        // Aplanar todas las noticias en un solo array
+        const todasNoticias: Noticia[] = [];
+        Object.values(data.Noticias).forEach(fuente => {
+          todasNoticias.push(...fuente.articulos);
+        });
+        
+        setNoticias(todasNoticias);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Error desconocido');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    cargarNoticias();
+  }, []);
+
+  const filteredNews = noticias.filter(article => {
+    const matchesSearch = article.titulo.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         article.texto.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesSearch;
   });
+
+  if (loading) {
+    return (
+      <MainLayout>
+        <div className="flex items-center justify-center min-h-screen">
+          <Loader2 className="w-8 h-8 animate-spin text-brand-yellow" />
+        </div>
+      </MainLayout>
+    );
+  }
+
+  if (error) {
+    return (
+      <MainLayout>
+        <div className="text-center py-8 text-red-500">
+          Error: {error}
+        </div>
+      </MainLayout>
+    );
+  }
 
   return (
     <MainLayout>
       <div className="max-w-4xl mx-auto p-6">
         <h1 className={`text-3xl font-bold mb-8 ${
           theme === 'dark' ? 'text-white' : 'text-gray-900'
-        }`}>Noticias de Esports</h1>
+        }`}>Noticias</h1>
 
         {/* Filtros */}
         <div className="mb-8">
@@ -76,25 +112,6 @@ export default function NewsPage() {
               />
             </div>
           </div>
-          
-          <div className="flex gap-2 overflow-x-auto pb-2">
-            {games.map(game => (
-              <button
-                key={game.id}
-                onClick={() => setSelectedGame(game.id)}
-                className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap ${
-                  selectedGame === game.id
-                    ? 'bg-brand-yellow text-black'
-                    : theme === 'dark'
-                      ? 'bg-dark-300 text-gray-400 hover:text-gray-300'
-                      : 'bg-gray-100 text-gray-600 hover:text-gray-900'
-                }`}
-              >
-                <span className="mr-2">{game.icon}</span>
-                {game.name}
-              </button>
-            ))}
-          </div>
         </div>
 
         {filteredNews.length === 0 ? (
@@ -110,36 +127,20 @@ export default function NewsPage() {
               <div className={`md:col-span-2 rounded-lg overflow-hidden ${
                 theme === 'dark' ? 'bg-dark-200' : 'bg-white shadow-sm'
               }`}>
-                <img
-                  src={filteredNews[0].urlToImage}
-                  alt={filteredNews[0].title}
-                  className="w-full h-64 object-cover"
-                />
                 <div className="p-6">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-yellow-400 text-sm font-semibold">Destacado</span>
-                    <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-brand-yellow/10">
-                      <span className="text-xs font-medium text-brand-yellow">
-                        {games.find(g => g.id === filteredNews[0].game)?.name}
-                      </span>
-                    </div>
-                  </div>
                   <h2 className={`text-2xl font-bold mt-2 mb-4 ${
                     theme === 'dark' ? 'text-white' : 'text-gray-900'
                   }`}>
-                    {filteredNews[0].title}
+                    {filteredNews[0].titulo}
                   </h2>
                   <p className={`mb-4 ${
                     theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
                   }`}>
-                    {filteredNews[0].description}
+                    {filteredNews[0].texto.substring(0, 200)}...
                   </p>
                   <div className="flex items-center justify-between">
-                    <span className={theme === 'dark' ? 'text-gray-500' : 'text-gray-500'}>
-                      {formatDistanceToNow(new Date(filteredNews[0].publishedAt), { addSuffix: true, locale: es })}
-                    </span>
                     <a 
-                      href={filteredNews[0].url} 
+                      href={filteredNews[0].link} 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="text-yellow-400 hover:text-yellow-500"
@@ -156,36 +157,20 @@ export default function NewsPage() {
               <div key={index} className={`rounded-lg overflow-hidden ${
                 theme === 'dark' ? 'bg-dark-200' : 'bg-white shadow-sm'
               }`}>
-                <img
-                  src={article.urlToImage}
-                  alt={article.title}
-                  className="w-full h-48 object-cover"
-                />
                 <div className="p-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-yellow-400 text-sm font-semibold">{article.source.name}</span>
-                    <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-brand-yellow/10">
-                      <span className="text-xs font-medium text-brand-yellow">
-                        {games.find(g => g.id === article.game)?.name}
-                      </span>
-                    </div>
-                  </div>
                   <h3 className={`text-xl font-bold mt-2 mb-2 ${
                     theme === 'dark' ? 'text-white' : 'text-gray-900'
                   }`}>
-                    {article.title}
+                    {article.titulo}
                   </h3>
                   <p className={`text-sm mb-4 ${
                     theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
                   }`}>
-                    {article.description}
+                    {article.texto.substring(0, 150)}...
                   </p>
                   <div className="flex items-center justify-between">
-                    <span className={theme === 'dark' ? 'text-gray-500' : 'text-gray-500'}>
-                      {formatDistanceToNow(new Date(article.publishedAt), { addSuffix: true, locale: es })}
-                    </span>
                     <a 
-                      href={article.url} 
+                      href={article.link} 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="text-yellow-400 hover:text-yellow-500 text-sm"
