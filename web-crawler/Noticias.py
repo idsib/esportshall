@@ -8,7 +8,7 @@ import os
 # limite = 50 / comentado de momento
 
 # Archivo donde se guardarán las noticias
-JSON_FILE = "noticias.json"
+JSON_FILE = "web-crawler/noticias.json"
 
 # Intentar cargar noticias previas para evitar duplicados
 if os.path.exists(JSON_FILE):
@@ -18,7 +18,7 @@ else:
     datos = {"Noticias": {}}
 
 # Cargar las páginas desde el JSON
-with open("paginas.json") as archivos_datos:
+with open("web-crawler/paginas.json") as archivos_datos:
     paginas = json.load(archivos_datos)
 
 # Función para obtener artículos sin duplicados
@@ -78,3 +78,12 @@ with open(JSON_FILE, "w", encoding="utf-8") as outfile:
     json.dump(datos, outfile, ensure_ascii=False, indent=4)
 
 print("Noticias actualizadas y guardadas sin duplicados.")
+
+if __name__ == "__main__":
+    import sys
+    args = sys.argv[1:]
+    if len(args) > 0 :
+        limite = args[0]
+    else:
+        limite = 50
+    start_crawler(limite)
