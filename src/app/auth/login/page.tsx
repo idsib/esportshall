@@ -43,10 +43,19 @@ export default function Login() {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
-            const token : any = await login(formData.email, formData.password)
-            await localStorage.setItem('token', token)
-            console.log(token);
-            router.push('/main')      
+            const result = await signIn('credentials', {
+                email: formData.email,
+                password: formData.password,
+                redirect: false,
+            })
+
+            if (result?.error) {
+                console.error('Error al iniciar sesión:', result.error)
+                alert('Error al iniciar sesión: ' + result.error)
+                return
+            }
+
+            router.push('/main')
         } catch (error) {
             console.error('Error al iniciar sesión:', error)
             alert('Error al iniciar sesión')

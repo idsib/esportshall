@@ -5,10 +5,12 @@ import Link from "next/link";
 import { Sun, Moon, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { useTheme } from "@/context/theme-context";
+import { useSession } from "next-auth/react";
 
 export default function Nav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
+  const { data: session } = useSession();
 
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
@@ -42,9 +44,11 @@ export default function Nav() {
                 <Moon className="w-5 h-5 text-gray-600" />
               )}
             </button>
-            <Link href="/auth/login" className="btn-primary">
-              Empezar Ahora
-            </Link>
+            {!session && (
+              <Link href="/auth/login" className="btn-primary">
+                Empezar Ahora
+              </Link>
+            )}
           </div>
         </div>
       </div>

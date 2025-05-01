@@ -1,71 +1,110 @@
+# EsportsHall
+
 <div align="center">
-  <img src="/public/images/esportshall-text.png" alt="EsportsHall Logo" width="400"/>
+  <img src="/public/images/esportshall.png" alt="EsportsHall Logo" width="200"/>
 
   [![Next.js](https://img.shields.io/badge/Next.js-14.1.3-black?style=flat-square&logo=next.js)](https://nextjs.org/)
   [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17.0-blue?style=flat-square&logo=postgresql)](https://neon.tech)
   [![Tailwind](https://img.shields.io/badge/Tailwind-3.4.1-38bdf8?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
-  [![Bun](https://img.shields.io/badge/Bun-1.0.26-f9f1e1?style=flat-square&logo=bun)](https://bun.sh/)
-  [![TypeScript](https://img.shields.io/badge/TypeScript-5.3.3-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
 
-  **La plataforma definitiva para la comunidad española de esports**
-
-  [Demo](https://esportshall.vercel.app) · [Reportar Bug](https://github.com/tu-usuario/esportshall/issues) · [Solicitar Feature](https://github.com/tu-usuario/esportshall/issues)
-
+  La plataforma definitiva para la comunidad española de esports
 </div>
-
----
 
 ## 🚀 Inicio Rápido
 
-### Prerrequisitos
+### 1. Instalar Bun
 
-- [Bun](https://bun.sh/) >= 1.0.26
-- [PostgreSQL](https://neon.tech) (cuenta en Neon.tech)
+**macOS**
+```bash
+# Usando curl
+curl -fsSL https://bun.sh/install | bash
 
-### Instalación en 3 Pasos
+# O usando Homebrew
+brew tap oven-sh/bun
+brew install bun
+```
 
-1. **Instalar Bun (macOS, Linux, o WSL)**
-   ```bash
-   curl -fsSL https://bun.sh/install | bash
-   # O usando Homebrew en macOS
-   brew tap oven-sh/bun
-   brew install bun
-   ```
+**Linux**
+```bash
+curl -fsSL https://bun.sh/install | bash
+```
 
-2. **Clonar e instalar dependencias**
-   ```bash
-   bun create esportshall
-   cd esportshall
-   bun install
-   ```
+**Windows**
+```bash
+# 1. Instalar WSL (Windows Subsystem for Linux)
+wsl --install
 
-3. **Iniciar el servidor de desarrollo**
-   ```bash
-   bun run dev
-   ```
+# 2. Reiniciar el sistema
 
-Visita `http://localhost:3000` 🎮
+# 3. En WSL, ejecutar:
+curl -fsSL https://bun.sh/install | bash
+```
 
-## 🛠️ Stack Tecnológico
+### 2. Configurar el Proyecto
+```bash
+# Clonar e instalar
+bun create esportshall
+cd esportshall
+bun install
 
-### Frontend
-- **Runtime & Package Manager**: Bun 1.0.26
-- **Framework**: Next.js 14
-- **Styling**: Tailwind CSS 3.4
-- **Animations**: Framer Motion
+# Configurar variables de entorno
+cp .env.example .env
+# Editar .env con tus credenciales
 
-### Backend
-- **Database**: PostgreSQL 17 (Neon.tech)
-- **Deployment**: Vercel Edge Runtime
+# Iniciar desarrollo
+bun run dev
+```
 
-## 🔑 Variables de Entorno
+## 📝 Variables de Entorno
 
 ```bash
-# .env
 DATABASE_URL="postgresql://user:pass@db.neon.tech/dbname"
 AUTH_SECRET="tu-secreto"
 VERCEL_URL="http://localhost:3000"
 ```
+
+## 🛠️ Stack Principal
+
+- **Frontend**: Next.js 14, Tailwind CSS, TypeScript
+- **Backend**: PostgreSQL (Neon.tech), Edge Runtime
+- **Desarrollo**: Bun Runtime & Package Manager
+
+## 📦 Estructura del Proyecto
+
+```
+esportshall/
+├── src/
+│   ├── app/
+│   │   ├── api/           # API endpoints
+│   │   ├── auth/          # Autenticación
+│   │   └── main/          # Funcionalidades principales
+│   │       ├── communities/   # Gestión de comunidades
+│   │       ├── news/         # Noticias y actualizaciones
+│   │       ├── players/      # Perfiles de jugadores
+│   │       ├── profile/      # Gestión de perfil
+│   │       ├── teams/        # Gestión de equipos
+│   │       └── tournaments/  # Sistema de torneos
+│   ├── components/        # Componentes compartidos
+│   ├── hooks/            # Custom hooks
+│   ├── lib/              # Utilidades y configuraciones
+│   └── providers/        # Providers globales
+├── public/
+│   └── images/          # Imágenes y assets
+└── tests/               # Tests
+```
+
+## 📄 Licencia
+
+MIT License - ver [LICENSE](LICENSE) para más detalles.
+
+---
+
+<div align="center">
+  
+[![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=flat-square&logo=vercel)](https://vercel.com)
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](https://choosealicense.com/licenses/mit/)
+
+</div>
 
 ## 🎯 Características Principales
 
@@ -83,61 +122,3 @@ VERCEL_URL="http://localhost:3000"
   - Auth.js
   - Rate Limiting
   - Protección CSRF
-
-## 📝 Licencia
-
-Distribuido bajo la Licencia MIT. Ver `LICENSE` para más información.
-
----
-
-<div align="center">
-  
-  **[⬆ Volver arriba](#esportshall)**
-  
-  [![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=flat-square&logo=vercel)](https://vercel.com)
-  [![MIT License](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](https://choosealicense.com/licenses/mit/)
-
-</div>
-
-## 📦 Estructura del Proyecto
-
-```
-esportshall/
-├── public/                # Archivos estáticos e imágenes
-├── src/
-│   ├── app/              # App router y páginas
-│   │   ├── components/   # Componentes de la aplicación
-│   │   ├── context/     # Contextos de React (tema, auth)
-│   │   └── styles/      # Estilos y configuración CSS
-│   ├── server/          # Lógica del servidor
-│   │   ├── db/         # Configuración de PostgreSQL
-│   │   │   ├── migrations/  # Migraciones de la base de datos
-│   │   │   └── schema/     # Esquemas y modelos
-│   │   ├── api/        # Endpoints de la API
-│   │   │   ├── auth/      # Autenticación y autorización
-│   │   │   ├── teams/     # Endpoints de equipos
-│   │   │   └── tournaments/ # Endpoints de torneos
-│   │   └── utils/      # Utilidades del servidor
-│   ├── lib/            # Utilidades compartidas
-│   │   ├── types/     # Tipos TypeScript
-│   │   └── config/    # Configuraciones globales
-│   └── hooks/         # Custom hooks de React
-└── tests/             # Tests unitarios y de integración
-    ├── api/          # Tests de API
-    └── components/   # Tests de componentes
-```
-
-### 🔧 Frameworks y Herramientas
-
-```
-Backend:
-├── Database
-│   ├── PostgreSQL 17    # Base de datos principal
-│   └── Neon.tech       # Hosting de PostgreSQL
-├── API
-│   ├── Next.js API     # API Routes
-│   └── Edge Runtime    # Funciones Edge
-└── Testing
-    ├── Bun Test       # Testing nativo de Bun
-    └── Playwright     # Testing E2E
-```

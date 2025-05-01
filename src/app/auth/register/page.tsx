@@ -8,8 +8,7 @@ import { Footer } from "../../components/layout/footer"
 import { useTheme } from "../../../context/theme-context"
 import { useEffect, useState } from 'react'
 import { signIn, useSession } from "next-auth/react"
-import { redirect } from 'next/navigation'
-import { useRouter } from 'next/navigation'
+import { redirect, useRouter } from 'next/navigation'
 
 //-backend-//
 import { register } from '../neon/actionsServer'
@@ -19,6 +18,7 @@ export default function Register() {
     const { data: session } = useSession()
     const { theme } = useTheme()
     const router = useRouter()
+    const [isSuccess, setIsSuccess] = useState(false)
 
     const [formData, setFormData] = useState({
         firstName: '',
@@ -50,10 +50,14 @@ export default function Register() {
         }
         try {
             await register(new FormData(e.currentTarget))
-            // Después de un registro exitoso, redirigir al login
-            router.push('/auth/login')
+            setIsSuccess(true)
+            // Esperar 2 segundos antes de redirigir
+            setTimeout(() => {
+                router.push('/auth/login')
+            }, 2000)
         } catch (error) {
             console.error('Error al registrar:', error)
+            alert('Error al registrar: ' + error)
         }
     }
 
@@ -73,126 +77,125 @@ export default function Register() {
                     </div>
 
                     <div className="bg-white dark:bg-dark-200 rounded-xl shadow-lg p-8">
-                        <div className="text-center mb-8">
-                            <h1 className="text-3xl font-bold text-brand-yellow mb-2">
-                                Crear Cuenta
-                            </h1>
-                            <p className="text-gray-600 dark:text-gray-300">
-                                Únete a la comunidad de EsportsHall
-                            </p>
-                        </div>
-                            <div className="relative">
-                                <div className="absolute inset-0 flex items-center">
-                                    <div className="w-full border-t border-gray-300 dark:border-dark-300"></div>
-                                </div>
+                        {isSuccess ? (
+                            <div className="text-center">
+                                <h1 className="text-3xl font-bold text-brand-yellow mb-4">
+                                    ¡Registro Exitoso!
+                                </h1>
+                                <p className="text-gray-600 dark:text-gray-300 mb-6">
+                                    Te has registrado correctamente. Serás redirigido a la página de inicio de sesión en unos segundos...
+                                </p>
+                                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-yellow mx-auto"></div>
                             </div>
+                        ) : (
+                            <>
+                                <div className="text-center mb-8">
+                                    <h1 className="text-3xl font-bold text-brand-yellow mb-2">
+                                        Crear Cuenta
+                                    </h1>
+                                    <p className="text-gray-600 dark:text-gray-300">
+                                        Únete a la comunidad de EsportsHall
+                                    </p>
+                                </div>
 
-                            <form action={register} className="space-y-6">
-                                <div className="grid grid-cols-2 gap-4">
+                                <form onSubmit={handleSubmit} className="space-y-6">
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                                Nombre
+                                            </label>
+                                            <input
+                                                type="text"
+                                                name="firstName"
+                                                id="firstName"
+                                                value={formData.firstName}
+                                                onChange={handleInputChange}
+                                                className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-dark-300 rounded-md shadow-sm focus:outline-none focus:ring-brand-yellow focus:border-brand-yellow dark:bg-dark-300 dark:text-white"
+                                                required
+                                            />
+                                        </div>
+                                        <div>
+                                            <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                                Apellido
+                                            </label>
+                                            <input
+                                                type="text"
+                                                name="lastName"
+                                                id="lastName"
+                                                value={formData.lastName}
+                                                onChange={handleInputChange}
+                                                className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-dark-300 rounded-md shadow-sm focus:outline-none focus:ring-brand-yellow focus:border-brand-yellow dark:bg-dark-300 dark:text-white"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+
                                     <div>
-                                        <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                            Nombre
+                                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                            Email
                                         </label>
                                         <input
-                                            type="text"
-                                            id="firstName"
-                                            name="firstName"
-                                            value={formData.firstName}
+                                            type="email"
+                                            name="email"
+                                            id="email"
+                                            value={formData.email}
                                             onChange={handleInputChange}
-                                            className="w-full px-4 py-2 rounded-lg border dark:border-dark-300 bg-white dark:bg-dark-300 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-colors"
-                                            placeholder="Pablo"
+                                            className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-dark-300 rounded-md shadow-sm focus:outline-none focus:ring-brand-yellow focus:border-brand-yellow dark:bg-dark-300 dark:text-white"
                                             required
                                         />
                                     </div>
+
                                     <div>
-                                        <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                            Apellidos
+                                        <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                            Contraseña
                                         </label>
                                         <input
-                                            type="text"
-                                            id="lastName"
-                                            name="lastName"
-                                            value={formData.lastName}
+                                            type="password"
+                                            name="password"
+                                            id="password"
+                                            value={formData.password}
                                             onChange={handleInputChange}
-                                            className="w-full px-4 py-2 rounded-lg border dark:border-dark-300 bg-white dark:bg-dark-300 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-colors"
-                                            placeholder="Torres"
+                                            className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-dark-300 rounded-md shadow-sm focus:outline-none focus:ring-brand-yellow focus:border-brand-yellow dark:bg-dark-300 dark:text-white"
                                             required
                                         />
                                     </div>
-                                </div>
 
-                                <div>
-                                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                        Email
-                                    </label>
-                                    <input
-                                        type="email"
-                                        id="email"
-                                        name="email"
-                                        value={formData.email}
-                                        onChange={handleInputChange}
-                                        className="w-full px-4 py-2 rounded-lg border dark:border-dark-300 bg-white dark:bg-dark-300 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-colors"
-                                        placeholder="tu@email.com"
-                                        required
-                                    />
-                                </div>
+                                    <div className="flex items-center">
+                                        <input
+                                            type="checkbox"
+                                            name="terms"
+                                            id="terms"
+                                            checked={formData.terms}
+                                            onChange={handleInputChange}
+                                            className="h-4 w-4 text-brand-yellow focus:ring-brand-yellow border-gray-300 rounded"
+                                        />
+                                        <label htmlFor="terms" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
+                                            Acepto los{' '}
+                                            <Link href="/terms" className="text-brand-yellow hover:text-brand-yellow-dark">
+                                                términos y condiciones
+                                            </Link>
+                                        </label>
+                                    </div>
 
-                                <div>
-                                    <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                        Contraseña
-                                    </label>
-                                    <input
-                                        type="password"
-                                        id="password"
-                                        name="password"
-                                        value={formData.password}
-                                        onChange={handleInputChange}
-                                        className="w-full px-4 py-2 rounded-lg border dark:border-dark-300 bg-white dark:bg-dark-300 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-colors"
-                                        placeholder="••••••••"
-                                        required
-                                    />
-                                </div>
+                                    <button
+                                        type="submit"
+                                        className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-brand-yellow hover:bg-brand-yellow-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-yellow"
+                                    >
+                                        Registrarse
+                                    </button>
+                                </form>
 
-                                <div className="flex items-center">
-                                    <input
-                                        type="checkbox"
-                                        id="terms"
-                                        name="terms"
-                                        checked={formData.terms}
-                                        onChange={handleInputChange}
-                                        className="h-4 w-4 rounded border-gray-300 text-brand-yellow focus:ring-brand-yellow focus:ring-offset-0 transition duration-150 ease-in-out"
-                                    />
-                                    <label htmlFor="terms" className="ml-2 block text-sm text-gray-700 dark:text-gray-300 select-none cursor-pointer">
-                                        Acepto los{' '}
-                                        <Link
-                                            href="/policy/terms-of-service"
-                                            className="text-brand-yellow hover:text-yellow-600 transition-colors"
-                                        >
-                                            términos y condiciones
-                                        </Link>
-                                    </label>
-                                </div>
-
-                                <button
-                                    type="submit"
-                                    className="w-full btn-primary py-2"
-                                >
-                                    Crear Cuenta
-                                </button>
-                            </form>
-
-                            <p className="text-center text-sm text-gray-600 dark:text-gray-300">
-                                ¿Ya tienes una cuenta?{' '}
-                                <Link
-                                    href="/auth/login"
-                                    className="text-brand-yellow hover:text-yellow-600 transition-colors"
-                                >
-                                    Inicia sesión
-                                </Link>
-                            </p>
-                        </div>
+                                <p className="mt-8 text-center text-sm text-gray-600 dark:text-gray-300">
+                                    ¿Ya tienes una cuenta?{' '}
+                                    <Link href="/auth/login" className="text-brand-yellow hover:text-brand-yellow-dark">
+                                        Inicia sesión
+                                    </Link>
+                                </p>
+                            </>
+                        )}
                     </div>
                 </div>
+            </div>
             <Footer />
         </>
     )
