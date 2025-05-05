@@ -4,9 +4,6 @@ import newspaper
 from newspaper import Article
 import os
 
-# Límite de descarga eliminado de momento (puede que lo vuelva a poner pero alto)
-# limite = 50 / comentado de momento
-
 # Archivo donde se guardarán las noticias
 JSON_FILE = "web-crawler/noticias.json"
 
@@ -18,11 +15,15 @@ else:
     datos = {"Noticias": {}}
 
 # Cargar las páginas desde el JSON
-with open("web-crawler/paginas.json") as archivos_datos:
-    paginas = json.load(archivos_datos)
+try:
+    with open("web-crawler/paginas.json") as archivos_datos:
+        paginas = json.load(archivos_datos)
+except FileNotFoundError:
+    print("Error: El archivo 'web-crawler/paginas.json' no existe. Verifica la ruta y vuelve a intentarlo.")
+    exit(1)
 
 # Función para obtener artículos sin duplicados
-def obtener_noticias():
+def obtener_noticias(limite):
     for pagina, valor in paginas.items():
         print(f"Descargando artículos de: {pagina}")
 
@@ -36,24 +37,26 @@ def obtener_noticias():
         # Si hay RSS, descargar desde el feed xml
         if "rss" in valor:
             feed = fp.parse(valor["rss"])
-            for entrada in feed.entries:
+            for i, entrada in enumerate(feed.entries):
+                if i >= limite:
+                    break
                 if entrada.link not in enlaces_guardados:
                     try:
                         articulo = Article(entrada.link)
                         articulo.download()
                         articulo.parse()
                         datos["Noticias"][pagina]["articulos"].append({
-                            "titulo": articulo.title,
-                            "texto": articulo.text,
-                            "link": entrada.link
+                            "titulo": articulo.title,  # Título del artículo
+                            "texto": articulo.text,  # Texto del artículo
+                            "link": entrada.link,  # URL del artículo
+                            "fecha": entrada.published if hasattr(entrada, "published") else "Fecha no disponible",  # Fecha de publicación
+                            "imagen": articulo.top_image  # URL portada de la noticia
                         })
                         print(f"✔ {articulo.title}")
                     except Exception as e:
                         print(f"Error en {entrada.link}: {e}")
 
         # Si no hay RSS, se usa Newspaper
-        # Really Simple Syndication, es un formato de estructuración de datos en XML que facilita el acceso automatizado a la información contenida en un sitio de Internet
-        # Newspaper són los articulos normales que se publican en la web
         else:
             hoja = newspaper.build(valor["link"], memoize_articles=False)
             for contenido in hoja.articles:
@@ -62,28 +65,33 @@ def obtener_noticias():
                         contenido.download()
                         contenido.parse()
                         datos["Noticias"][pagina]["articulos"].append({
-                            "titulo": contenido.title,
-                            "texto": contenido.text,
-                            "link": contenido.url
+                            "titulo": contenido.title,  # Título del artículo
+                            "texto": contenido.text,  # Texto del artículo
+                            "link": contenido.url,  # URL del artículo
+                            "fecha": contenido.publish_date.isoformat() if contenido.publish_date else "Fecha no disponible",  # Fecha de publicación
+                            "imagen": contenido.top_image  # URL portada de la noticia
                         })
                         print(f"✔ {contenido.title}")
                     except Exception as e:
                         print(f"Error en {contenido.url}: {e}")
 
-# Ejecutar la descarga de las noticias
-obtener_noticias()
-
 # Guardar en el archivo JSON (noticias.json) actualizado sin duplicados
-with open(JSON_FILE, "w", encoding="utf-8") as outfile:
-    json.dump(datos, outfile, ensure_ascii=False, indent=4)
+def guardar_noticias():
+    with open(JSON_FILE, "w", encoding="utf-8") as outfile:
+        json.dump(datos, outfile, ensure_ascii=False, indent=4)
+    print("Noticias actualizadas y guardadas sin duplicados.")
 
-print("Noticias actualizadas y guardadas sin duplicados.")
+# Función principal para iniciar el crawler
+def start_crawler(limite):
+    obtener_noticias(limite)
+    guardar_noticias()
 
+# Punto de entrada del script
 if __name__ == "__main__":
     import sys
     args = sys.argv[1:]
-    if len(args) > 0 :
-        limite = args[0]
+    if len(args) > 0:
+        limite = int(args[0])
     else:
         limite = 50
     start_crawler(limite)
