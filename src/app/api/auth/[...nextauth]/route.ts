@@ -7,6 +7,14 @@ import { neon } from '@neondatabase/serverless';
 
 const sql = neon(`${process.env.DATABASE_URL}`);
 
+// Función para generar un ID compatible usando bcrypt
+async function generateCompatibleId(googleId: string): Promise<string> {
+  const saltRounds = 10;
+  const hashedId = await hash(googleId, saltRounds);
+  // Tomamos los primeros 16 caracteres del hash
+  return hashedId.substring(0, 16);
+}
+
 declare module "next-auth" {
   interface Session {
     user: {
@@ -65,31 +73,61 @@ const authOptions: AuthOptions = {
     signIn: '/auth/login',
   },
   callbacks: {
-    async session({ session, token }) {
-      if (token && session.user) {
-        session.user.id = token.id as string;
-        // Generar token para localStorage usando bcrypt
-        const tokenData = (session.user.name || '') + Date.now();
-        const localStorageToken = await hash(tokenData, 10);
-        const oneMonth = 30 * 24 * 60 * 60 * 1000;
-        const expirationDate = new Date(Date.now() + oneMonth);
-        
-        // Guardar token en la base de datos
-        await sql(
-          'INSERT INTO users_token (user_id, token, expiration_date) VALUES ($1, $2, $3)',
-          [token.id, localStorageToken, expirationDate]
-        );
-        
-        session.user.token = localStorageToken;
-      }
-      return session;
-    },
-    async jwt({ token, user, account }) {
-      if (user) {
+    async jwt({ token, user, account, profile }) {
+      if (account?.provider === "google" && user) {
+        try {
+          // Verificar si el usuario ya existe
+          const existingUser = await sql('SELECT * FROM users WHERE email = $1', [user.email]);
+          
+          if (existingUser.length === 0) {
+            // Generar un ID compatible usando bcrypt
+            const compatibleId = await generateCompatibleId(user.id);
+            
+            // Crear nuevo usuario si no existe
+            await sql(
+              'INSERT INTO users (id, email, name, image) VALUES ($1, $2, $3, $4)',
+              [compatibleId, user.email, user.name, user.image]
+            );
+            
+            // Actualizar el token con el nuevo ID
+            token.id = compatibleId;
+          } else {
+            // Si el usuario existe, usar su ID existente
+            token.id = existingUser[0].id;
+          }
+        } catch (error) {
+          console.error('Error en jwt callback:', error);
+        }
+      } else if (user) {
         token.id = user.id;
       }
       return token;
     },
+    async session({ session, token }) {
+      if (token && session.user) {
+        session.user.id = token.id as string;
+        
+        // Generar token manual usando bcrypt
+        const tokenData = `${session.user.email}-${Date.now()}`;
+        const manualToken = await hash(tokenData, 10);
+        const oneMonth = 30 * 24 * 60 * 60 * 1000;
+        const expirationDate = new Date(Date.now() + oneMonth);
+        
+        try {
+          // Guardar token en la base de datos
+          await sql(
+            'INSERT INTO users_token (user_id, token, expiration_date) VALUES ($1, $2, $3)',
+            [token.id, manualToken, expirationDate]
+          );
+          
+          // Asignar el token manual a la sesión
+          session.user.token = manualToken;
+        } catch (error) {
+          console.error('Error al guardar token:', error);
+        }
+      }
+      return session;
+    }
   },
   session: {
     strategy: "jwt",
