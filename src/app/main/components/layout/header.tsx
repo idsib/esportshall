@@ -18,9 +18,6 @@ export default function Header() {
   };
 
   const navItems = [
-    { name: 'Esports', path: '/main/esports' },
-    { name: 'Equipos', path: '/main/teams' },
-    { name: 'Comunidad', path: '/main/communities' },
     { name: 'Contacto', path: '/main/contact' },
   ];
 

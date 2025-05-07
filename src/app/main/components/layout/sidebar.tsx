@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
-import { Home, Gamepad2, Bell, Settings, Mail, Newspaper, User } from 'lucide-react';
+import { Home, Gamepad2, Bell, Settings, Mail, Newspaper, User, Users, Trophy, UserCircle } from 'lucide-react';
 import { useTheme } from '@/context/theme-context';
 import { useRouter } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
@@ -43,16 +43,40 @@ export default function Sidebar() {
           <Home size={24} />
         </button>
         <button 
-          onClick={() => router.push('/main/games')}
+          onClick={() => router.push('/main/teams')}
           className={`p-2 rounded-lg transition-colors ${
-            pathname === '/main/games' 
+            pathname === '/main/teams' 
               ? 'text-brand-yellow' 
               : theme === 'dark'
                 ? 'text-neutral-400 hover:text-brand-yellow'
                 : 'text-gray-500 hover:text-brand-yellow'
           }`}
         >
-          <Gamepad2 size={24} />
+          <Users size={24} />
+        </button>
+        <button 
+          onClick={() => router.push('/main/players')}
+          className={`p-2 rounded-lg transition-colors ${
+            pathname === '/main/players' 
+              ? 'text-brand-yellow' 
+              : theme === 'dark'
+                ? 'text-neutral-400 hover:text-brand-yellow'
+                : 'text-gray-500 hover:text-brand-yellow'
+          }`}
+        >
+          <UserCircle size={24} />
+        </button>
+        <button 
+          onClick={() => router.push('/main/tournaments')}
+          className={`p-2 rounded-lg transition-colors ${
+            pathname === '/main/tournaments' 
+              ? 'text-brand-yellow' 
+              : theme === 'dark'
+                ? 'text-neutral-400 hover:text-brand-yellow'
+                : 'text-gray-500 hover:text-brand-yellow'
+          }`}
+        >
+          <Trophy size={24} />
         </button>
         <button 
           onClick={() => router.push('/main/news')}
@@ -65,18 +89,6 @@ export default function Sidebar() {
           }`}
         >
           <Newspaper size={24} />
-        </button>
-        <button 
-          onClick={() => router.push('/main/notifications')}
-          className={`p-2 rounded-lg transition-colors ${
-            pathname === '/main/notifications' 
-              ? 'text-brand-yellow' 
-              : theme === 'dark'
-                ? 'text-neutral-400 hover:text-brand-yellow'
-                : 'text-gray-500 hover:text-brand-yellow'
-          }`}
-        >
-          <Bell size={24} />
         </button>
       </nav>
       
