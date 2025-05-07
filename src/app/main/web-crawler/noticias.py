@@ -24,7 +24,7 @@ except FileNotFoundError:
 
 # Función para obtener artículos sin duplicados
 def obtener_noticias(limite):
-    for pagina, valor in paginas.items():
+    for pagina, valor in paginas.items(): # Cambiar aqui valor con limite
         print(f"Descargando artículos de: {pagina}")
 
         # Verificar si ya hay artículos previos de esta página
@@ -49,7 +49,7 @@ def obtener_noticias(limite):
                             "titulo": articulo.title,  # Título del artículo
                             "texto": articulo.text,  # Texto del artículo
                             "link": entrada.link,  # URL del artículo
-                            "fecha": entrada.published if hasattr(entrada, "published") else "Fecha no disponible",  # Fecha de publicación
+                            "fecha": entrada.published if hasattr(entrada, "published") else " ",  # Fecha de publicación
                             "imagen": articulo.top_image  # URL portada de la noticia
                         })
                         print(f"✔ {articulo.title}")
@@ -68,7 +68,7 @@ def obtener_noticias(limite):
                             "titulo": contenido.title,  # Título del artículo
                             "texto": contenido.text,  # Texto del artículo
                             "link": contenido.url,  # URL del artículo
-                            "fecha": contenido.publish_date.isoformat() if contenido.publish_date else "Fecha no disponible",  # Fecha de publicación
+                            "fecha": contenido.publish_date.isoformat() if contenido.publish_date else " ",  # Fecha de publicación
                             "imagen": contenido.top_image  # URL portada de la noticia
                         })
                         print(f"✔ {contenido.title}")
