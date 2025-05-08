@@ -13,6 +13,8 @@ type Noticia = {
   titulo: string;
   texto: string;
   link: string;
+  fecha?: string;
+  imagen?: string;
 };
 
 type FuenteNoticias = {
@@ -38,7 +40,28 @@ export default function NewsPage() {
   useEffect(() => {
     const cargarNoticias = async () => {
       try {
-        const response = await fetch('/api/noticias');
+        // Intentar cargar desde la API
+        try {
+          const response = await fetch('/api/noticias');
+          if (response.ok) {
+            const data: NoticiasData = await response.json();
+            
+            // Aplanar todas las noticias en un solo array
+            const todasNoticias: Noticia[] = [];
+            Object.values(data.Noticias).forEach(fuente => {
+              todasNoticias.push(...fuente.articulos);
+            });
+            
+            setNoticias(todasNoticias);
+            setLoading(false);
+            return;
+          }
+        } catch (apiErr) {
+          console.log('Error al cargar desde API, intentando cargar desde archivo local:', apiErr);
+        }
+        
+        // Si falla la API, cargar desde el archivo local
+        const response = await fetch('/main/web-crawler/noticias.json');
         if (!response.ok) {
           throw new Error('Error al cargar las noticias');
         }
@@ -127,12 +150,32 @@ export default function NewsPage() {
               <div className={`md:col-span-2 rounded-lg overflow-hidden ${
                 theme === 'dark' ? 'bg-dark-200' : 'bg-white shadow-sm'
               }`}>
+                {filteredNews[0].imagen && (
+                  <div className="w-full h-64 overflow-hidden">
+                    <img 
+                      src={filteredNews[0].imagen} 
+                      alt={filteredNews[0].titulo} 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
                 <div className="p-6">
                   <h2 className={`text-2xl font-bold mt-2 mb-4 ${
                     theme === 'dark' ? 'text-white' : 'text-gray-900'
                   }`}>
                     {filteredNews[0].titulo}
                   </h2>
+                  {filteredNews[0].fecha && (
+                    <p className={`text-sm mb-3 ${
+                      theme === 'dark' ? 'text-gray-500' : 'text-gray-500'
+                    }`}>
+                      {new Date(filteredNews[0].fecha).toLocaleDateString('es-ES', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                      })}
+                    </p>
+                  )}
                   <p className={`mb-4 ${
                     theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
                   }`}>
@@ -157,12 +200,32 @@ export default function NewsPage() {
               <div key={index} className={`rounded-lg overflow-hidden ${
                 theme === 'dark' ? 'bg-dark-200' : 'bg-white shadow-sm'
               }`}>
+                {article.imagen && (
+                  <div className="w-full h-40 overflow-hidden">
+                    <img 
+                      src={article.imagen} 
+                      alt={article.titulo} 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
                 <div className="p-4">
                   <h3 className={`text-xl font-bold mt-2 mb-2 ${
                     theme === 'dark' ? 'text-white' : 'text-gray-900'
                   }`}>
                     {article.titulo}
                   </h3>
+                  {article.fecha && (
+                    <p className={`text-xs mb-2 ${
+                      theme === 'dark' ? 'text-gray-500' : 'text-gray-500'
+                    }`}>
+                      {new Date(article.fecha).toLocaleDateString('es-ES', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                      })}
+                    </p>
+                  )}
                   <p className={`text-sm mb-4 ${
                     theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
                   }`}>

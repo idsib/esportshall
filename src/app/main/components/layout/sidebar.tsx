@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
-import { Home, Gamepad2, Bell, Settings, Mail, Newspaper, User, Users, Trophy, UserCircle } from 'lucide-react';
+import { Home, Gamepad2, Bell, Settings, Mail, Newspaper, User, Users, Trophy, UserCircle, MessageCircle } from 'lucide-react';
 import { useTheme } from '@/context/theme-context';
 import { useRouter } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
@@ -89,6 +89,18 @@ export default function Sidebar() {
           }`}
         >
           <Newspaper size={24} />
+        </button>
+        <button 
+          onClick={() => router.push('/main/communities')}
+          className={`p-2 rounded-lg transition-colors ${
+            pathname === '/main/communities' 
+              ? 'text-brand-yellow' 
+              : theme === 'dark'
+                ? 'text-neutral-400 hover:text-brand-yellow'
+                : 'text-gray-500 hover:text-brand-yellow'
+          }`}
+        >
+          <MessageCircle size={24} />
         </button>
       </nav>
       

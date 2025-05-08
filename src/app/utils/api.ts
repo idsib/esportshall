@@ -29,16 +29,41 @@ export const gameDisplayNames: Record<GameType, string> = {
 };
 
 // Fetch de Teams con filtros
-export const fetchTeams = async (page = 1, perPage = 50, game?: GameType, search?: string) => {
+export const fetchTeams = async (
+  page = 1, 
+  perPage = 50, 
+  game?: GameType, 
+  search?: string,
+  teamId?: number,
+  location?: string
+) => {
   const options = getApiOptions();
   let url = `https://api.pandascore.co/teams?sort=name&page=${page}&per_page=${perPage}`;
   
-  // Filtro de Videojuego
+  // Filtro de Videojuego - usando el parámetro correcto según la documentación
   if (game) {
-    url += `&filter[videogame]=${game}`;
+    // Map CS2 to cs-go for the API (as PandaScore still uses cs-go endpoint)
+    const apiGame = game === 'cs2' ? 'csgo' : game;
+    // Usamos videogame_id para filtrar por juego
+    const videogameIds = {
+      'lol': 1,     // League of Legends
+      'csgo': 3,    // CS:GO/CS2
+      'valorant': 26 // Valorant
+    };
+    url += `&filter[videogame_id]=${videogameIds[apiGame]}`;
   }
   
-  // Filtro de Search
+  // Filtro por ID de equipo si se especifica
+  if (teamId) {
+    url += `&filter[id]=${teamId}`;
+  }
+  
+  // Filtro por ubicación si se especifica
+  if (location) {
+    url += `&filter[location]=${encodeURIComponent(location)}`;
+  }
+  
+  // Filtro de Search por nombre
   if (search && search.trim() !== '') {
     url += `&search[name]=${encodeURIComponent(search.trim())}`;
   }
@@ -61,13 +86,44 @@ export const fetchTeams = async (page = 1, perPage = 50, game?: GameType, search
 };
 
 // Fetch Jugadores API
-export const fetchPlayers = async (page = 1, perPage = 80, game?: GameType, search?: string) => {
+export const fetchPlayers = async (
+  page = 1, 
+  perPage = 50, 
+  game?: GameType, 
+  search?: string,
+  nationality?: string,
+  role?: string,
+  team_id?: number
+) => {
   const options = getApiOptions();
   let url = `https://api.pandascore.co/players?sort=name&page=${page}&per_page=${perPage}`;
   
-  // Añade filtro de videojuego
+  // Añade filtro de videojuego - usando el parámetro correcto según la documentación
   if (game) {
-    url += `&filter[videogame]=${game}`;
+    // Map CS2 to cs-go for the API (as PandaScore still uses cs-go endpoint)
+    const apiGame = game === 'cs2' ? 'csgo' : game;
+    // Usamos videogame_id para filtrar por juego
+    const videogameIds = {
+      'lol': 1,     // League of Legends
+      'csgo': 3,    // CS:GO/CS2
+      'valorant': 26 // Valorant
+    };
+    url += `&filter[videogame_id]=${videogameIds[apiGame]}`;
+  }
+  
+  // Añade filtro de nacionalidad si se especifica
+  if (nationality) {
+    url += `&filter[nationality]=${encodeURIComponent(nationality)}`;
+  }
+  
+  // Añade filtro de rol si se especifica
+  if (role) {
+    url += `&filter[role]=${encodeURIComponent(role)}`;
+  }
+  
+  // Añade filtro de equipo si se especifica
+  if (team_id) {
+    url += `&filter[team_id]=${team_id}`;
   }
   
   // Añade filtro de búsqueda
@@ -133,6 +189,11 @@ export interface Team {
   modified_at: string;
   slug: string;
   players?: Player[];
+  current_videogame?: {
+    id: number;
+    name: string;
+    slug: string;
+  };
 }
 
 export interface Player {

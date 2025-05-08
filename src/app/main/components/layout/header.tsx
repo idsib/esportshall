@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Search, Sun, Moon, Menu } from 'lucide-react';
 import { useTheme } from '../../../../context/theme-context';
 import { useRouter, usePathname } from 'next/navigation';
+import TwitchNotification from '../../components/twitch-notification';
 
 export default function Header() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -52,12 +53,15 @@ export default function Header() {
         </div>
         
         <div className="flex items-center gap-4">
-          <button
-            onClick={toggleTheme}
-            className="p-2 text-neutral-400 hover:text-yellow-400 transition-colors"
-          >
-            {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-          </button>
+          <div className="flex items-center gap-2">
+            <TwitchNotification />
+            <button
+              onClick={toggleTheme}
+              className="p-2 text-neutral-400 hover:text-yellow-400 transition-colors"
+            >
+              {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
+          </div>
 
           {/* Barra de búsqueda */}
           <div className="relative hidden sm:block">

@@ -23,6 +23,7 @@ declare module "next-auth" {
       name?: string | null;
       image?: string | null;
       token?: string;
+      localStorageScript?: string;
     }
   }
 }
@@ -116,12 +117,21 @@ const authOptions: AuthOptions = {
         try {
           // Guardar token en la base de datos
           await sql(
-            'INSERT INTO users_token (user_id, token, expiration_date) VALUES ($1, $2, $3)',
+            'INSERT INTO users_token (user_id, token, expiration_date) VALUES ($1, $2, $3) ON CONFLICT (user_id) DO UPDATE SET token = $2, expiration_date = $3',
             [token.id, manualToken, expirationDate]
           );
           
           // Asignar el token manual a la sesión
           session.user.token = manualToken;
+          
+          // Añadir script para guardar en localStorage (se ejecutará en el cliente)
+          session.user.localStorageScript = `
+            localStorage.setItem('auth_token', '${manualToken}');
+            localStorage.setItem('user_id', '${token.id}');
+            localStorage.setItem('user_email', '${session.user.email}');
+            localStorage.setItem('user_name', '${session.user.name}');
+            localStorage.setItem('token_expiry', '${expirationDate.toISOString()}');
+          `;
         } catch (error) {
           console.error('Error al guardar token:', error);
         }
