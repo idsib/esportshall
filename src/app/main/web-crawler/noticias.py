@@ -22,9 +22,9 @@ except FileNotFoundError:
     print("Error: El archivo 'web-crawler/paginas.json' no existe. Verifica la ruta y vuelve a intentarlo.")
     exit(1)
 
-# Función para obtener artículos sin duplicados
+# Función para obtener artículos sin duplicados y con límite de artículos
 def obtener_noticias(limite):
-    for pagina, valor in paginas.items(): # Cambiar aqui valor con limite
+    for pagina, valor in paginas.items():
         print(f"Descargando artículos de: {pagina}")
 
         # Verificar si ya hay artículos previos de esta página
@@ -34,11 +34,14 @@ def obtener_noticias(limite):
         # Obtener enlaces ya guardados para evitar duplicados
         enlaces_guardados = {articulo["link"] for articulo in datos["Noticias"][pagina]["articulos"]}
 
+        # Contador para respetar el límite
+        contador = 0
+
         # Si hay RSS, descargar desde el feed xml
         if "rss" in valor:
             feed = fp.parse(valor["rss"])
-            for i, entrada in enumerate(feed.entries):
-                if i >= limite:
+            for entrada in feed.entries:
+                if contador >= limite:  # Detener si se alcanza el límite
                     break
                 if entrada.link not in enlaces_guardados:
                     try:
@@ -52,6 +55,7 @@ def obtener_noticias(limite):
                             "fecha": entrada.published if hasattr(entrada, "published") else " ",  # Fecha de publicación
                             "imagen": articulo.top_image  # URL portada de la noticia
                         })
+                        contador += 1  # Incrementar el contador
                         print(f"✔ {articulo.title}")
                     except Exception as e:
                         print(f"Error en {entrada.link}: {e}")
@@ -60,6 +64,8 @@ def obtener_noticias(limite):
         else:
             hoja = newspaper.build(valor["link"], memoize_articles=False)
             for contenido in hoja.articles:
+                if contador >= limite:  # Detener si se alcanza el límite
+                    break
                 if contenido.url not in enlaces_guardados:
                     try:
                         contenido.download()
@@ -71,6 +77,7 @@ def obtener_noticias(limite):
                             "fecha": contenido.publish_date.isoformat() if contenido.publish_date else " ",  # Fecha de publicación
                             "imagen": contenido.top_image  # URL portada de la noticia
                         })
+                        contador += 1  # Incrementar el contador
                         print(f"✔ {contenido.title}")
                     except Exception as e:
                         print(f"Error en {contenido.url}: {e}")
@@ -91,7 +98,11 @@ if __name__ == "__main__":
     import sys
     args = sys.argv[1:]
     if len(args) > 0:
-        limite = int(args[0])
+        try:
+            limite = int(args[0])
+        except ValueError:
+            print("Error: El argumento debe ser un número entero.")
+            exit(1)
     else:
         limite = 50
     start_crawler(limite)
