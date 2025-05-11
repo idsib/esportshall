@@ -1,0 +1,307 @@
+"TimeUTC","timestampInMs","requestPath","requestMethod","requestQueryString","responseStatusCode","requestId","requestUserAgent","level","environment","branch","vercelCache","type","function","host","deploymentDomain","deploymentId","durationMs","region","maxMemoryUsed","memorySize","message","projectId","traceId","sessionId"
+"2025-05-11 19:19:24",1746991164630,"esportshall.vercel.app/api/auth/error","GET","",-1,"6srk2-1746991164564-a1b955dc6be5","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",-1,"iad1",-1,-1,"[next-auth][error][NO_SECRET] 
+https://next-auth.js.org/errors#no_secret Please define a `secret` in production. Error [MissingSecretError]: Please define a `secret` in production.
+    at t.assertConfig (.next/server/chunks/426.js:25:64238)
+    at _ (.next/server/chunks/426.js:25:50844)
+    at async a (.next/server/chunks/426.js:17:20445)
+    at async e.length.t (.next/server/chunks/426.js:17:21935) {
+  code: 'NO_SECRET'
+}","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:19:24",1746991164624,"esportshall.vercel.app/api/auth/_log","POST","",-1,"slr72-1746991164563-7d6e6d3dbbcb","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",-1,"iad1",-1,-1,"[next-auth][error][NO_SECRET] 
+https://next-auth.js.org/errors#no_secret Please define a `secret` in production. Error [MissingSecretError]: Please define a `secret` in production.
+    at t.assertConfig (.next/server/chunks/426.js:25:64238)
+    at _ (.next/server/chunks/426.js:25:50844)
+    at async a (.next/server/chunks/426.js:17:20445)
+    at async e.length.t (.next/server/chunks/426.js:17:21935) {
+  code: 'NO_SECRET'
+}","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:19:24",1746991164610,"esportshall.vercel.app/api/auth/error","GET","",500,"6srk2-1746991164564-a1b955dc6be5","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",9,"iad1",121,1024,"","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:19:24",1746991164609,"esportshall.vercel.app/api/auth/_log","POST","",500,"slr72-1746991164563-7d6e6d3dbbcb","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",20,"iad1",126,1024,"","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:19:24",1746991164484,"esportshall.vercel.app/api/auth/providers","GET","",-1,"bh59k-1746991164415-06dc17f300fe","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",-1,"iad1",-1,-1,"[next-auth][error][NO_SECRET] 
+https://next-auth.js.org/errors#no_secret Please define a `secret` in production. Error [MissingSecretError]: Please define a `secret` in production.
+    at t.assertConfig (.next/server/chunks/426.js:25:64238)
+    at _ (.next/server/chunks/426.js:25:50844)
+    at async a (.next/server/chunks/426.js:17:20445)
+    at async e.length.t (.next/server/chunks/426.js:17:21935) {
+  code: 'NO_SECRET'
+}","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:19:24",1746991164462,"esportshall.vercel.app/api/auth/providers","GET","",500,"bh59k-1746991164415-06dc17f300fe","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",11,"iad1",126,1024,"","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:19:23",1746991163174,"esportshall.vercel.app/api/auth/_log","POST","",-1,"6thjw-1746991163110-2fda50d59dc7","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",-1,"iad1",-1,-1,"[next-auth][error][NO_SECRET] 
+https://next-auth.js.org/errors#no_secret Please define a `secret` in production. Error [MissingSecretError]: Please define a `secret` in production.
+    at t.assertConfig (.next/server/chunks/426.js:25:64238)
+    at _ (.next/server/chunks/426.js:25:50844)
+    at async a (.next/server/chunks/426.js:17:20445)
+    at async e.length.t (.next/server/chunks/426.js:17:21935) {
+  code: 'NO_SECRET'
+}","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:19:23",1746991163154,"esportshall.vercel.app/api/auth/_log","POST","",500,"6thjw-1746991163110-2fda50d59dc7","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",9,"iad1",126,1024,"","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:19:23",1746991163023,"esportshall.vercel.app/api/auth/session","GET","",-1,"6thjw-1746991162961-30a91f0844af","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",-1,"iad1",-1,-1,"[next-auth][error][NO_SECRET] 
+https://next-auth.js.org/errors#no_secret Please define a `secret` in production. Error [MissingSecretError]: Please define a `secret` in production.
+    at t.assertConfig (.next/server/chunks/426.js:25:64238)
+    at _ (.next/server/chunks/426.js:25:50844)
+    at async a (.next/server/chunks/426.js:17:20445)
+    at async e.length.t (.next/server/chunks/426.js:17:21935) {
+  code: 'NO_SECRET'
+}","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:19:23",1746991163020,"esportshall.vercel.app/api/auth/_log","POST","",-1,"bh59k-1746991162958-77704747a28c","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",-1,"iad1",-1,-1,"[next-auth][error][NO_SECRET] 
+https://next-auth.js.org/errors#no_secret Please define a `secret` in production. Error [MissingSecretError]: Please define a `secret` in production.
+    at t.assertConfig (.next/server/chunks/426.js:25:64238)
+    at _ (.next/server/chunks/426.js:25:50844)
+    at async a (.next/server/chunks/426.js:17:20445)
+    at async e.length.t (.next/server/chunks/426.js:17:21935) {
+  code: 'NO_SECRET'
+}","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:19:23",1746991163005,"esportshall.vercel.app/api/auth/session","GET","",500,"6thjw-1746991162961-30a91f0844af","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",22,"iad1",126,1024,"","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:19:23",1746991163002,"esportshall.vercel.app/api/auth/_log","POST","",500,"bh59k-1746991162958-77704747a28c","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",17,"iad1",121,1024,"","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:19:22",1746991162887,"esportshall.vercel.app/api/auth/session","GET","",-1,"6thjw-1746991162816-45a81d5bee61","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",-1,"iad1",-1,-1,"[next-auth][error][NO_SECRET] 
+https://next-auth.js.org/errors#no_secret Please define a `secret` in production. Error [MissingSecretError]: Please define a `secret` in production.
+    at t.assertConfig (.next/server/chunks/426.js:25:64238)
+    at _ (.next/server/chunks/426.js:25:50844)
+    at async a (.next/server/chunks/426.js:17:20445)
+    at async e.length.t (.next/server/chunks/426.js:17:21935) {
+  code: 'NO_SECRET'
+}","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:19:22",1746991162869,"esportshall.vercel.app/api/auth/session","GET","",500,"6thjw-1746991162816-45a81d5bee61","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",8,"iad1",121,1024,"","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:19:16",1746991156352,"esportshall.vercel.app/api/auth/_log","POST","",-1,"b9xxn-1746991156285-8d027a3e0e30","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",-1,"iad1",-1,-1,"[next-auth][error][NO_SECRET] 
+https://next-auth.js.org/errors#no_secret Please define a `secret` in production. Error [MissingSecretError]: Please define a `secret` in production.
+    at t.assertConfig (.next/server/chunks/426.js:25:64238)
+    at _ (.next/server/chunks/426.js:25:50844)
+    at async a (.next/server/chunks/426.js:17:20445)
+    at async e.length.t (.next/server/chunks/426.js:17:21935) {
+  code: 'NO_SECRET'
+}","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:19:16",1746991156330,"esportshall.vercel.app/api/auth/_log","POST","",500,"b9xxn-1746991156285-8d027a3e0e30","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",9,"iad1",121,1024,"","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:19:16",1746991156212,"esportshall.vercel.app/api/auth/session","GET","",-1,"b9xxn-1746991156139-83ccf0c877f7","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",-1,"iad1",-1,-1,"[next-auth][error][NO_SECRET] 
+https://next-auth.js.org/errors#no_secret Please define a `secret` in production. Error [MissingSecretError]: Please define a `secret` in production.
+    at t.assertConfig (.next/server/chunks/426.js:25:64238)
+    at _ (.next/server/chunks/426.js:25:50844)
+    at async a (.next/server/chunks/426.js:17:20445)
+    at async e.length.t (.next/server/chunks/426.js:17:21935) {
+  code: 'NO_SECRET'
+}","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:19:16",1746991156203,"esportshall.vercel.app/api/auth/_log","POST","",-1,"bh59k-1746991156134-a1abe4932bc8","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",-1,"iad1",-1,-1,"[next-auth][error][NO_SECRET] 
+https://next-auth.js.org/errors#no_secret Please define a `secret` in production. Error [MissingSecretError]: Please define a `secret` in production.
+    at t.assertConfig (.next/server/chunks/426.js:25:64238)
+    at _ (.next/server/chunks/426.js:25:50844)
+    at async a (.next/server/chunks/426.js:17:20445)
+    at async e.length.t (.next/server/chunks/426.js:17:21935) {
+  code: 'NO_SECRET'
+}","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:19:16",1746991156193,"esportshall.vercel.app/api/auth/session","GET","",500,"b9xxn-1746991156139-83ccf0c877f7","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",25,"iad1",121,1024,"","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:19:16",1746991156179,"esportshall.vercel.app/api/auth/_log","POST","",500,"bh59k-1746991156134-a1abe4932bc8","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",8,"iad1",126,1024,"","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:19:16",1746991156063,"esportshall.vercel.app/api/auth/session","GET","",-1,"bh59k-1746991155987-7a491d33a1bc","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",-1,"iad1",-1,-1,"[next-auth][error][NO_SECRET] 
+https://next-auth.js.org/errors#no_secret Please define a `secret` in production. Error [MissingSecretError]: Please define a `secret` in production.
+    at t.assertConfig (.next/server/chunks/426.js:25:64238)
+    at _ (.next/server/chunks/426.js:25:50844)
+    at async a (.next/server/chunks/426.js:17:20445)
+    at async e.length.t (.next/server/chunks/426.js:17:21935) {
+  code: 'NO_SECRET'
+}","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:19:16",1746991156040,"esportshall.vercel.app/api/auth/session","GET","",500,"bh59k-1746991155987-7a491d33a1bc","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",8,"iad1",126,1024,"","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:19:14",1746991154991,"esportshall.vercel.app/api/auth/error","GET","",-1,"hdf6f-1746991154926-3b00c1c465a0","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",-1,"iad1",-1,-1,"[next-auth][error][NO_SECRET] 
+https://next-auth.js.org/errors#no_secret Please define a `secret` in production. Error [MissingSecretError]: Please define a `secret` in production.
+    at t.assertConfig (.next/server/chunks/426.js:25:64238)
+    at _ (.next/server/chunks/426.js:25:50844)
+    at async a (.next/server/chunks/426.js:17:20445)
+    at async e.length.t (.next/server/chunks/426.js:17:21935) {
+  code: 'NO_SECRET'
+}","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:19:14",1746991154971,"esportshall.vercel.app/api/auth/error","GET","",500,"hdf6f-1746991154926-3b00c1c465a0","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",11,"iad1",126,1024,"","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:19:14",1746991154379,"esportshall.vercel.app/api/auth/error","GET","",-1,"hdf6f-1746991154297-188dd8014bae","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",-1,"iad1",-1,-1,"[next-auth][error][NO_SECRET] 
+https://next-auth.js.org/errors#no_secret Please define a `secret` in production. Error [MissingSecretError]: Please define a `secret` in production.
+    at t.assertConfig (.next/server/chunks/426.js:25:64238)
+    at _ (.next/server/chunks/426.js:25:50844)
+    at async a (.next/server/chunks/426.js:17:20445)
+    at async e.length.t (.next/server/chunks/426.js:17:21935) {
+  code: 'NO_SECRET'
+}","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:19:14",1746991154351,"esportshall.vercel.app/api/auth/error","GET","",500,"hdf6f-1746991154297-188dd8014bae","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",20,"iad1",126,1024,"","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:16:57",1746991017247,"esportshall.vercel.app/api/auth/error","GET","",-1,"xhh5q-1746991017181-c482f28d56d3","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",-1,"iad1",-1,-1,"[next-auth][error][NO_SECRET] 
+https://next-auth.js.org/errors#no_secret Please define a `secret` in production. Error [MissingSecretError]: Please define a `secret` in production.
+    at t.assertConfig (.next/server/chunks/426.js:25:64238)
+    at _ (.next/server/chunks/426.js:25:50844)
+    at async a (.next/server/chunks/426.js:17:20445)
+    at async e.length.t (.next/server/chunks/426.js:17:21935) {
+  code: 'NO_SECRET'
+}","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:16:57",1746991017224,"esportshall.vercel.app/api/auth/error","GET","",500,"xhh5q-1746991017181-c482f28d56d3","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",20,"iad1",126,1024,"","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:16:56",1746991016517,"esportshall.vercel.app/api/auth/error","GET","",-1,"xhh5q-1746991016388-89ebe2611536","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",-1,"iad1",-1,-1,"[next-auth][error][NO_SECRET] 
+https://next-auth.js.org/errors#no_secret Please define a `secret` in production. Error [MissingSecretError]: Please define a `secret` in production.
+    at t.assertConfig (.next/server/chunks/426.js:25:64238)
+    at _ (.next/server/chunks/426.js:25:50844)
+    at async a (.next/server/chunks/426.js:17:20445)
+    at async e.length.t (.next/server/chunks/426.js:17:21935) {
+  code: 'NO_SECRET'
+}","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:16:56",1746991016438,"esportshall.vercel.app/api/auth/error","GET","",500,"xhh5q-1746991016388-89ebe2611536","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",81,"iad1",126,1024,"","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:16:54",1746991014047,"esportshall.vercel.app/api/auth/error","GET","",-1,"thhst-1746991013978-2980f23c7216","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",-1,"iad1",-1,-1,"[next-auth][error][NO_SECRET] 
+https://next-auth.js.org/errors#no_secret Please define a `secret` in production. Error [MissingSecretError]: Please define a `secret` in production.
+    at t.assertConfig (.next/server/chunks/426.js:25:64238)
+    at _ (.next/server/chunks/426.js:25:50844)
+    at async a (.next/server/chunks/426.js:17:20445)
+    at async e.length.t (.next/server/chunks/426.js:17:21935) {
+  code: 'NO_SECRET'
+}","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:16:54",1746991014041,"esportshall.vercel.app/api/auth/_log","POST","",-1,"hqw4c-1746991013978-111440a626c2","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",-1,"iad1",-1,-1,"[next-auth][error][NO_SECRET] 
+https://next-auth.js.org/errors#no_secret Please define a `secret` in production. Error [MissingSecretError]: Please define a `secret` in production.
+    at t.assertConfig (.next/server/chunks/426.js:25:64238)
+    at _ (.next/server/chunks/426.js:25:50844)
+    at async a (.next/server/chunks/426.js:17:20445)
+    at async e.length.t (.next/server/chunks/426.js:17:21935) {
+  code: 'NO_SECRET'
+}","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:16:54",1746991014025,"esportshall.vercel.app/api/auth/error","GET","",500,"thhst-1746991013978-2980f23c7216","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",16,"iad1",121,1024,"","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:16:54",1746991014023,"esportshall.vercel.app/api/auth/_log","POST","",500,"hqw4c-1746991013978-111440a626c2","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",23,"iad1",126,1024,"","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:16:53",1746991013895,"esportshall.vercel.app/api/auth/providers","GET","",-1,"hqw4c-1746991013768-a20789ee07d1","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",-1,"iad1",-1,-1,"[next-auth][error][NO_SECRET] 
+https://next-auth.js.org/errors#no_secret Please define a `secret` in production. Error [MissingSecretError]: Please define a `secret` in production.
+    at t.assertConfig (.next/server/chunks/426.js:25:64238)
+    at _ (.next/server/chunks/426.js:25:50844)
+    at async a (.next/server/chunks/426.js:17:20445)
+    at async e.length.t (.next/server/chunks/426.js:17:21935) {
+  code: 'NO_SECRET'
+}","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:16:53",1746991013820,"esportshall.vercel.app/api/auth/providers","GET","",500,"hqw4c-1746991013768-a20789ee07d1","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",69,"iad1",126,1024,"","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:16:16",1746990976502,"esportshall.vercel.app/api/auth/error","GET","",-1,"w7grp-1746990976431-55b1f260e0e6","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 OPR/118.0.0.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",-1,"iad1",-1,-1,"[next-auth][error][NO_SECRET] 
+https://next-auth.js.org/errors#no_secret Please define a `secret` in production. Error [MissingSecretError]: Please define a `secret` in production.
+    at t.assertConfig (.next/server/chunks/426.js:25:64238)
+    at _ (.next/server/chunks/426.js:25:50844)
+    at async a (.next/server/chunks/426.js:17:20445)
+    at async e.length.t (.next/server/chunks/426.js:17:21935) {
+  code: 'NO_SECRET'
+}","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:16:16",1746990976497,"esportshall.vercel.app/api/auth/_log","POST","",-1,"4vbml-1746990976430-42e960ad352e","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 OPR/118.0.0.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",-1,"iad1",-1,-1,"[next-auth][error][NO_SECRET] 
+https://next-auth.js.org/errors#no_secret Please define a `secret` in production. Error [MissingSecretError]: Please define a `secret` in production.
+    at t.assertConfig (.next/server/chunks/426.js:25:64238)
+    at _ (.next/server/chunks/426.js:25:50844)
+    at async a (.next/server/chunks/426.js:17:20445)
+    at async e.length.t (.next/server/chunks/426.js:17:21935) {
+  code: 'NO_SECRET'
+}","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:16:16",1746990976480,"esportshall.vercel.app/api/auth/error","GET","",500,"w7grp-1746990976431-55b1f260e0e6","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 OPR/118.0.0.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",20,"iad1",121,1024,"","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:16:16",1746990976474,"esportshall.vercel.app/api/auth/_log","POST","",500,"4vbml-1746990976430-42e960ad352e","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 OPR/118.0.0.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",11,"iad1",125,1024,"","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:16:16",1746990976348,"esportshall.vercel.app/api/auth/providers","GET","",-1,"4vbml-1746990976281-cbb5d0d0ee7d","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 OPR/118.0.0.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",-1,"iad1",-1,-1,"[next-auth][error][NO_SECRET] 
+https://next-auth.js.org/errors#no_secret Please define a `secret` in production. Error [MissingSecretError]: Please define a `secret` in production.
+    at t.assertConfig (.next/server/chunks/426.js:25:64238)
+    at _ (.next/server/chunks/426.js:25:50844)
+    at async a (.next/server/chunks/426.js:17:20445)
+    at async e.length.t (.next/server/chunks/426.js:17:21935) {
+  code: 'NO_SECRET'
+}","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:16:16",1746990976330,"esportshall.vercel.app/api/auth/providers","GET","",500,"4vbml-1746990976281-cbb5d0d0ee7d","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 OPR/118.0.0.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",15,"iad1",125,1024,"","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:16:10",1746990970930,"esportshall.vercel.app/api/auth/_log","POST","",-1,"qlfjq-1746990970863-57c5b8d6cdc1","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 OPR/118.0.0.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",-1,"iad1",-1,-1,"[next-auth][error][NO_SECRET] 
+https://next-auth.js.org/errors#no_secret Please define a `secret` in production. Error [MissingSecretError]: Please define a `secret` in production.
+    at t.assertConfig (.next/server/chunks/426.js:25:64238)
+    at _ (.next/server/chunks/426.js:25:50844)
+    at async a (.next/server/chunks/426.js:17:20445)
+    at async e.length.t (.next/server/chunks/426.js:17:21935) {
+  code: 'NO_SECRET'
+}","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:16:10",1746990970908,"esportshall.vercel.app/api/auth/_log","POST","",500,"qlfjq-1746990970863-57c5b8d6cdc1","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 OPR/118.0.0.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",20,"iad1",125,1024,"","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:16:10",1746990970764,"esportshall.vercel.app/api/auth/session","GET","",-1,"tvqz5-1746990970637-a8282104f26c","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 OPR/118.0.0.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",-1,"iad1",-1,-1,"[next-auth][error][NO_SECRET] 
+https://next-auth.js.org/errors#no_secret Please define a `secret` in production. Error [MissingSecretError]: Please define a `secret` in production.
+    at t.assertConfig (.next/server/chunks/426.js:25:64238)
+    at _ (.next/server/chunks/426.js:25:50844)
+    at async a (.next/server/chunks/426.js:17:20445)
+    at async e.length.t (.next/server/chunks/426.js:17:21935) {
+  code: 'NO_SECRET'
+}","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:16:10",1746990970682,"esportshall.vercel.app/api/auth/session","GET","",500,"tvqz5-1746990970637-a8282104f26c","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 OPR/118.0.0.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",142,"iad1",125,1024,"","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:16:04",1746990964326,"esportshall.vercel.app/api/auth/error","GET","",-1,"plj6x-1746990963962-2298e204d31c","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",-1,"iad1",-1,-1,"[next-auth][error][NO_SECRET] 
+https://next-auth.js.org/errors#no_secret Please define a `secret` in production. Error [MissingSecretError]: Please define a `secret` in production.
+    at t.assertConfig (.next/server/chunks/426.js:25:64238)
+    at _ (.next/server/chunks/426.js:25:50844)
+    at async a (.next/server/chunks/426.js:17:20445)
+    at async e.length.t (.next/server/chunks/426.js:17:21935) {
+  code: 'NO_SECRET'
+}","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:16:04",1746990964026,"esportshall.vercel.app/api/auth/_log","POST","",-1,"kzmz8-1746990963962-b8f6478a6efa","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",-1,"iad1",-1,-1,"[next-auth][error][NO_SECRET] 
+https://next-auth.js.org/errors#no_secret Please define a `secret` in production. Error [MissingSecretError]: Please define a `secret` in production.
+    at t.assertConfig (.next/server/chunks/426.js:25:64238)
+    at _ (.next/server/chunks/426.js:25:50844)
+    at async a (.next/server/chunks/426.js:17:20445)
+    at async e.length.t (.next/server/chunks/426.js:17:21935) {
+  code: 'NO_SECRET'
+}","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:16:04",1746990964009,"esportshall.vercel.app/api/auth/error","GET","",500,"plj6x-1746990963962-2298e204d31c","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",339,"iad1",125,1024,"","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:16:04",1746990964008,"esportshall.vercel.app/api/auth/_log","POST","",500,"kzmz8-1746990963962-b8f6478a6efa","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",10,"iad1",121,1024,"","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:16:03",1746990963883,"esportshall.vercel.app/api/auth/providers","GET","",-1,"nbv9d-1746990963820-338054a97dc1","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",-1,"iad1",-1,-1,"[next-auth][error][NO_SECRET] 
+https://next-auth.js.org/errors#no_secret Please define a `secret` in production. Error [MissingSecretError]: Please define a `secret` in production.
+    at t.assertConfig (.next/server/chunks/426.js:25:64238)
+    at _ (.next/server/chunks/426.js:25:50844)
+    at async a (.next/server/chunks/426.js:17:20445)
+    at async e.length.t (.next/server/chunks/426.js:17:21935) {
+  code: 'NO_SECRET'
+}","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:16:03",1746990963865,"esportshall.vercel.app/api/auth/providers","GET","",500,"nbv9d-1746990963820-338054a97dc1","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",12,"iad1",121,1024,"","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:16:00",1746990960109,"esportshall.vercel.app/api/auth/_log","POST","",-1,"2xwpm-1746990960043-ba5317f0b500","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",-1,"iad1",-1,-1,"[next-auth][error][NO_SECRET] 
+https://next-auth.js.org/errors#no_secret Please define a `secret` in production. Error [MissingSecretError]: Please define a `secret` in production.
+    at t.assertConfig (.next/server/chunks/426.js:25:64238)
+    at _ (.next/server/chunks/426.js:25:50844)
+    at async a (.next/server/chunks/426.js:17:20445)
+    at async e.length.t (.next/server/chunks/426.js:17:21935) {
+  code: 'NO_SECRET'
+}","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:16:00",1746990960088,"esportshall.vercel.app/api/auth/_log","POST","",500,"2xwpm-1746990960043-ba5317f0b500","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",10,"iad1",121,1024,"","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:16:00",1746990960003,"esportshall.vercel.app/api/auth/_log","POST","",-1,"mgtlf-1746990959884-d87d06e8f02a","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",-1,"iad1",-1,-1,"[next-auth][error][NO_SECRET] 
+https://next-auth.js.org/errors#no_secret Please define a `secret` in production. Error [MissingSecretError]: Please define a `secret` in production.
+    at t.assertConfig (.next/server/chunks/426.js:25:64238)
+    at _ (.next/server/chunks/426.js:25:50844)
+    at async a (.next/server/chunks/426.js:17:20445)
+    at async e.length.t (.next/server/chunks/426.js:17:21935) {
+  code: 'NO_SECRET'
+}","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:15:59",1746990959970,"esportshall.vercel.app/api/auth/session","GET","",-1,"2xwpm-1746990959886-d1966f598915","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",-1,"iad1",-1,-1,"[next-auth][error][NO_SECRET] 
+https://next-auth.js.org/errors#no_secret Please define a `secret` in production. Error [MissingSecretError]: Please define a `secret` in production.
+    at t.assertConfig (.next/server/chunks/426.js:25:64238)
+    at _ (.next/server/chunks/426.js:25:50844)
+    at async a (.next/server/chunks/426.js:17:20445)
+    at async e.length.t (.next/server/chunks/426.js:17:21935) {
+  code: 'NO_SECRET'
+}","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:15:59",1746990959931,"esportshall.vercel.app/api/auth/session","GET","",500,"2xwpm-1746990959886-d1966f598915","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",42,"iad1",121,1024,"","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:15:59",1746990959929,"esportshall.vercel.app/api/auth/_log","POST","",500,"mgtlf-1746990959884-d87d06e8f02a","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",15,"iad1",121,1024,"","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:15:59",1746990959810,"esportshall.vercel.app/api/auth/session","GET","",-1,"mgtlf-1746990959684-0bc1394c516d","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",-1,"iad1",-1,-1,"[next-auth][error][NO_SECRET] 
+https://next-auth.js.org/errors#no_secret Please define a `secret` in production. Error [MissingSecretError]: Please define a `secret` in production.
+    at t.assertConfig (.next/server/chunks/426.js:25:64238)
+    at _ (.next/server/chunks/426.js:25:50844)
+    at async a (.next/server/chunks/426.js:17:20445)
+    at async e.length.t (.next/server/chunks/426.js:17:21935) {
+  code: 'NO_SECRET'
+}","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:15:59",1746990959729,"esportshall.vercel.app/api/auth/session","GET","",500,"mgtlf-1746990959684-0bc1394c516d","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",81,"iad1",119,1024,"","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:15:51",1746990951012,"esportshall.vercel.app/api/auth/_log","POST","",-1,"bkcf4-1746990950891-1aae04bf7ec6","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",-1,"iad1",-1,-1,"[next-auth][error][NO_SECRET] 
+https://next-auth.js.org/errors#no_secret Please define a `secret` in production. Error [MissingSecretError]: Please define a `secret` in production.
+    at t.assertConfig (.next/server/chunks/426.js:25:64238)
+    at _ (.next/server/chunks/426.js:25:50844)
+    at async a (.next/server/chunks/426.js:17:20445)
+    at async e.length.t (.next/server/chunks/426.js:17:21935) {
+  code: 'NO_SECRET'
+}","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:15:50",1746990950935,"esportshall.vercel.app/api/auth/_log","POST","",500,"bkcf4-1746990950891-1aae04bf7ec6","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",83,"iad1",119,1024,"","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:15:50",1746990950798,"esportshall.vercel.app/api/auth/session","GET","",-1,"x4j8f-1746990950270-79d4a3556fdd","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",-1,"iad1",-1,-1,"[next-auth][error][NO_SECRET] 
+https://next-auth.js.org/errors#no_secret Please define a `secret` in production. Error [MissingSecretError]: Please define a `secret` in production.
+    at t.assertConfig (.next/server/chunks/426.js:25:64238)
+    at _ (.next/server/chunks/426.js:25:50844)
+    at async a (.next/server/chunks/426.js:17:20445)
+    at async e.length.t (.next/server/chunks/426.js:17:21935) {
+  code: 'NO_SECRET'
+}","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:15:50",1746990950476,"esportshall.vercel.app/api/auth/session","GET","",500,"x4j8f-1746990950270-79d4a3556fdd","Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall.vercel.app","esportshall.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",413,"iad1",119,1024,"","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:14:38",1746990878356,"esportshall-axxfb7qfb-idsibs-projects.vercel.app/api/auth/session","GET","",-1,"ql69x-1746990877221-115bd2856675","vercel-screenshot/1.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall-axxfb7qfb-idsibs-projects.vercel.app","esportshall-axxfb7qfb-idsibs-projects.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",-1,"iad1",-1,-1,"[next-auth][error][NO_SECRET] 
+https://next-auth.js.org/errors#no_secret Please define a `secret` in production. Error [MissingSecretError]: Please define a `secret` in production.
+    at t.assertConfig (.next/server/chunks/426.js:25:64238)
+    at _ (.next/server/chunks/426.js:25:50844)
+    at async a (.next/server/chunks/426.js:17:20445)
+    at async e.length.t (.next/server/chunks/426.js:17:21935) {
+  code: 'NO_SECRET'
+}","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:14:37",1746990877265,"esportshall-axxfb7qfb-idsibs-projects.vercel.app/api/auth/session","GET","",500,"ql69x-1746990877221-115bd2856675","vercel-screenshot/1.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall-axxfb7qfb-idsibs-projects.vercel.app","esportshall-axxfb7qfb-idsibs-projects.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",766,"iad1",150,1024,"","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:14:37",1746990877236,"esportshall-axxfb7qfb-idsibs-projects.vercel.app/api/auth/session","GET","",-1,"hngcp-1746990876549-4fccf8ce7035","vercel-screenshot/1.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall-axxfb7qfb-idsibs-projects.vercel.app","esportshall-axxfb7qfb-idsibs-projects.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",-1,"iad1",-1,-1,"[next-auth][error][NO_SECRET] 
+https://next-auth.js.org/errors#no_secret Please define a `secret` in production. Error [MissingSecretError]: Please define a `secret` in production.
+    at t.assertConfig (.next/server/chunks/426.js:25:64238)
+    at _ (.next/server/chunks/426.js:25:50844)
+    at async a (.next/server/chunks/426.js:17:20445)
+    at async e.length.t (.next/server/chunks/426.js:17:21935) {
+  code: 'NO_SECRET'
+}","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
+"2025-05-11 19:14:36",1746990876695,"esportshall-axxfb7qfb-idsibs-projects.vercel.app/api/auth/session","GET","",500,"hngcp-1746990876549-4fccf8ce7035","vercel-screenshot/1.0","error","production","main","MISS","lambda","/api/auth/[...nextauth]","esportshall-axxfb7qfb-idsibs-projects.vercel.app","esportshall-axxfb7qfb-idsibs-projects.vercel.app","dpl_FAgD8JcYYgwEhUVi52W1Wa7sWrrR",760,"iad1",150,1024,"","prj_4SpZEWVWkQYs1TA8bAaNjcVuS6V8","",""
