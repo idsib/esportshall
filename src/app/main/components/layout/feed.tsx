@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { MessageCircle, Heart, Share, MoreHorizontal } from 'lucide-react';
-import { useTheme } from '../../../context/theme-context';
+import { useTheme } from '@/context/theme-context';
 
 interface User {
   id: number;

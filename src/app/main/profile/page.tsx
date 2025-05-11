@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
-import { useTheme } from '../../../context/theme-context';
+import { useTheme } from '@/context/theme-context';
 import EditProfileModal from './components/edit-profile-modal';
 import MainLayout from '../components/layout/mainLayout'
 import { Twitter, Instagram, Twitch, MapPin, Link as LinkIcon, Calendar, Trophy, Users, Settings, MessageCircle, Heart, Share2 } from 'lucide-react';

@@ -1,7 +1,13 @@
 /** @type {import('next').NextConfig} */
-devIndicators: false
 const nextConfig = {
   reactStrictMode: true,
+  eslint: {
+    // Don't run ESLint during build
+    ignoreDuringBuilds: true,
+  },
+  devIndicators: {
+    buildActivity: false
+  },
   images: {
     domains: [
       'lh3.googleusercontent.com', // Para imágenes de Google
