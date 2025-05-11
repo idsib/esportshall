@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from 'react';
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import MainLayout from '../components/layout/mainLayout';
 import { Footer } from '@/app/components/layout/footer';
 import { useTheme } from '@/context/theme-context';
+import { signOut } from "next-auth/react";
 import { 
   User, 
   Lock, 
@@ -16,11 +17,14 @@ import {
   Sun, 
   Trash2, 
   Save, 
-  AlertTriangle 
+  AlertTriangle,
+  CheckCircle,
+  XCircle
 } from 'lucide-react';
 
 export default function SettingsPage() {
   const pathname = usePathname();
+  const router = useRouter();
   const { theme, setTheme } = useTheme();
   
   // Estados para los formularios
@@ -30,6 +34,7 @@ export default function SettingsPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [deleteConfirm, setDeleteConfirm] = useState('');
+  const [deletePassword, setDeletePassword] = useState('');
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   
   // Estados para las notificaciones
@@ -37,25 +42,100 @@ export default function SettingsPage() {
   const [pushNotifications, setPushNotifications] = useState(true);
   const [language, setLanguage] = useState('es');
   
+  // Estados para mensajes de feedback
+  const [passwordMessage, setPasswordMessage] = useState({ type: '', message: '' });
+  const [deleteMessage, setDeleteMessage] = useState({ type: '', message: '' });
+  const [isLoading, setIsLoading] = useState(false);
+  
   // Manejadores de eventos
-  const handlePasswordChange = (e: React.FormEvent) => {
+  const handlePasswordChange = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Aquí iría la lógica para cambiar la contraseña
-    alert('Contraseña actualizada correctamente');
-    setCurrentPassword('');
-    setNewPassword('');
-    setConfirmPassword('');
+    setIsLoading(true);
+    setPasswordMessage({ type: '', message: '' });
+    
+    // Validaciones básicas
+    if (!currentPassword || !newPassword || !confirmPassword) {
+      setPasswordMessage({ type: 'error', message: 'Todos los campos son obligatorios' });
+      setIsLoading(false);
+      return;
+    }
+    
+    if (newPassword !== confirmPassword) {
+      setPasswordMessage({ type: 'error', message: 'Las contraseñas nuevas no coinciden' });
+      setIsLoading(false);
+      return;
+    }
+    
+    try {
+      const response = await fetch('/api/auth/reset-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          currentPassword,
+          newPassword,
+        }),
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Error al cambiar la contraseña');
+      }
+      
+      setPasswordMessage({ type: 'success', message: 'Contraseña actualizada correctamente' });
+      setCurrentPassword('');
+      setNewPassword('');
+      setConfirmPassword('');
+    } catch (error: any) {
+      setPasswordMessage({ type: 'error', message: error.message });
+    } finally {
+      setIsLoading(false);
+    }
   };
   
-  const handleDeleteAccount = (e: React.FormEvent) => {
+  const handleDeleteAccount = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Aquí iría la lógica para eliminar la cuenta
-    if (deleteConfirm === 'ELIMINAR') {
-      alert('Cuenta eliminada correctamente');
+    setIsLoading(true);
+    setDeleteMessage({ type: '', message: '' });
+    
+    // Validación básica
+    if (deleteConfirm !== 'ELIMINAR') {
+      setDeleteMessage({ type: 'error', message: 'Por favor, escribe ELIMINAR para confirmar' });
+      setIsLoading(false);
+      return;
+    }
+    
+    try {
+      const response = await fetch('/api/auth/delete-account', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          confirmation: deleteConfirm,
+          password: deletePassword
+        }),
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Error al eliminar la cuenta');
+      }
+      
+      setDeleteMessage({ type: 'success', message: 'Cuenta eliminada correctamente' });
       setDeleteConfirm('');
-      setShowDeleteConfirmation(false);
-    } else {
-      alert('Por favor, escribe ELIMINAR para confirmar');
+      
+      // Cerrar sesión después de eliminar la cuenta
+      setTimeout(() => {
+        signOut({ callbackUrl: '/auth/login' });
+      }, 2000);
+    } catch (error: any) {
+      setDeleteMessage({ type: 'error', message: error.message });
+    } finally {
+      setIsLoading(false);
     }
   };
   
@@ -173,75 +253,65 @@ export default function SettingsPage() {
                   Cambiar contraseña
                 </h2>
                 <form onSubmit={handlePasswordChange} className="space-y-4">
+                  {passwordMessage.message && (
+                    <div className={`p-3 rounded-md flex items-center gap-2 ${passwordMessage.type === 'error' ? (theme === 'dark' ? 'bg-red-900/50 text-red-200' : 'bg-red-100 text-red-800') : (theme === 'dark' ? 'bg-green-900/50 text-green-200' : 'bg-green-100 text-green-800')}`}>
+                      {passwordMessage.type === 'error' ? <XCircle size={18} /> : <CheckCircle size={18} />}
+                      {passwordMessage.message}
+                    </div>
+                  )}
+                  
                   <div>
-                    <label className={`block mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+                    <label className={`block text-sm font-medium mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
                       Contraseña actual
                     </label>
                     <div className="relative">
                       <input 
                         type={showPassword ? "text" : "password"} 
-                        value={currentPassword} 
+                        value={currentPassword}
                         onChange={(e) => setCurrentPassword(e.target.value)}
-                        className={`w-full px-4 py-2 rounded-lg border ${
-                          theme === 'dark' 
-                            ? 'bg-gray-800 border-gray-700 text-gray-100' 
-                            : 'bg-white border-gray-300 text-gray-800'
-                        }`}
-                        required
+                        className={`w-full px-4 py-2 rounded-lg border ${theme === 'dark' ? 'bg-gray-800 border-gray-700 text-gray-100' : 'bg-white border-gray-300 text-gray-800'}`}
                       />
                       <button 
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-1/2 transform -translate-y-1/2"
+                        className="absolute right-3 top-2.5 text-gray-400"
                       >
-                        {showPassword ? (
-                          <EyeOff size={18} className={theme === 'dark' ? 'text-gray-400' : 'text-gray-500'} />
-                        ) : (
-                          <Eye size={18} className={theme === 'dark' ? 'text-gray-400' : 'text-gray-500'} />
-                        )}
+                        {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                       </button>
                     </div>
                   </div>
                   
                   <div>
-                    <label className={`block mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+                    <label className={`block text-sm font-medium mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
                       Nueva contraseña
                     </label>
                     <input 
                       type={showPassword ? "text" : "password"} 
-                      value={newPassword} 
+                      value={newPassword}
                       onChange={(e) => setNewPassword(e.target.value)}
-                      className={`w-full px-4 py-2 rounded-lg border ${
-                        theme === 'dark' 
-                          ? 'bg-gray-800 border-gray-700 text-white' 
-                          : 'bg-white border-gray-300 text-gray-800'
-                      }`}
-                      required
+                      className={`w-full px-4 py-2 rounded-lg border ${theme === 'dark' ? 'bg-gray-800 border-gray-700 text-gray-100' : 'bg-white border-gray-300 text-gray-800'}`}
                     />
                   </div>
                   
                   <div>
-                    <label className={`block mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+                    <label className={`block text-sm font-medium mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
                       Confirmar nueva contraseña
                     </label>
                     <input 
                       type={showPassword ? "text" : "password"} 
-                      value={confirmPassword} 
+                      value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
-                      className={`w-full px-4 py-2 rounded-lg border ${
-                        theme === 'dark' 
-                          ? 'bg-gray-800 border-gray-700 text-white' 
-                          : 'bg-white border-gray-300 text-gray-800'
-                      }`}
-                      required
+                      className={`w-full px-4 py-2 rounded-lg border ${theme === 'dark' ? 'bg-gray-800 border-gray-700 text-gray-100' : 'bg-white border-gray-300 text-gray-800'}`}
                     />
                   </div>
                   
                   <button 
                     type="submit"
-                    className="px-4 py-2 bg-brand-yellow text-black rounded-md hover:bg-brand-yellow/90"
+                    disabled={isLoading}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-md ${theme === 'dark' ? 'bg-gray-800 text-gray-100 hover:bg-gray-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'} ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
                   >
-                    Actualizar contraseña
+                    <Save size={18} />
+                    {isLoading ? 'Guardando...' : 'Guardar cambios'}
                   </button>
                 </form>
               </section>
@@ -383,6 +453,13 @@ export default function SettingsPage() {
                       </button>
                     ) : (
                       <form onSubmit={handleDeleteAccount} className="mt-4 space-y-3">
+                        {deleteMessage.message && (
+                          <div className={`p-3 rounded-md flex items-center gap-2 ${deleteMessage.type === 'error' ? (theme === 'dark' ? 'bg-red-900/50 text-red-200' : 'bg-red-100 text-red-800') : (theme === 'dark' ? 'bg-green-900/50 text-green-200' : 'bg-green-100 text-green-800')}`}>
+                            {deleteMessage.type === 'error' ? <XCircle size={18} /> : <CheckCircle size={18} />}
+                            {deleteMessage.message}
+                          </div>
+                        )}
+                        
                         <p className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
                           Para confirmar, escribe <span className="font-bold">ELIMINAR</span> en el campo a continuación:
                         </p>
@@ -397,25 +474,48 @@ export default function SettingsPage() {
                           }`}
                           placeholder="ELIMINAR"
                         />
+                        
+                        <p className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+                          Ingresa tu contraseña para confirmar:
+                        </p>
+                        <input 
+                          type="password" 
+                          value={deletePassword} 
+                          onChange={(e) => setDeletePassword(e.target.value)}
+                          className={`w-full px-4 py-2 rounded-lg border ${
+                            theme === 'dark' 
+                              ? 'bg-gray-800 border-gray-700 text-gray-100' 
+                              : 'bg-white border-gray-300 text-gray-800'
+                          }`}
+                          placeholder="Contraseña"
+                        />
+                        
                         <div className="flex gap-3">
                           <button 
                             type="submit"
+                            disabled={isLoading}
                             className={`px-4 py-2 rounded-md ${
                               theme === 'dark' 
                                 ? 'bg-gray-800 text-red-200 hover:bg-gray-700' 
                                 : 'bg-red-500 text-white hover:bg-red-600'
-                            }`}
+                            } ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
                           >
-                            Confirmar eliminación
+                            {isLoading ? 'Procesando...' : 'Confirmar eliminación'}
                           </button>
                           <button 
                             type="button"
-                            onClick={() => setShowDeleteConfirmation(false)}
+                            onClick={() => {
+                              setShowDeleteConfirmation(false);
+                              setDeleteMessage({ type: '', message: '' });
+                              setDeleteConfirm('');
+                              setDeletePassword('');
+                            }}
                             className={`px-4 py-2 rounded-md ${
                               theme === 'dark' 
                                 ? 'bg-gray-800 text-gray-300 hover:bg-gray-700' 
                                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                             }`}
+                            disabled={isLoading}
                           >
                             Cancelar
                           </button>

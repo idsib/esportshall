@@ -372,7 +372,7 @@ export default function EditProfileModal({ isOpen, onClose, onSave, initialData,
                       <div className="relative w-12 h-12">
                         {community.id === 'cs2' ? (
                           <Image 
-                            src="/cs2.png" 
+                            src="/images/cs2.png" 
                             alt="CS2"
                             width={48}
                             height={48}
