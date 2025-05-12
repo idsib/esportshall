@@ -45,13 +45,13 @@ export default function NewsPage() {
           const response = await fetch('/api/noticias');
           if (response.ok) {
             const data: NoticiasData = await response.json();
-            
+
             // Aplanar todas las noticias en un solo array
             const todasNoticias: Noticia[] = [];
             Object.values(data.Noticias).forEach(fuente => {
               todasNoticias.push(...fuente.articulos);
             });
-            
+
             setNoticias(todasNoticias);
             setLoading(false);
             return;
@@ -59,20 +59,20 @@ export default function NewsPage() {
         } catch (apiErr) {
           console.log('Error al cargar desde API, intentando cargar desde archivo local:', apiErr);
         }
-        
+
         // Si falla la API, cargar desde el archivo local
         const response = await fetch('/main/web-crawler/noticias.json');
         if (!response.ok) {
           throw new Error('Error al cargar las noticias');
         }
         const data: NoticiasData = await response.json();
-        
+
         // Aplanar todas las noticias en un solo array
         const todasNoticias: Noticia[] = [];
         Object.values(data.Noticias).forEach(fuente => {
           todasNoticias.push(...fuente.articulos);
         });
-        
+
         setNoticias(todasNoticias);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Error desconocido');
@@ -86,7 +86,7 @@ export default function NewsPage() {
 
   const filteredNews = noticias.filter(article => {
     const matchesSearch = article.titulo.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         article.texto.toLowerCase().includes(searchQuery.toLowerCase());
+      article.texto.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesSearch;
   });
 
@@ -113,9 +113,8 @@ export default function NewsPage() {
   return (
     <MainLayout>
       <div className="max-w-4xl mx-auto p-6">
-        <h1 className={`text-3xl font-bold mb-8 ${
-          theme === 'dark' ? 'text-white' : 'text-gray-900'
-        }`}>Noticias</h1>
+        <h1 className={`text-3xl font-bold mb-8 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+          }`}>Noticias</h1>
 
         {/* Filtros */}
         <div className="mb-8">
@@ -127,48 +126,43 @@ export default function NewsPage() {
                 placeholder="Buscar noticias..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className={`w-full pl-10 pr-4 py-2 rounded-lg border text-sm ${
-                  theme === 'dark'
+                className={`w-full pl-10 pr-4 py-2 rounded-lg border text-sm ${theme === 'dark'
                     ? 'bg-dark-300 border-dark-300 text-white placeholder-gray-500'
                     : 'bg-white border-gray-200 text-gray-900 placeholder-gray-400'
-                }`}
+                  }`}
               />
             </div>
           </div>
         </div>
 
         {filteredNews.length === 0 ? (
-          <div className={`text-center py-8 ${
-            theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-          }`}>
+          <div className={`text-center py-8 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+            }`}>
             No se encontraron noticias para mostrar.
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Noticia destacada */}
             {filteredNews[0] && (
-              <div className={`md:col-span-2 rounded-lg overflow-hidden ${
-                theme === 'dark' ? 'bg-dark-200' : 'bg-white shadow-sm'
-              }`}>
+              <div className={`md:col-span-2 rounded-lg overflow-hidden ${theme === 'dark' ? 'bg-dark-200' : 'bg-white shadow-sm'
+                }`}>
                 {filteredNews[0].imagen && (
                   <div className="w-full h-64 overflow-hidden">
-                    <img 
-                      src={filteredNews[0].imagen} 
-                      alt={filteredNews[0].titulo} 
+                    <img
+                      src={filteredNews[0].imagen}
+                      alt={filteredNews[0].titulo}
                       className="w-full h-full object-cover"
                     />
                   </div>
                 )}
                 <div className="p-6">
-                  <h2 className={`text-2xl font-bold mt-2 mb-4 ${
-                    theme === 'dark' ? 'text-white' : 'text-gray-900'
-                  }`}>
+                  <h2 className={`text-2xl font-bold mt-2 mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                    }`}>
                     {filteredNews[0].titulo}
                   </h2>
                   {filteredNews[0].fecha && (
-                    <p className={`text-sm mb-3 ${
-                      theme === 'dark' ? 'text-gray-500' : 'text-gray-500'
-                    }`}>
+                    <p className={`text-sm mb-3 ${theme === 'dark' ? 'text-gray-500' : 'text-gray-500'
+                      }`}>
                       {new Date(filteredNews[0].fecha).toLocaleDateString('es-ES', {
                         year: 'numeric',
                         month: 'long',
@@ -176,15 +170,14 @@ export default function NewsPage() {
                       })}
                     </p>
                   )}
-                  <p className={`mb-4 ${
-                    theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-                  }`}>
+                  <p className={`mb-4 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                    }`}>
                     {filteredNews[0].texto.substring(0, 200)}...
                   </p>
                   <div className="flex items-center justify-between">
-                    <a 
-                      href={filteredNews[0].link} 
-                      target="_blank" 
+                    <a
+                      href={filteredNews[0].link}
+                      target="_blank"
                       rel="noopener noreferrer"
                       className="text-yellow-400 hover:text-yellow-500"
                     >
@@ -197,28 +190,25 @@ export default function NewsPage() {
 
             {/* Noticias secundarias */}
             {filteredNews.slice(1, 5).map((article, index) => (
-              <div key={index} className={`rounded-lg overflow-hidden ${
-                theme === 'dark' ? 'bg-dark-200' : 'bg-white shadow-sm'
-              }`}>
+              <div key={index} className={`rounded-lg overflow-hidden ${theme === 'dark' ? 'bg-dark-200' : 'bg-white shadow-sm'
+                }`}>
                 {article.imagen && (
                   <div className="w-full h-40 overflow-hidden">
-                    <img 
-                      src={article.imagen} 
-                      alt={article.titulo} 
+                    <img
+                      src={article.imagen}
+                      alt={article.titulo}
                       className="w-full h-full object-cover"
                     />
                   </div>
                 )}
                 <div className="p-4">
-                  <h3 className={`text-xl font-bold mt-2 mb-2 ${
-                    theme === 'dark' ? 'text-white' : 'text-gray-900'
-                  }`}>
+                  <h3 className={`text-xl font-bold mt-2 mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                    }`}>
                     {article.titulo}
                   </h3>
                   {article.fecha && (
-                    <p className={`text-xs mb-2 ${
-                      theme === 'dark' ? 'text-gray-500' : 'text-gray-500'
-                    }`}>
+                    <p className={`text-xs mb-2 ${theme === 'dark' ? 'text-gray-500' : 'text-gray-500'
+                      }`}>
                       {new Date(article.fecha).toLocaleDateString('es-ES', {
                         year: 'numeric',
                         month: 'long',
@@ -226,15 +216,14 @@ export default function NewsPage() {
                       })}
                     </p>
                   )}
-                  <p className={`text-sm mb-4 ${
-                    theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-                  }`}>
+                  <p className={`text-sm mb-4 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                    }`}>
                     {article.texto.substring(0, 150)}...
                   </p>
                   <div className="flex items-center justify-between">
-                    <a 
-                      href={article.link} 
-                      target="_blank" 
+                    <a
+                      href={article.link}
+                      target="_blank"
                       rel="noopener noreferrer"
                       className="text-yellow-400 hover:text-yellow-500 text-sm"
                     >

@@ -36,9 +36,9 @@ export default function TeamsPage() {
             setLoading(true);
             setError(null);
             const data = await fetchTeams(
-                page, 
-                50, 
-                game, 
+                page,
+                50,
+                game,
                 search
             );
             setTeams(data);
@@ -78,8 +78,8 @@ export default function TeamsPage() {
         <div>
             <MainLayout>
                 <div className="container mx-auto px-4 py-8">
-                    <h1 className={`text-3xl font-bold mb-6 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>TEAMS ESPORTS</h1>
-                    
+                    <h1 className={`text-3xl font-bold mb-6 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Equipos</h1>
+
                     {/* Filters */}
                     <div className="mb-8">
                         <div className="flex flex-col md:flex-row gap-4 mb-4">
@@ -97,22 +97,22 @@ export default function TeamsPage() {
                                 />
                             </div>
                         </div>
-                        
+
                         {/* Game filters */}
                         <div className="flex flex-wrap justify-center gap-3 mb-4">
-                            <button 
+                            <button
                                 onClick={() => handleGameChange('lol')}
                                 className={`px-4 py-2 rounded-md ${selectedGame === 'lol' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
                             >
                                 {gameDisplayNames.lol}
                             </button>
-                            <button 
+                            <button
                                 onClick={() => handleGameChange('valorant')}
                                 className={`px-4 py-2 rounded-md ${selectedGame === 'valorant' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
                             >
                                 {gameDisplayNames.valorant}
                             </button>
-                            <button 
+                            <button
                                 onClick={() => handleGameChange('cs2')}
                                 className={`px-4 py-2 rounded-md ${selectedGame === 'cs2' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
                             >
@@ -120,7 +120,7 @@ export default function TeamsPage() {
                             </button>
                         </div>
                     </div>
-                    
+
                     {loading ? (
                         <LoadingState message="Cargando equipos..." />
                     ) : error ? (
@@ -137,21 +137,21 @@ export default function TeamsPage() {
                                     <div key={team.id} className={`${theme === 'dark' ? 'bg-gray-900' : 'bg-white'} p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 h-full flex flex-col`}>
                                         <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100'} flex items-center justify-center rounded-md h-32 w-32 mx-auto mb-4`}>
                                             {team.image_url ? (
-                                                <img 
-                                                    src={team.image_url} 
-                                                    alt={team.name} 
-                                                    width={100} 
-                                                    height={100} 
+                                                <img
+                                                    src={team.image_url}
+                                                    alt={team.name}
+                                                    width={100}
+                                                    height={100}
                                                     className="rounded-full object-cover"
                                                 />
                                             ) : (
                                                 <div className={`w-24 h-24 rounded-full ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-200'} flex items-center justify-center`}>
-                                                    <span className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'} text-xl`}>No Image</span>
+                                                    <span className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'} text-xl`}>Sin imagen</span>
                                                 </div>
                                             )}
                                         </div>
                                         <h3 className={`text-xl font-semibold text-center mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>{team.name}</h3>
-                                        
+
                                         {/* Información adicional del equipo */}
                                         <div className={`text-sm mb-3 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
                                             {team.location && (
@@ -160,7 +160,7 @@ export default function TeamsPage() {
                                                     <span className={`${theme === 'dark' ? 'bg-dark-300' : 'bg-gray-100'} px-2 py-0.5 rounded text-xs`}>{team.location}</span>
                                                 </div>
                                             )}
-                                            
+
                                             <div className="flex justify-between items-center">
                                                 <span className="font-medium">Juego:</span>
                                                 <span className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100'} px-2 py-0.5 rounded text-xs`}>
@@ -168,7 +168,7 @@ export default function TeamsPage() {
                                                 </span>
                                             </div>
                                         </div>
-                                        
+
                                         {team.acronym && (
                                             <p className={`text-center text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
                                                 {team.acronym}
@@ -179,8 +179,8 @@ export default function TeamsPage() {
                             </div>
 
                             <div className="flex justify-between mt-8">
-                                <button 
-                                    onClick={handlePrevPage} 
+                                <button
+                                    onClick={handlePrevPage}
                                     disabled={currentPage === 1}
                                     className={`px-4 py-2 rounded-md ${currentPage === 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-brand-yellow text-black hover:bg-brand-yellow/90'}`}
                                 >
@@ -194,7 +194,7 @@ export default function TeamsPage() {
                                         {teams.length} resultados
                                     </span>
                                 </div>
-                                <button 
+                                <button
                                     onClick={handleNextPage}
                                     className="px-4 py-2 bg-brand-yellow text-black rounded-md hover:bg-brand-yellow/90"
                                 >

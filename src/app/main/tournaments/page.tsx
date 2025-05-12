@@ -79,8 +79,8 @@ export default function TournamentsPage() {
         <div>
             <MainLayout>
                 <div className="container mx-auto px-4 py-8">
-                    <h1 className={`text-3xl font-bold mb-6 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>TOURNAMENTS ESPORTS</h1>
-                    
+                    <h1 className={`text-3xl font-bold mb-6 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Torneos</h1>
+
                     <div className="mb-8">
                         {/* Search bar */}
                         <div className="flex flex-col md:flex-row gap-4 mb-4">
@@ -97,22 +97,22 @@ export default function TournamentsPage() {
                                 />
                             </div>
                         </div>
-                        
+
                         {/* Game filters */}
                         <div className="flex flex-wrap justify-center gap-3 mb-4">
-                            <button 
+                            <button
                                 onClick={() => handleGameChange('lol')}
                                 className={`px-4 py-2 rounded-md ${selectedGame === 'lol' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
                             >
                                 {gameDisplayNames.lol}
                             </button>
-                            <button 
+                            <button
                                 onClick={() => handleGameChange('valorant')}
                                 className={`px-4 py-2 rounded-md ${selectedGame === 'valorant' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
                             >
                                 {gameDisplayNames.valorant}
                             </button>
-                            <button 
+                            <button
                                 onClick={() => handleGameChange('cs2')}
                                 className={`px-4 py-2 rounded-md ${selectedGame === 'cs2' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
                             >
@@ -120,7 +120,7 @@ export default function TournamentsPage() {
                             </button>
                         </div>
                     </div>
-                    
+
                     {loading ? (
                         <LoadingState message={`Cargando torneos de ${gameDisplayNames[selectedGame]}...`} />
                     ) : error ? (
@@ -137,47 +137,47 @@ export default function TournamentsPage() {
                                     <div key={tournament.id} className={`${theme === 'dark' ? 'bg-gray-900' : 'bg-white'} p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 h-full flex flex-col`}>
                                         {tournament.league?.image_url && (
                                             <div className={`h-40 ${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100'} flex items-center justify-center p-4 rounded-md mb-4`}>
-                                                <img 
-                                                    src={tournament.league.image_url} 
-                                                    alt={tournament.league.name} 
+                                                <img
+                                                    src={tournament.league.image_url}
+                                                    alt={tournament.league.name}
                                                     className="max-h-full max-w-full object-contain"
                                                 />
                                             </div>
                                         )}
                                         <div className="flex-1">
                                             <h2 className={`text-xl font-bold mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>{tournament.name}</h2>
-                                            
+
                                             <div className="space-y-3">
                                                 {tournament.series && (
                                                     <p className="text-sm text-gray-600 dark:text-gray-300">
                                                         <span className="font-semibold">Serie:</span> {tournament.series.full_name || tournament.series.name}
                                                     </p>
                                                 )}
-                                                
+
                                                 {tournament.league && (
                                                     <p className="text-sm text-gray-600 dark:text-gray-300">
                                                         <span className="font-semibold">Liga:</span> {tournament.league.name}
                                                     </p>
                                                 )}
-                                                
+
                                                 {tournament.region && (
                                                     <p className="text-sm text-gray-600 dark:text-gray-300">
                                                         <span className="font-semibold">Región:</span> {tournament.region}
                                                     </p>
                                                 )}
-                                                
+
                                                 {tournament.country && (
                                                     <p className="text-sm text-gray-600 dark:text-gray-300">
                                                         <span className="font-semibold">País:</span> {tournament.country}
                                                     </p>
                                                 )}
-                                                
+
                                                 {tournament.prizepool && (
                                                     <p className="text-sm text-gray-600 dark:text-gray-300">
                                                         <span className="font-semibold">Premio:</span> {tournament.prizepool}
                                                     </p>
                                                 )}
-                                                
+
                                                 <div className={`pt-3 border-t ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}>
                                                     <p className="text-sm text-gray-600 dark:text-gray-300">
                                                         <span className="font-semibold">Inicio:</span> {formatDate(tournament.begin_at)}
@@ -193,8 +193,8 @@ export default function TournamentsPage() {
                             </div>
 
                             <div className="flex justify-between mt-8">
-                                <button 
-                                    onClick={handlePrevPage} 
+                                <button
+                                    onClick={handlePrevPage}
                                     disabled={currentPage === 1}
                                     className={`px-4 py-2 rounded-md ${currentPage === 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-brand-yellow text-black hover:bg-brand-yellow/90'}`}
                                 >
@@ -208,7 +208,7 @@ export default function TournamentsPage() {
                                         {tournaments.length} resultados
                                     </span>
                                 </div>
-                                <button 
+                                <button
                                     onClick={handleNextPage}
                                     className="px-4 py-2 bg-brand-yellow text-black rounded-md hover:bg-brand-yellow/90"
                                 >
