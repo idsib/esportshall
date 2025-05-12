@@ -88,3 +88,7 @@ export async function logoutUser(token: string) {
         return { success: false };
     }
 }
+
+export async function updateNameUser(userName : String){
+    
+}
