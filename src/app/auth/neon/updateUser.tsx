@@ -1,4 +1,4 @@
-// Función modular para actualizar usuarios, dependiendo de lo que le llegue a la función actualizara o no los datos correspondientes.
+/* // Función modular para actualizar usuarios, dependiendo de lo que le llegue a la función actualizara o no los datos correspondientes.
 // Importamos las funciones para actualizar los usuarios en Firebase.
 // Tenemos updateProfile para el nombre y la url de la imagen de perfil => https://firebase.google.com/docs/reference/node/firebase.User#updateprofile
 import { updateProfile} from "firebase/auth";
@@ -93,4 +93,4 @@ export async function updateUserProfile(newDisplayName : String, newDni : String
         };
         await updateHomeUserInBackend(userHome)
     }
-}
+} */
