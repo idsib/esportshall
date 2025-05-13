@@ -72,8 +72,8 @@ export default function PlayersPage() {
         <div>
             <MainLayout>
                 <div className="container mx-auto px-4 py-8">
-                    <h1 className={`text-3xl font-bold mb-6 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>PLAYERS ESPORTS</h1>
-                    
+                    <h1 className={`text-3xl font-bold mb-6 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Jugadores</h1>
+
                     {/* Filters */}
                     <div className="mb-8">
                         <div className="flex flex-col md:flex-row gap-4 mb-4">
@@ -91,22 +91,22 @@ export default function PlayersPage() {
                                 />
                             </div>
                         </div>
-                        
+
                         {/* Game filters */}
                         <div className="flex flex-wrap justify-center gap-3 mb-4">
-                            <button 
+                            <button
                                 onClick={() => handleGameChange('lol')}
                                 className={`px-4 py-2 rounded-md ${selectedGame === 'lol' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
                             >
                                 {gameDisplayNames.lol}
                             </button>
-                            <button 
+                            <button
                                 onClick={() => handleGameChange('valorant')}
                                 className={`px-4 py-2 rounded-md ${selectedGame === 'valorant' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
                             >
                                 {gameDisplayNames.valorant}
                             </button>
-                            <button 
+                            <button
                                 onClick={() => handleGameChange('cs2')}
                                 className={`px-4 py-2 rounded-md ${selectedGame === 'cs2' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
                             >
@@ -114,7 +114,7 @@ export default function PlayersPage() {
                             </button>
                         </div>
                     </div>
-                    
+
                     {loading ? (
                         <LoadingState />
                     ) : error ? (
@@ -131,11 +131,11 @@ export default function PlayersPage() {
                                     <div key={player.id} className={`${theme === 'dark' ? 'bg-gray-900' : 'bg-white'} p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 h-full flex flex-col`}>
                                         <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100'} flex items-center justify-center rounded-md h-32 w-32 mx-auto mb-4`}>
                                             {player.image_url ? (
-                                                <img 
-                                                    src={player.image_url} 
-                                                    alt={player.name} 
-                                                    width={100} 
-                                                    height={100} 
+                                                <img
+                                                    src={player.image_url}
+                                                    alt={player.name}
+                                                    width={100}
+                                                    height={100}
                                                     className="rounded-full object-cover"
                                                 />
                                             ) : (
@@ -172,8 +172,8 @@ export default function PlayersPage() {
                             </div>
 
                             <div className="flex justify-between mt-8">
-                                <button 
-                                    onClick={handlePrevPage} 
+                                <button
+                                    onClick={handlePrevPage}
                                     disabled={currentPage === 1}
                                     className={`px-4 py-2 rounded-md ${currentPage === 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-brand-yellow text-black hover:bg-brand-yellow/90'}`}
                                 >
@@ -187,7 +187,7 @@ export default function PlayersPage() {
                                         {players.length} resultados
                                     </span>
                                 </div>
-                                <button 
+                                <button
                                     onClick={handleNextPage}
                                     className="px-4 py-2 bg-brand-yellow text-black rounded-md hover:bg-brand-yellow/90"
                                 >

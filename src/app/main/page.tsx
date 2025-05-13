@@ -44,7 +44,7 @@ export default function MainPage() {
   const router = useRouter();
   const userImage = session?.user?.image || '/images/esportshall.png';
   const [tweets] = useState<Tweet[]>(initialTweets);
-  
+
   useEffect(() => {
     if (!session) {
       router.push('/auth/login');
@@ -74,11 +74,10 @@ export default function MainPage() {
             <div className="flex-1">
               <textarea
                 placeholder="¿Qué está pasando en el mundo de los esports?"
-                className={`w-full bg-transparent border-none focus:outline-none resize-none ${
-                  theme === 'dark' 
-                    ? 'text-white placeholder-neutral-500' 
+                className={`w-full bg-transparent border-none focus:outline-none resize-none ${theme === 'dark'
+                    ? 'text-white placeholder-neutral-500'
                     : 'text-gray-900 placeholder-gray-500'
-                }`}
+                  }`}
                 rows={3}
               />
               <div className="flex justify-between items-center pt-4">
@@ -87,6 +86,7 @@ export default function MainPage() {
                     Postear
                   </button>
                 </div>
+                <button onClick={function cosa(){}}> pruebita</button>
               </div>
             </div>
           </div>
@@ -95,13 +95,12 @@ export default function MainPage() {
         {/* Tweet Feed */}
         <div>
           {tweets.map((tweet) => (
-            <div 
-              key={tweet.id} 
-              className={`p-4 ${
-                theme === 'dark' 
-                  ? 'hover:bg-dark-300/50 bg-dark-200/95' 
+            <div
+              key={tweet.id}
+              className={`p-4 ${theme === 'dark'
+                  ? 'hover:bg-dark-300/50 bg-dark-200/95'
                   : 'hover:bg-gray-50 bg-white'
-              }`}
+                }`}
             >
               <div className="flex gap-4">
                 <div className="relative w-12 h-12">
@@ -125,11 +124,10 @@ export default function MainPage() {
                     <span className={theme === 'dark' ? 'text-neutral-500' : 'text-gray-500'}>
                       {tweet.timestamp}
                     </span>
-                    <button className={`ml-auto ${
-                      theme === 'dark' 
-                        ? 'text-neutral-500 hover:text-yellow-400' 
+                    <button className={`ml-auto ${theme === 'dark'
+                        ? 'text-neutral-500 hover:text-yellow-400'
                         : 'text-gray-500 hover:text-yellow-500'
-                    }`}>
+                      }`}>
                       <MoreHorizontal size={20} />
                     </button>
                   </div>
@@ -137,27 +135,24 @@ export default function MainPage() {
                     {tweet.content}
                   </p>
                   <div className="flex gap-6 mt-4">
-                    <button className={`flex items-center gap-2 ${
-                      theme === 'dark' 
-                        ? 'text-neutral-500 hover:text-yellow-400' 
+                    <button className={`flex items-center gap-2 ${theme === 'dark'
+                        ? 'text-neutral-500 hover:text-yellow-400'
                         : 'text-gray-500 hover:text-yellow-500'
-                    }`}>
+                      }`}>
                       <MessageSquare size={20} />
                       <span>{tweet.replies}</span>
                     </button>
-                    <button className={`flex items-center gap-2 ${
-                      theme === 'dark' 
-                        ? 'text-neutral-500 hover:text-yellow-400' 
+                    <button className={`flex items-center gap-2 ${theme === 'dark'
+                        ? 'text-neutral-500 hover:text-yellow-400'
                         : 'text-gray-500 hover:text-yellow-500'
-                    }`}>
+                      }`}>
                       <Heart size={20} />
                       <span>{tweet.likes}</span>
                     </button>
-                    <button className={`flex items-center gap-2 ${
-                      theme === 'dark' 
-                        ? 'text-neutral-500 hover:text-yellow-400' 
+                    <button className={`flex items-center gap-2 ${theme === 'dark'
+                        ? 'text-neutral-500 hover:text-yellow-400'
                         : 'text-gray-500 hover:text-yellow-500'
-                    }`}>
+                      }`}>
                       <Repeat2 size={20} />
                       <span>{tweet.retweets}</span>
                     </button>

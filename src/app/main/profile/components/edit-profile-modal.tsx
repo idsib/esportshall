@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { X, Camera } from 'lucide-react';
 import { useTheme } from '@/context/theme-context';
 import { useSession } from 'next-auth/react';
+import {updateUserProfile} from "../../../auth/neon/updateUser";
 
 interface EditProfileModalProps {
   isOpen: boolean;
@@ -137,7 +138,7 @@ export default function EditProfileModal({ isOpen, onClose, onSave, initialData,
             <h2 className="text-xl font-bold">Editar perfil</h2>
           </div>
           <button
-            onClick={() => onSave(formData)}
+            onClick={() => updateUserProfile(session?.user?.name, formData.username, formData.bio, formData.location, formData.website, formData.socialLinks.x, formData.socialLinks.instagram, formData.socialLinks.twitch, formData.favoriteCommunity)}
             className="px-4 py-1.5 rounded-full bg-yellow-500 hover:bg-yellow-600 text-black font-semibold text-sm transition-colors"
           >
             Guardar

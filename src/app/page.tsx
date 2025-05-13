@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Trophy, Users, Gamepad2, ArrowRight } from "lucide-react"
 import Nav from "./components/layout/nav"
 import { AnimatedBackground } from "./components/ui/animated-background"
+import { converter } from "./main/web-crawler/JSONtoSQL"
 
 //-backend-//
 import { hashMD5 } from './auth/neon/hashPass'
@@ -92,8 +93,7 @@ export default function Home() {
                   >
                     Empezar Ahora
                   </Link>
-                  <button onClick={function cosa(){console.log( new Date(Date.now())
-)}}> pruebita</button>
+                  <button onClick={() => converter()}> pruebita</button>
                   <Link 
                     href="/about"
                     className="btn-secondary"
