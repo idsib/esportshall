@@ -1,96 +1,65 @@
-/* // Función modular para actualizar usuarios, dependiendo de lo que le llegue a la función actualizara o no los datos correspondientes.
-// Importamos las funciones para actualizar los usuarios en Firebase.
-// Tenemos updateProfile para el nombre y la url de la imagen de perfil => https://firebase.google.com/docs/reference/node/firebase.User#updateprofile
-import { updateProfile} from "firebase/auth";
+"use server"
+import { neon } from '@neondatabase/serverless';
 
-// Importamos el auth con la configuración del proyecto.
-import { auth } from '@/backend/firebase/config';
+const sql = neon(`${process.env.DATABASE_URL}`);
 
-// Importamos las funciones para operar en MongoDB, cada una para un dato distinto del usuario.
-import { updateNameUserInBackend, updateDniUserInBackend, updateAgeUserInBackend, updateCountryUserInBackend, updateProvinceUserInBackend, updateCityUserInBackend, updatePostalCodeUserInBackend, updateHomeUserInBackend, updatePhoneUserInBackend } from '@/backend/firebase/config';
+export async function updateUserProfile(ActualName : any, username : String, bio : String, location : String, website : String, x : String, instagram: string, twitch: string, favoriteCommunity: string) {
 
-export async function updateUserProfile(newDisplayName : String, newDni : String, newAge : String, newContry : String, newProvince : String, 
-    newCity : String, newPostalCode : String, newHome : String, newPhone : String) {
-        
-    // Condicional para actualizar el nombre.
-    if (newDisplayName) {
-        // Actualizamos el nombre en Firebase.
-        await updateProfile(auth.currentUser, {
-            displayName: newDisplayName
-        }).then(() => {
-            console.log("Usuario actualizado en firebase con los datos => name: " + newDisplayName)
-        }).catch((error) => {
-            console.log("Error con actualizacion con nombre y foto: " + error)
-        });
-        // Lo colocamos en formato JSON para enviarlo al servidor.
-        const userName = {
-            fullName: newDisplayName
-        };
-        // Actualizamos el nombre en MongoDB.
-        await updateNameUserInBackend(userName)
+    if (username) {
+        try {
+            await sql('UPDATE users SET name = $1 WHERE name = $2 ', [username, ActualName]);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    if (bio) {
+        try {
+            await sql('UPDATE users_ai SET bio = $1 FROM users WHERE users_ai.user_id = users.id AND users.name = $2', [bio, ActualName]);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    if (location) {
+        try {
+            await sql('UPDATE users_ai SET location = $1 FROM users WHERE users_ai.user_id = users.id AND users.name = $2', [location, ActualName]);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    if (website) {
+        try {
+            await sql('UPDATE users_ai SET website = $1 FROM users WHERE users_ai.user_id = users.id AND users.name = $2', [website, ActualName]);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    if (x) {
+        try {
+            await sql('UPDATE users_ai SET x = $1 FROM users WHERE users_ai.user_id = users.id AND users.name = $2', [x, ActualName]);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    if (instagram) {
+        try {
+            await sql('UPDATE users_ai SET instagram = $1 FROM users WHERE users_ai.user_id = users.id AND users.name = $2', [instagram, ActualName]);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    if (twitch) {
+        try {
+            await sql('UPDATE users_ai SET twitch = $1 FROM users WHERE users_ai.user_id = users.id AND users.name = $2', [twitch, ActualName]);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    if (favoriteCommunity) {
+        try {
+            await sql('UPDATE users_ai SET favoriteCommunity = $1 FROM users WHERE users_ai.user_id = users.id AND users.name = $2', [favoriteCommunity, ActualName]);
+        } catch (error) {
+            console.log(error)
+        }
     }
 
-    // Condicional para actualizar el dni.
-    if (newDni) {
-        const userDni = {
-            dni: newDni
-        };
-        await updateDniUserInBackend(userDni)
-    }
-
-    // Condicional para actualizar el edad.
-    if (newAge) {
-        const userAge = {
-            age: newAge
-        };
-        await updateAgeUserInBackend(userAge)
-    }
-
-    // Condicional para actualizar el país.
-    if (newContry) {
-        const userCountry = {
-            country: newContry
-        };
-        await updateCountryUserInBackend(userCountry)
-    }
-
-    // Condicional para actualizar el provincia.
-    if (newProvince) {
-        const userProvince = {
-            province: newProvince
-        };
-        await updateProvinceUserInBackend(userProvince)
-    }
-
-    // Condicional para actualizar el ciudad.
-    if (newCity) {
-        const userCity = {
-            city: newCity
-        };
-        await updateCityUserInBackend(userCity)
-    }
-
-    // Condicional para actualizar el codigo postal.
-    if (newPostalCode) {
-        const userPostalCode = {
-            postalCode: newPostalCode
-        };
-        await updatePostalCodeUserInBackend(userPostalCode)
-    }
-
-    // Condicional para actualizar el teléfono.
-    if (newPhone) {
-        const userPhone = {
-            phone: newPhone
-        };
-        await updatePhoneUserInBackend(userPhone)
-    }
-    
-    // Condicional para actualizar el casa.
-    if (newHome) {
-        const userHome = {
-            home: newHome
-        };
-        await updateHomeUserInBackend(userHome)
-    }
-} */
+}
