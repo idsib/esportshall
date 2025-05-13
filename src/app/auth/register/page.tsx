@@ -11,7 +11,7 @@ import { signIn, useSession } from "next-auth/react"
 import { redirect, useRouter } from 'next/navigation'
 
 //-backend-//
-import { register } from '../neon/actionsServer'
+import { register, checkEmailExists } from '../neon/actionsServer'
 //-backend-//
 
 export default function Register() {
@@ -27,6 +27,9 @@ export default function Register() {
         password: '',
         terms: false
     })
+    
+    const [emailError, setEmailError] = useState('')
+    const [isCheckingEmail, setIsCheckingEmail] = useState(false)
 
     useEffect(() => {
         if (session) {
@@ -40,6 +43,30 @@ export default function Register() {
             ...prev,
             [name]: type === 'checkbox' ? checked : value
         }))
+        
+        // Clear email error when user starts typing a new email
+        if (name === 'email') {
+            setEmailError('')
+        }
+    }
+    
+    // Check if email is unique when user finishes typing
+    const handleEmailBlur = async () => {
+        if (formData.email && formData.email.includes('@')) {
+            setIsCheckingEmail(true)
+            try {
+                const result = await checkEmailExists(formData.email)
+                if (result.exists) {
+                    setEmailError(result.message)
+                } else {
+                    setEmailError('')
+                }
+            } catch (error) {
+                console.error('Error al verificar email:', error)
+            } finally {
+                setIsCheckingEmail(false)
+            }
+        }
     }
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -48,8 +75,20 @@ export default function Register() {
             alert('Debes aceptar los términos y condiciones')
             return
         }
+        
+        // Check for email error before submitting
+        if (emailError) {
+            alert('Por favor utiliza un correo electrónico diferente')
+            return
+        }
+        
         try {
-            await register(new FormData(e.currentTarget))
+            const result = await register(new FormData(e.currentTarget))
+            
+            if (!result.success) {
+                throw new Error(result.error)
+            }
+            
             setIsSuccess(true)
             // Esperar 2 segundos antes de redirigir
             setTimeout(() => {
@@ -57,7 +96,7 @@ export default function Register() {
             }, 2000)
         } catch (error) {
             console.error('Error al registrar:', error)
-            alert('Error al registrar: ' + error)
+            alert('Error al registrar: ' + (error instanceof Error ? error.message : error))
         }
     }
 
@@ -140,9 +179,16 @@ export default function Register() {
                                             id="email"
                                             value={formData.email}
                                             onChange={handleInputChange}
-                                            className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-dark-300 rounded-md shadow-sm focus:outline-none focus:ring-brand-yellow focus:border-brand-yellow dark:bg-dark-300 dark:text-white"
+                                            onBlur={handleEmailBlur}
+                                            className={`mt-1 block w-full px-3 py-2 border ${emailError ? 'border-red-500' : 'border-gray-300 dark:border-dark-300'} rounded-md shadow-sm focus:outline-none focus:ring-brand-yellow focus:border-brand-yellow dark:bg-dark-300 dark:text-white`}
                                             required
                                         />
+                                        {isCheckingEmail && (
+                                            <p className="text-sm text-gray-500 mt-1">Verificando disponibilidad...</p>
+                                        )}
+                                        {emailError && (
+                                            <p className="text-sm text-red-500 mt-1">{emailError}</p>
+                                        )}
                                     </div>
 
                                     <div>

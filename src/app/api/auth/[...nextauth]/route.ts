@@ -126,7 +126,7 @@ const authOptions: AuthOptions = {
           session.user.token = manualToken;
           
           // Añadir script para guardar en localStorage (se ejecutará en el cliente)
-          session.user.localStorageScript = `
+                                       session.user.localStorageScript = `
             localStorage.setItem('auth_token', '${manualToken}');
             localStorage.setItem('user_id', '${token.id}');
             localStorage.setItem('user_email', '${session.user.email}');
