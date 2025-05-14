@@ -7,6 +7,7 @@ import { MessageSquare, Heart, MoreHorizontal, Repeat2 } from "lucide-react";
 import { useTheme } from "../../context/theme-context";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import {AllNoticias} from "../auth/neon/actionsServer";
 
 interface Tweet {
   id: number;
@@ -86,7 +87,7 @@ export default function MainPage() {
                     Postear
                   </button>
                 </div>
-                <button onClick={function cosa(){ console.log(session?.user?.email)}}> pruebita</button>
+                <button onClick={() => AllNoticias()}> pruebita</button>
               </div>
             </div>
           </div>

@@ -7,26 +7,19 @@ import MainLayout from '../components/layout/mainLayout';
 import { useTheme } from '@/context/theme-context';
 import { Loader2, Search } from 'lucide-react';
 import { games } from '@/utils/newsSources';
+import { AllNoticias } from "../../auth/neon/actionsServer"
+import internal from 'stream';
 
 // Tipos para las noticias
 type Noticia = {
-  titulo: string;
-  texto: string;
-  link: string;
-  fecha?: string;
-  imagen?: string;
-};
-
-type FuenteNoticias = {
+  id: number;
   pagina: string;
-  link: string;
-  articulos: Noticia[];
-};
-
-type NoticiasData = {
-  Noticias: {
-    [key: string]: FuenteNoticias;
-  };
+  link_fuente: string;
+  titulo: string;
+  link_articulo: string;
+  texto: string;
+  fecha: Date;
+  imagen: string;
 };
 
 export default function NewsPage() {
@@ -42,25 +35,24 @@ export default function NewsPage() {
       try {
         // Intentar cargar desde la API
         try {
-          const response = await fetch('/api/noticias');
-          if (response.ok) {
-            const data: NoticiasData = await response.json();
+          
+            const todasNoticias: Noticia[] = await AllNoticias();
 
-            // Aplanar todas las noticias en un solo array
+            /* // Aplanar todas las noticias en un solo array
             const todasNoticias: Noticia[] = [];
             Object.values(data.Noticias).forEach(fuente => {
               todasNoticias.push(...fuente.articulos);
-            });
+            }); */
 
             setNoticias(todasNoticias);
             setLoading(false);
             return;
-          }
+          
         } catch (apiErr) {
           console.log('Error al cargar desde API, intentando cargar desde archivo local:', apiErr);
         }
 
-        // Si falla la API, cargar desde el archivo local
+         /* // Si falla la API, cargar desde el archivo local
         const response = await fetch('/main/web-crawler/noticias.json');
         if (!response.ok) {
           throw new Error('Error al cargar las noticias');
@@ -73,7 +65,7 @@ export default function NewsPage() {
           todasNoticias.push(...fuente.articulos);
         });
 
-        setNoticias(todasNoticias);
+        setNoticias(todasNoticias); */
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Error desconocido');
       } finally {
@@ -82,8 +74,8 @@ export default function NewsPage() {
     };
 
     cargarNoticias();
-  }, []);
-
+  }, []); 
+      
   // Platforms for filtering
   const platforms = [
     { name: 'Todas', value: 'all' },
@@ -212,7 +204,7 @@ export default function NewsPage() {
                   </p>
                   <div className="flex items-center justify-between">
                     <a
-                      href={filteredNews[0].link}
+                      href={filteredNews[0].link_articulo}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-yellow-400 hover:text-yellow-500"
@@ -258,7 +250,7 @@ export default function NewsPage() {
                   </p>
                   <div className="flex items-center justify-between">
                     <a
-                      href={article.link}
+                      href={article.link_articulo}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-yellow-400 hover:text-yellow-500 text-sm"

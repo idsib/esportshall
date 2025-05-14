@@ -82,6 +82,35 @@ export async function test() {
     console.log(prueba);
 }
 
+export async function AllNoticias() {
+ 
+    type Noticia = {
+        id: number;
+        pagina: string;
+        link_fuente: string;
+        titulo: string;
+        link_articulo: string;
+        texto: string;
+        fecha: Date;
+        imagen: string;
+      };
+
+      const noticiasBBDD = await sql('SELECT * FROM noticias');
+
+      const noticias: Noticia[] = noticiasBBDD.map((noticia: any) => ({
+        id: noticia.id,
+        pagina: noticia.pagina,
+        link_fuente: noticia.link_fuente,
+        titulo: noticia.titulo,
+        link_articulo: noticia.link_articulo,
+        texto: noticia.texto,
+        fecha: new Date(noticia.fecha),
+        imagen: noticia.imagen,
+      }));
+
+    return noticias;
+}
+
 export async function verifyToken(token: string) {
     try {
         const result = await sql(
