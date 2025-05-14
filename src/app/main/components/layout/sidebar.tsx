@@ -91,6 +91,18 @@ export default function Sidebar() {
           <Newspaper size={24} />
         </button>
         <button 
+          onClick={() => router.push('/main/videogames')}
+          className={`p-2 rounded-lg transition-colors ${
+            pathname === '/main/videogames' 
+              ? 'text-brand-yellow' 
+              : theme === 'dark'
+                ? 'text-neutral-400 hover:text-brand-yellow'
+                : 'text-gray-500 hover:text-brand-yellow'
+          }`}
+        >
+          <Gamepad2 size={24} />
+        </button>
+        <button 
           onClick={() => router.push('/main/communities')}
           className={`p-2 rounded-lg transition-colors ${
             pathname === '/main/communities' 

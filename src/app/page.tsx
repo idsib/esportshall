@@ -93,7 +93,6 @@ export default function Home() {
                   >
                     Empezar Ahora
                   </Link>
-                  <button onClick={() => converter()}> pruebita</button>
                   <Link 
                     href="/about"
                     className="btn-secondary"

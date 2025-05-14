@@ -119,19 +119,6 @@ export default function Login() {
                             </div>
 
                             <div className="flex items-center justify-between">
-                                <div className="flex items-center">
-                                    <input
-                                        type="checkbox"
-                                        name="remember"
-                                        id="remember"
-                                        checked={formData.remember}
-                                        onChange={handleInputChange}
-                                        className="h-4 w-4 text-brand-yellow focus:ring-brand-yellow border-gray-300 rounded"
-                                    />
-                                    <label htmlFor="remember" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
-                                        Recordarme
-                                    </label>
-                                </div>
                                 <Link href="/auth/forgot-password" className="text-sm text-brand-yellow hover:text-brand-yellow-dark">
                                     ¿Olvidaste tu contraseña?
                                 </Link>

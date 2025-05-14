@@ -31,7 +31,7 @@ type NoticiasData = {
 
 export default function NewsPage() {
   const { theme } = useTheme();
-  const [selectedGame, setSelectedGame] = useState('all');
+  const [selectedPlatform, setSelectedPlatform] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [noticias, setNoticias] = useState<Noticia[]>([]);
   const [loading, setLoading] = useState(true);
@@ -84,10 +84,26 @@ export default function NewsPage() {
     cargarNoticias();
   }, []);
 
+  // Platforms for filtering
+  const platforms = [
+    { name: 'Todas', value: 'all' },
+    { name: 'PC', value: 'pc' },
+    { name: 'PlayStation', value: 'playstation' },
+    { name: 'Xbox', value: 'xbox' },
+    { name: 'Nintendo Switch', value: 'switch' },
+    { name: 'Mobile', value: 'mobile' }
+  ];
+
   const filteredNews = noticias.filter(article => {
     const matchesSearch = article.titulo.toLowerCase().includes(searchQuery.toLowerCase()) ||
       article.texto.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesSearch;
+    
+    // Filter by platform if not 'all'
+    const matchesPlatform = selectedPlatform === 'all' || 
+      article.titulo.toLowerCase().includes(platforms.find(p => p.value === selectedPlatform)?.name.toLowerCase() || '') ||
+      article.texto.toLowerCase().includes(platforms.find(p => p.value === selectedPlatform)?.name.toLowerCase() || '');
+    
+    return matchesSearch && matchesPlatform;
   });
 
   if (loading) {
@@ -127,10 +143,30 @@ export default function NewsPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className={`w-full pl-10 pr-4 py-2 rounded-lg border text-sm ${theme === 'dark'
-                    ? 'bg-dark-300 border-dark-300 text-white placeholder-gray-500'
+                    ? 'bg-gray-900 border-gray-700 text-gray-100 placeholder-gray-400'
                     : 'bg-white border-gray-200 text-gray-900 placeholder-gray-400'
                   }`}
               />
+            </div>
+          </div>
+          
+          {/* Platforms Filters */}
+          <div>
+            <h3 className={`text-sm font-medium mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>Plataformas</h3>
+            <div className="flex flex-wrap gap-2">
+              {platforms.map((platform) => (
+                <button
+                  key={platform.value}
+                  onClick={() => setSelectedPlatform(platform.value)}
+                  className={`px-3 py-1 text-sm rounded-md transition-colors ${selectedPlatform === platform.value
+                    ? 'bg-brand-yellow text-black'
+                    : theme === 'dark'
+                      ? 'bg-gray-800 text-gray-100 hover:bg-gray-700'
+                      : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
+                >
+                  {platform.name}
+                </button>
+              ))}
             </div>
           </div>
         </div>

@@ -5,9 +5,6 @@ const nextConfig = {
     // Don't run ESLint during build
     ignoreDuringBuilds: true,
   },
-  devIndicators: {
-    buildActivity: false
-  },
   images: {
     domains: [
       'lh3.googleusercontent.com', // Para imágenes de Google
