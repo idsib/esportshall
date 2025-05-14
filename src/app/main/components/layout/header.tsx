@@ -20,6 +20,7 @@ export default function Header() {
 
   const navItems = [
     { name: 'Contacto', path: '/main/contact' },
+    { name: 'Juegos', path: '/main/games' },
   ];
 
   return (
