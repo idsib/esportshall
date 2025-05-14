@@ -233,3 +233,33 @@ export interface Tournament {
   region?: string;
   country?: string;
 }
+
+export interface Matches {
+  id: number;
+  begin_at: string;
+  end_at: string;
+  detalied_stats: boolean;
+  draw: boolean;
+  forfeit: boolean;
+  future: boolean;
+  league?: {
+    id: number;
+    name: string;
+    image_url?: string;
+  };
+  series?: {
+    id: number;
+    name: string;
+    full_name?: string;
+  };
+  not_started: boolean;
+  number_of_games: number;
+  current_videogame?: {
+    id: number;
+    name: string;
+    slug: string;
+  };
+  past: boolean;
+  running: boolean;
+  status: string;
+}
