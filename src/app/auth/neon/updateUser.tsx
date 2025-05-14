@@ -3,60 +3,60 @@ import { neon } from '@neondatabase/serverless';
 
 const sql = neon(`${process.env.DATABASE_URL}`);
 
-export async function updateUserProfile(ActualName : any, username : String, bio : String, location : String, website : String, x : String, instagram: string, twitch: string, favoriteCommunity: string) {
+export async function updateUserProfile(email : any, username : String, bio : String, location : String, website : String, x : String, instagram: string, twitch: string, favoriteCommunity: string) {
 
     if (username) {
         try {
-            await sql('UPDATE users SET name = $1 WHERE name = $2 ', [username, ActualName]);
+            await sql('UPDATE users SET name = $1 WHERE email = $2 ', [username, email]);
         } catch (error) {
             console.log(error)
         }
     }
     if (bio) {
         try {
-            await sql('UPDATE users_ai SET bio = $1 FROM users WHERE users_ai.user_id = users.id AND users.name = $2', [bio, ActualName]);
+            await sql('UPDATE users_ai SET bio = $1 FROM users WHERE users_ai.user_id = users.id AND users.email = $2', [bio, email]);
         } catch (error) {
             console.log(error)
         }
     }
     if (location) {
         try {
-            await sql('UPDATE users_ai SET location = $1 FROM users WHERE users_ai.user_id = users.id AND users.name = $2', [location, ActualName]);
+            await sql('UPDATE users_ai SET location = $1 FROM users WHERE users_ai.user_id = users.id AND users.email = $2', [location, email]);
         } catch (error) {
             console.log(error)
         }
     }
     if (website) {
         try {
-            await sql('UPDATE users_ai SET website = $1 FROM users WHERE users_ai.user_id = users.id AND users.name = $2', [website, ActualName]);
+            await sql('UPDATE users_ai SET website = $1 FROM users WHERE users_ai.user_id = users.id AND users.email = $2', [website, email]);
         } catch (error) {
             console.log(error)
         }
     }
     if (x) {
         try {
-            await sql('UPDATE users_ai SET x = $1 FROM users WHERE users_ai.user_id = users.id AND users.name = $2', [x, ActualName]);
+            await sql('UPDATE users_ai SET x = $1 FROM users WHERE users_ai.user_id = users.id AND users.email = $2', [x, email]);
         } catch (error) {
             console.log(error)
         }
     }
     if (instagram) {
         try {
-            await sql('UPDATE users_ai SET instagram = $1 FROM users WHERE users_ai.user_id = users.id AND users.name = $2', [instagram, ActualName]);
+            await sql('UPDATE users_ai SET instagram = $1 FROM users WHERE users_ai.user_id = users.id AND users.email = $2', [instagram, email]);
         } catch (error) {
             console.log(error)
         }
     }
     if (twitch) {
         try {
-            await sql('UPDATE users_ai SET twitch = $1 FROM users WHERE users_ai.user_id = users.id AND users.name = $2', [twitch, ActualName]);
+            await sql('UPDATE users_ai SET twitch = $1 FROM users WHERE users_ai.user_id = users.id AND users.email = $2', [twitch, email]);
         } catch (error) {
             console.log(error)
         }
     }
     if (favoriteCommunity) {
         try {
-            await sql('UPDATE users_ai SET favoriteCommunity = $1 FROM users WHERE users_ai.user_id = users.id AND users.name = $2', [favoriteCommunity, ActualName]);
+            await sql('UPDATE users_ai SET favoriteCommunity = $1 FROM users WHERE users_ai.user_id = users.id AND users.email = $2', [favoriteCommunity, email]);
         } catch (error) {
             console.log(error)
         }

@@ -86,7 +86,7 @@ export default function MainPage() {
                     Postear
                   </button>
                 </div>
-                <button onClick={function cosa(){}}> pruebita</button>
+                <button onClick={function cosa(){ console.log(session?.user?.email)}}> pruebita</button>
               </div>
             </div>
           </div>
