@@ -71,67 +71,110 @@ export default function Feed({ className = '' }: FeedProps) {
   return (
     <div className={`w-full ${className}`}>
       {posts.map((post) => (
-        <article key={post.id} className={`mb-6 ${
-          theme === 'dark'
-            ? 'bg-gray-900 border border-gray-700 hover:bg-gray-800 rounded-xl shadow-md'
-            : 'bg-white border border-gray-100 hover:bg-gray-50 rounded-xl shadow-sm'
-        } transition-all duration-200 cursor-pointer`}>
-          <div className="p-6">
+        <article 
+          key={post.id} 
+          className={`mb-6 ${
+            theme === 'dark'
+              ? 'bg-gray-900 border border-gray-700 hover:border-yellow-400/50 hover:bg-gray-800/90 rounded-xl shadow-lg'
+              : 'bg-white border border-gray-100 hover:border-yellow-400/50 hover:bg-gray-50 rounded-xl shadow-md'
+          } transform hover:scale-[1.02] transition-all duration-300 cursor-pointer`}>
+          <div className="p-6 space-y-6">
             {/* Header del post */}
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-3">
-                <Image
-                  src={post.user.avatar}
-                  alt={post.user.name}
-                  width={40}
-                  height={40}
-                  className="rounded-full"
-                />
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="relative group">
+                  <Image
+                    src={post.user.avatar}
+                    alt={post.user.name}
+                    width={48}
+                    height={48}
+                    className="rounded-full ring-2 ring-transparent group-hover:ring-yellow-400 transition-all duration-300"
+                  />
+                </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="font-bold text-gray-100">{post.user.name}</span>
-                    <span className={theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}>{post.user.username}</span>
+                    <span className={`font-bold ${theme === 'dark' ? 'text-gray-100' : 'text-gray-900'} hover:text-yellow-400 transition-colors`}>
+                      {post.user.name}
+                    </span>
+                    <span className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>{post.user.username}</span>
                   </div>
                   <span className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>{post.timestamp}</span>
                 </div>
               </div>
-              <button className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-400'} hover:text-yellow-400 transition-colors`}>
+              <button 
+                className={`p-2 rounded-full ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-100'} 
+                  ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'} hover:text-yellow-400 transition-all duration-200`}
+              >
                 <MoreHorizontal size={20} />
               </button>
             </div>
 
             {/* Categoría y título */}
-            <div className="mb-4">
-              <span className="text-yellow-400 font-medium text-sm mb-2 block">{post.category}</span>
-              <h2 className="text-xl font-bold mb-2">{post.title}</h2>
-              <p className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>{post.content}</p>
+            <div className="space-y-3">
+              <div className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
+                ${theme === 'dark' ? 'bg-yellow-400/10 text-yellow-400' : 'bg-yellow-50 text-yellow-600'}">
+                {post.category}
+              </div>
+              <h2 className={`text-xl font-bold leading-tight ${theme === 'dark' ? 'text-gray-100' : 'text-gray-900'} 
+                hover:text-yellow-400 transition-colors duration-200`}>
+                {post.title}
+              </h2>
+              <p className={`leading-relaxed ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+                {post.content}
+              </p>
             </div>
 
             {/* Imagen */}
             {post.image && (
-              <div className="relative w-full h-48 sm:h-56 md:h-64 mb-4 rounded-lg overflow-hidden border border-gray-700">
+              <div className="relative w-full h-48 sm:h-56 md:h-64 rounded-xl overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent z-10 
+                  group-hover:from-black/40 transition-all duration-300"></div>
                 <Image
                   src={post.image}
                   alt={post.title}
                   fill
-                  className="object-cover"
+                  className="object-cover transform group-hover:scale-105 transition-transform duration-700"
                 />
               </div>
             )}
 
             {/* Acciones */}
-            <div className="flex items-center gap-6">
-              <button className={`flex items-center gap-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'} hover:text-yellow-400 transition-colors`}>
-                <Heart size={20} />
-                <span>{post.likes}</span>
+            <div className="flex items-center gap-6 pt-2">
+              <button 
+                className={`flex items-center gap-2 px-3 py-2 rounded-full 
+                  ${theme === 'dark' ? 'hover:bg-gray-800/80' : 'hover:bg-gray-100'} 
+                  ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'} 
+                  hover:text-yellow-400 transition-all duration-200 group`}
+              >
+                <Heart 
+                  size={20} 
+                  className="transform group-hover:scale-110 transition-transform duration-200" 
+                />
+                <span className="font-medium">{post.likes}</span>
               </button>
-              <button className={`flex items-center gap-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'} hover:text-yellow-400 transition-colors`}>
-                <MessageCircle size={20} />
-                <span>{post.comments}</span>
+              <button 
+                className={`flex items-center gap-2 px-3 py-2 rounded-full 
+                  ${theme === 'dark' ? 'hover:bg-gray-800/80' : 'hover:bg-gray-100'} 
+                  ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'} 
+                  hover:text-yellow-400 transition-all duration-200 group`}
+              >
+                <MessageCircle 
+                  size={20} 
+                  className="transform group-hover:scale-110 transition-transform duration-200" 
+                />
+                <span className="font-medium">{post.comments}</span>
               </button>
-              <button className={`flex items-center gap-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'} hover:text-yellow-400 transition-colors`}>
-                <Share size={20} />
-                <span>{post.shares}</span>
+              <button 
+                className={`flex items-center gap-2 px-3 py-2 rounded-full 
+                  ${theme === 'dark' ? 'hover:bg-gray-800/80' : 'hover:bg-gray-100'} 
+                  ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'} 
+                  hover:text-yellow-400 transition-all duration-200 group`}
+              >
+                <Share 
+                  size={20} 
+                  className="transform group-hover:scale-110 transition-transform duration-200" 
+                />
+                <span className="font-medium">{post.shares}</span>
               </button>
             </div>
           </div>

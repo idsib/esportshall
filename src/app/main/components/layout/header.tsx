@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from 'next/image';
 import { Search, Sun, Moon, Menu } from 'lucide-react';
-import { useTheme } from '../../../../context/theme-context';
+import { useTheme } from '@/context/theme-context';
 import { useRouter, usePathname } from 'next/navigation';
 import TwitchNotification from '../../components/twitch-notification';
 
@@ -61,7 +61,7 @@ export default function Header() {
               onClick={toggleTheme}
               className="p-2 text-neutral-400 hover:text-yellow-400 transition-colors"
             >
-              {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+              {theme === 'dark' ? <Moon size={20} /> : <Sun size={20} />}
             </button>
           </div>
 

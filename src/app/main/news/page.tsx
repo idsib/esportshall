@@ -142,10 +142,7 @@ export default function NewsPage() {
                 placeholder="Buscar noticias..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className={`w-full pl-10 pr-4 py-2 rounded-lg border text-sm ${theme === 'dark'
-                    ? 'bg-gray-900 border-gray-700 text-gray-100 placeholder-gray-400'
-                    : 'bg-white border-gray-200 text-gray-900 placeholder-gray-400'
-                  }`}
+                className={`w-full pl-10 pr-4 py-2 rounded-lg border text-sm ${theme === 'dark' ? 'bg-neutral-800 border-neutral-700 text-gray-100 placeholder-gray-400' : 'bg-white border-gray-200 text-gray-900 placeholder-gray-400'}`}
               />
             </div>
           </div>
@@ -158,11 +155,7 @@ export default function NewsPage() {
                 <button
                   key={platform.value}
                   onClick={() => setSelectedPlatform(platform.value)}
-                  className={`px-3 py-1 text-sm rounded-md transition-colors ${selectedPlatform === platform.value
-                    ? 'bg-brand-yellow text-black'
-                    : theme === 'dark'
-                      ? 'bg-gray-800 text-gray-100 hover:bg-gray-700'
-                      : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
+                  className={`px-3 py-1 text-sm rounded-md transition-colors ${selectedPlatform === platform.value ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-neutral-800 text-gray-100 hover:bg-neutral-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
                 >
                   {platform.name}
                 </button>
@@ -180,8 +173,7 @@ export default function NewsPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Noticia destacada */}
             {filteredNews[0] && (
-              <div className={`md:col-span-2 rounded-lg overflow-hidden ${theme === 'dark' ? 'bg-dark-200' : 'bg-white shadow-sm'
-                }`}>
+              <div className={`md:col-span-2 rounded-lg overflow-hidden ${theme === 'dark' ? 'bg-neutral-800' : 'bg-white shadow-sm'}`}>
                 {filteredNews[0].imagen && (
                   <div className="w-full h-64 overflow-hidden">
                     <img

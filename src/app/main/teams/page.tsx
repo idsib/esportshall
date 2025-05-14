@@ -93,7 +93,7 @@ export default function TeamsPage() {
                                     placeholder="Buscar equipos..."
                                     value={searchTerm}
                                     onChange={handleSearchChange}
-                                    className={`w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary ${theme === 'dark' ? 'bg-dark-300 border-dark-300 text-white placeholder-gray-400' : 'bg-white border-gray-200 text-gray-900 placeholder-gray-400'}`}
+                                    className={`w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary ${theme === 'dark' ? 'bg-neutral-800 border-neutral-700 text-white placeholder-gray-400' : 'bg-white border-gray-200 text-gray-900 placeholder-gray-400'}`}
                                 />
                             </div>
                         </div>
@@ -102,19 +102,19 @@ export default function TeamsPage() {
                         <div className="flex flex-wrap justify-center gap-3 mb-4">
                             <button
                                 onClick={() => handleGameChange('lol')}
-                                className={`px-4 py-2 rounded-md ${selectedGame === 'lol' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
+                                className={`px-4 py-2 rounded-md ${selectedGame === 'lol' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-neutral-800 text-white hover:bg-neutral-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
                             >
                                 {gameDisplayNames.lol}
                             </button>
                             <button
                                 onClick={() => handleGameChange('valorant')}
-                                className={`px-4 py-2 rounded-md ${selectedGame === 'valorant' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
+                                className={`px-4 py-2 rounded-md ${selectedGame === 'valorant' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-neutral-800 text-white hover:bg-neutral-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
                             >
                                 {gameDisplayNames.valorant}
                             </button>
                             <button
                                 onClick={() => handleGameChange('cs2')}
-                                className={`px-4 py-2 rounded-md ${selectedGame === 'cs2' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
+                                className={`px-4 py-2 rounded-md ${selectedGame === 'cs2' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-neutral-800 text-white hover:bg-neutral-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
                             >
                                 {gameDisplayNames.cs2}
                             </button>
@@ -134,8 +134,8 @@ export default function TeamsPage() {
                         <>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                                 {teams.map((team) => (
-                                    <div key={team.id} className={`${theme === 'dark' ? 'bg-gray-900' : 'bg-white'} p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 h-full flex flex-col`}>
-                                        <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100'} flex items-center justify-center rounded-md h-32 w-32 mx-auto mb-4`}>
+                                    <div key={team.id} className={`${theme === 'dark' ? 'bg-neutral-800' : 'bg-white'} p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 h-full flex flex-col`}>
+                                        <div className={`${theme === 'dark' ? 'bg-neutral-700' : 'bg-gray-100'} flex items-center justify-center rounded-md h-32 w-32 mx-auto mb-4`}>
                                             {team.image_url ? (
                                                 <img
                                                     src={team.image_url}
@@ -145,7 +145,7 @@ export default function TeamsPage() {
                                                     className="rounded-full object-cover"
                                                 />
                                             ) : (
-                                                <div className={`w-24 h-24 rounded-full ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-200'} flex items-center justify-center`}>
+                                                <div className={`w-24 h-24 rounded-full ${theme === 'dark' ? 'bg-neutral-700' : 'bg-gray-200'} flex items-center justify-center`}>
                                                     <span className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'} text-xl`}>Sin imagen</span>
                                                 </div>
                                             )}
@@ -157,13 +157,13 @@ export default function TeamsPage() {
                                             {team.location && (
                                                 <div className="flex justify-between items-center mb-1">
                                                     <span className="font-medium">Ubicación:</span>
-                                                    <span className={`${theme === 'dark' ? 'bg-dark-300' : 'bg-gray-100'} px-2 py-0.5 rounded text-xs`}>{team.location}</span>
+                                                    <span className={`${theme === 'dark' ? 'bg-neutral-700' : 'bg-gray-100'} px-2 py-0.5 rounded text-xs`}>{team.location}</span>
                                                 </div>
                                             )}
 
                                             <div className="flex justify-between items-center">
                                                 <span className="font-medium">Juego:</span>
-                                                <span className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100'} px-2 py-0.5 rounded text-xs`}>
+                                                <span className={`${theme === 'dark' ? 'bg-neutral-700' : 'bg-gray-100'} px-2 py-0.5 rounded text-xs`}>
                                                     {gameDisplayNames[team.current_videogame?.slug as GameType] || team.current_videogame?.name || 'Unknown'}
                                                 </span>
                                             </div>
@@ -187,7 +187,7 @@ export default function TeamsPage() {
                                     Anterior
                                 </button>
                                 <div className="flex items-center gap-2">
-                                    <span className={`py-2 px-4 ${theme === 'dark' ? 'bg-dark-300 text-white' : 'bg-gray-100 text-gray-800'} rounded-md`}>
+                                    <span className={`py-2 px-4 ${theme === 'dark' ? 'bg-neutral-800 text-white' : 'bg-gray-100 text-gray-800'} rounded-md`}>
                                         Página {currentPage}
                                     </span>
                                     <span className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
