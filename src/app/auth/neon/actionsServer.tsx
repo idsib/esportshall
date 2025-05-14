@@ -4,15 +4,45 @@ import { hash, compare } from 'bcrypt';
 
 const sql = neon(`${process.env.DATABASE_URL}`);
 
+export async function checkEmailExists(email: string) {
+    try {
+        const result = await sql('SELECT email FROM users WHERE email = $1', [email]);
+        return {
+            exists: result.length > 0,
+            message: result.length > 0 ? 'Este correo electrónico ya está registrado' : ''
+        };
+    } catch (error) {
+        console.error('Error al verificar email:', error);
+        return { exists: false, message: '' };
+    }
+}
+
 export async function register(formData: FormData) {
-    const completeName = formData.get('firstName') + ' ' + formData.get('lastName');
-    const email = formData.get('email') as string;
-    const password = formData.get('password') as string;
-    const hashPass = await hash(password, 10);
-    await sql(
-        'INSERT INTO users (name, email, password) VALUES ($1, $2, $3)',
-        [completeName, email, hashPass]
-    );
+    try {
+        const completeName = formData.get('firstName') + ' ' + formData.get('lastName');
+        const email = formData.get('email') as string;
+        const password = formData.get('password') as string;
+        
+        // Check if email already exists
+        const emailCheck = await checkEmailExists(email);
+        if (emailCheck.exists) {
+            throw new Error('Este correo electrónico ya está registrado. Por favor utiliza otro.');
+        }
+        
+        const hashPass = await hash(password, 10);
+        await sql(
+            'INSERT INTO users (name, email, password) VALUES ($1, $2, $3)',
+            [completeName, email, hashPass]
+        );
+        
+        return { success: true };
+    } catch (error) {
+        console.error('Error en el registro:', error);
+        return { 
+            success: false, 
+            error: error instanceof Error ? error.message : 'Error desconocido durante el registro' 
+        };
+    }
 }
 
 export async function login(email: string, password: string) {
