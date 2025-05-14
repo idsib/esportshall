@@ -10,8 +10,8 @@ import { games } from '@/utils/newsSources';
 import { AllNoticias } from "../../auth/neon/actionsServer"
 import internal from 'stream';
 
-// Tipos para las noticias
-type Noticia = {
+
+interface Noticia {
   id: number;
   pagina: string;
   link_fuente: string;
