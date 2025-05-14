@@ -172,7 +172,7 @@ const TwitchNotification: React.FC = () => {
                 onClick={toggleDropdown}
                 className={`relative flex items-center h-8 px-3 rounded transition-colors ${
                     theme === 'dark' 
-                        ? 'bg-gray-800 hover:bg-gray-700' 
+                        ? 'bg-neutral-800 hover:bg-neutral-700' 
                         : 'bg-gray-100 hover:bg-gray-200'
                 } ${!isAnyChannelLive ? 'justify-center' : 'justify-between'}`}
             >
@@ -194,8 +194,8 @@ const TwitchNotification: React.FC = () => {
                         </div>
                         <div className="flex items-center ml-2">
                             <span className="relative flex h-3 w-3 ml-1">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-3 w-3 bg-red-600"></span>
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-3 w-3 bg-yellow-500"></span>
                             </span>
                         </div>
                     </>
@@ -212,7 +212,7 @@ const TwitchNotification: React.FC = () => {
             {showDropdown && (
                 <div className={`absolute right-0 mt-2 w-80 rounded-md shadow-lg z-50 ${
                     theme === 'dark' 
-                        ? 'bg-gray-900 border border-gray-700' 
+                        ? 'bg-neutral-800 border border-neutral-700' 
                         : 'bg-white border border-gray-200'
                 }`}>
                     <div className="p-3">
@@ -226,7 +226,7 @@ const TwitchNotification: React.FC = () => {
                             <ul className="space-y-3">
                                 {liveChannels.map((channel) => (
                                     <li key={channel.name} className={`p-2 rounded ${
-                                        theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-50'
+                                        theme === 'dark' ? 'hover:bg-neutral-700' : 'hover:bg-gray-50'
                                     }`}>
                                         <Link 
                                             href={channel.url}
@@ -255,8 +255,8 @@ const TwitchNotification: React.FC = () => {
                                                             {channel.name}
                                                         </p>
                                                         <div className="flex items-center ml-2">
-                                                            <span className="flex items-center text-red-500 text-xs font-medium">
-                                                                <span className="h-2 w-2 bg-red-600 rounded-full mr-1"></span>
+                                                            <span className="flex items-center text-yellow-400 text-xs font-medium">
+                                                                <span className="h-2 w-2 bg-yellow-500 rounded-full mr-1"></span>
                                                                 LIVE
                                                             </span>
                                                         </div>

@@ -47,16 +47,16 @@ export default function CookieConsent() {
                     Al continuar navegando, aceptas nuestra política de cookies.
                 </p>
 
-                <div className="flex flex-col sm:flex-row gap-3">
+                <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
                     <button
                         onClick={acceptCookies}
-                        className="btn-primary text-sm py-2 px-4"
+                        className="w-full sm:w-auto bg-brand-yellow hover:bg-brand-yellow/90 text-black font-medium rounded-lg transition-all py-2 px-6"
                     >
                         Aceptar cookies
                     </button>
                     <Link
                         href="/policy/cookies-policy"
-                        className="text-sm text-gray-600 dark:text-gray-300 hover:text-brand-yellow transition-colors"
+                        className="w-full sm:w-auto text-center py-2 px-6 text-sm text-gray-600 dark:text-gray-300 hover:text-brand-yellow transition-colors"
                     >
                         Ver política de cookies
                     </Link>

@@ -93,7 +93,7 @@ export default function TournamentsPage() {
                                     placeholder="Buscar torneos..."
                                     value={searchTerm}
                                     onChange={handleSearchChange}
-                                    className={`w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary ${theme === 'dark' ? 'bg-gray-800 border-gray-700 text-white placeholder-gray-400' : 'bg-white border-gray-200 text-gray-900 placeholder-gray-400'}`}
+                                    className={`w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary ${theme === 'dark' ? 'bg-neutral-800 border-neutral-700 text-white placeholder-gray-400' : 'bg-white border-gray-200 text-gray-900 placeholder-gray-400'}`}
                                 />
                             </div>
                         </div>
@@ -102,19 +102,19 @@ export default function TournamentsPage() {
                         <div className="flex flex-wrap justify-center gap-3 mb-4">
                             <button
                                 onClick={() => handleGameChange('lol')}
-                                className={`px-4 py-2 rounded-md ${selectedGame === 'lol' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
+                                className={`px-4 py-2 rounded-md ${selectedGame === 'lol' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-neutral-800 text-white hover:bg-neutral-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
                             >
                                 {gameDisplayNames.lol}
                             </button>
                             <button
                                 onClick={() => handleGameChange('valorant')}
-                                className={`px-4 py-2 rounded-md ${selectedGame === 'valorant' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
+                                className={`px-4 py-2 rounded-md ${selectedGame === 'valorant' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-neutral-800 text-white hover:bg-neutral-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
                             >
                                 {gameDisplayNames.valorant}
                             </button>
                             <button
                                 onClick={() => handleGameChange('cs2')}
-                                className={`px-4 py-2 rounded-md ${selectedGame === 'cs2' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
+                                className={`px-4 py-2 rounded-md ${selectedGame === 'cs2' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-neutral-800 text-white hover:bg-neutral-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
                             >
                                 {gameDisplayNames.cs2}
                             </button>
@@ -134,9 +134,9 @@ export default function TournamentsPage() {
                         <>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 {tournaments.map((tournament) => (
-                                    <div key={tournament.id} className={`${theme === 'dark' ? 'bg-gray-900' : 'bg-white'} p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 h-full flex flex-col`}>
+                                    <div key={tournament.id} className={`${theme === 'dark' ? 'bg-neutral-800' : 'bg-white'} p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 h-full flex flex-col`}>
                                         {tournament.league?.image_url && (
-                                            <div className={`h-40 ${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100'} flex items-center justify-center p-4 rounded-md mb-4`}>
+                                            <div className={`h-40 ${theme === 'dark' ? 'bg-neutral-700' : 'bg-gray-100'} flex items-center justify-center p-4 rounded-md mb-4`}>
                                                 <img
                                                     src={tournament.league.image_url}
                                                     alt={tournament.league.name}
@@ -178,7 +178,7 @@ export default function TournamentsPage() {
                                                     </p>
                                                 )}
 
-                                                <div className={`pt-3 border-t ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}>
+                                                <div className={`pt-3 border-t ${theme === 'dark' ? 'border-neutral-700' : 'border-gray-200'}`}>
                                                     <p className="text-sm text-gray-600 dark:text-gray-300">
                                                         <span className="font-semibold">Inicio:</span> {formatDate(tournament.begin_at)}
                                                     </p>

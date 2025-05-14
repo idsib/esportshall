@@ -87,7 +87,7 @@ export default function PlayersPage() {
                                     placeholder="Buscar jugadores..."
                                     value={searchTerm}
                                     onChange={handleSearchChange}
-                                    className={`w-full py-2 pl-10 pr-4 rounded-lg border ${theme === 'dark' ? 'bg-dark-300 border-dark-300 text-white placeholder-gray-400' : 'bg-white border-gray-200 text-gray-900 placeholder-gray-400'}`}
+                                    className={`w-full py-2 pl-10 pr-4 rounded-lg border ${theme === 'dark' ? 'bg-neutral-800 border-neutral-700 text-white placeholder-gray-400' : 'bg-white border-gray-200 text-gray-900 placeholder-gray-400'}`}
                                 />
                             </div>
                         </div>
@@ -96,7 +96,7 @@ export default function PlayersPage() {
                         <div className="flex flex-wrap justify-center gap-3 mb-4">
                             <button
                                 onClick={() => handleGameChange('lol')}
-                                className={`px-4 py-2 rounded-md ${selectedGame === 'lol' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
+                                className={`px-4 py-2 rounded-md ${selectedGame === 'lol' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-neutral-800 text-white hover:bg-neutral-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
                             >
                                 {gameDisplayNames.lol}
                             </button>
@@ -128,8 +128,8 @@ export default function PlayersPage() {
                         <>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                                 {players.map((player) => (
-                                    <div key={player.id} className={`${theme === 'dark' ? 'bg-gray-900' : 'bg-white'} p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 h-full flex flex-col`}>
-                                        <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100'} flex items-center justify-center rounded-md h-32 w-32 mx-auto mb-4`}>
+                                    <div key={player.id} className={`${theme === 'dark' ? 'bg-neutral-800' : 'bg-white'} p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 h-full flex flex-col`}>
+                                        <div className={`${theme === 'dark' ? 'bg-neutral-700' : 'bg-gray-100'} flex items-center justify-center rounded-md h-32 w-32 mx-auto mb-4`}>
                                             {player.image_url ? (
                                                 <img
                                                     src={player.image_url}
@@ -139,30 +139,40 @@ export default function PlayersPage() {
                                                     className="rounded-full object-cover"
                                                 />
                                             ) : (
-                                                <div className={`w-24 h-24 rounded-full ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-200'} flex items-center justify-center`}>
+                                                <div className={`w-24 h-24 rounded-full ${theme === 'dark' ? 'bg-neutral-700' : 'bg-gray-200'} flex items-center justify-center`}>
                                                     <span className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-400'} text-xl`}>No Image</span>
                                                 </div>
                                             )}
                                         </div>
                                         <h3 className={`text-xl font-semibold text-center mb-2 ${theme === 'dark' ? 'text-gray-100' : 'text-gray-800'}`}>{player.name}</h3>
-                                        <div className="mt-2">
+                                        <div className="mt-2 space-y-2">
                                             {player.nationality && (
                                                 <p className={`text-center text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-400'}`}>
                                                     {player.nationality}
                                                 </p>
                                             )}
                                             {player.role && (
-                                                <p className={`text-center text-sm font-medium mt-1 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+                                                <p className={`text-center text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-400'}`}>
                                                     {player.role}
                                                 </p>
                                             )}
                                             {player.team && (
-                                                <div className="mt-2 pt-2 border-t border-gray-200 dark:border-gray-700">
-                                                    <p className={`text-center text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-400'}`}>
-                                                        Equipo: <span className="font-medium">{player.team.name}</span>
-                                                    </p>
-                                                    <p className={`text-center text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-400'}`}>
-                                                        ID: {player.team.id}
+                                                <div className="flex items-center justify-center mt-3 space-x-2">
+                                                    <div className="w-6 h-6 relative">
+                                                        {player.team.image_url ? (
+                                                            <img 
+                                                                src={player.team.image_url} 
+                                                                alt={player.team.name}
+                                                                className="w-full h-full object-contain"
+                                                            />
+                                                        ) : (
+                                                            <div className={`w-full h-full rounded-full ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-200'} flex items-center justify-center`}>
+                                                                <span className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>T</span>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                    <p className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+                                                        {player.team.name}
                                                     </p>
                                                 </div>
                                             )}

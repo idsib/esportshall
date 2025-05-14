@@ -161,14 +161,14 @@ export default function MatchesPage() {
                         <div className="flex rounded-lg overflow-hidden">
                             <button 
                                 onClick={() => handleViewModeChange('calendar')}
-                                className={`px-4 py-2 flex items-center ${viewMode === 'calendar' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
+                                className={`px-4 py-2 flex items-center ${viewMode === 'calendar' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-neutral-800 text-white hover:bg-neutral-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
                             >
                                 <Calendar size={18} className="mr-2" />
                                 Calendario
                             </button>
                             <button 
                                 onClick={() => handleViewModeChange('leagues')}
-                                className={`px-4 py-2 flex items-center ${viewMode === 'leagues' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
+                                className={`px-4 py-2 flex items-center ${viewMode === 'leagues' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-neutral-800 text-white hover:bg-neutral-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
                             >
                                 <Award size={18} className="mr-2" />
                                 Ligas
@@ -180,14 +180,14 @@ export default function MatchesPage() {
                     <div className="mb-6">
                         <div className="max-w-md mx-auto relative">
                             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <Search size={18} className={theme === 'dark' ? 'text-gray-400' : 'text-gray-500'} />
+                                <Search size={18} className={theme === 'dark' ? 'text-neutral-400' : 'text-gray-500'} />
                             </div>
                             <input 
                                 type="text" 
                                 placeholder="Buscar partidos..."
                                 value={searchTerm}
                                 onChange={handleSearchChange}
-                                className={`w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary ${theme === 'dark' ? 'bg-gray-800 border-gray-700 text-white placeholder-gray-400' : 'bg-white border-gray-200 text-gray-900 placeholder-gray-400'}`}
+                                className={`w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary ${theme === 'dark' ? 'bg-neutral-800 border-neutral-700 text-white placeholder-gray-400' : 'bg-white border-gray-200 text-gray-900 placeholder-gray-400'}`}
                             />
                         </div>
                     </div>
@@ -196,19 +196,19 @@ export default function MatchesPage() {
                     <div className="flex flex-wrap justify-center gap-3 mb-4">
                         <button
                             onClick={() => handleGameChange('valorant')}
-                            className={`px-4 py-2 rounded-md ${selectedGame === 'valorant' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
+                            className={`px-4 py-2 rounded-md ${selectedGame === 'valorant' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-neutral-800 text-white hover:bg-neutral-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
                         >
                             {gameDisplayNames.valorant}
                         </button>
                         <button
                             onClick={() => handleGameChange('lol')}
-                            className={`px-4 py-2 rounded-md ${selectedGame === 'lol' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
+                            className={`px-4 py-2 rounded-md ${selectedGame === 'lol' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-neutral-800 text-white hover:bg-neutral-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
                         >
                             {gameDisplayNames.lol}
                         </button>
                         <button
                             onClick={() => handleGameChange('cs2')}
-                            className={`px-4 py-2 rounded-md ${selectedGame === 'cs2' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
+                            className={`px-4 py-2 rounded-md ${selectedGame === 'cs2' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-neutral-800 text-white hover:bg-neutral-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
                         >
                             {gameDisplayNames.cs2}
                         </button>
@@ -220,26 +220,26 @@ export default function MatchesPage() {
                             <div className="flex flex-wrap justify-center gap-3 mb-4">
                                 <button
                                     onClick={() => handleStatusChange(undefined)}
-                                    className={`px-4 py-2 rounded-md ${statusFilter === undefined ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
+                                    className={`px-4 py-2 rounded-md ${statusFilter === undefined ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-neutral-800 text-white hover:bg-neutral-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
                                 >
                                     Todos
                                 </button>
                                 <button
                                     onClick={() => handleStatusChange('not_started')}
-                                    className={`px-4 py-2 rounded-md ${statusFilter === 'not_started' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
+                                    className={`px-4 py-2 rounded-md ${statusFilter === 'not_started' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-neutral-800 text-white hover:bg-neutral-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
                                 >
                                     Próximos
                                 </button>
                                 <button
                                     onClick={() => handleStatusChange('finished')}
-                                    className={`px-4 py-2 rounded-md ${statusFilter === 'finished' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
+                                    className={`px-4 py-2 rounded-md ${statusFilter === 'finished' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-neutral-800 text-white hover:bg-neutral-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
                                 >
                                     Finalizados
                                 </button>
                             </div>
 
                             {/* Matches List */}
-                            <div className={`p-6 rounded-lg ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'} shadow-md mb-6`}>
+                            <div className={`p-6 rounded-lg ${theme === 'dark' ? 'bg-neutral-900' : 'bg-white'} shadow-md mb-6`}>
                                 {loading ? (
                                     <LoadingState message="Cargando partidos..." />
                                 ) : error ? (
@@ -257,7 +257,7 @@ export default function MatchesPage() {
                                             return (
                                                 <div 
                                                     key={match.id} 
-                                                    className={`p-4 rounded-lg border ${match.status === 'running' ? 'border-red-500' : theme === 'dark' ? 'border-gray-700' : 'border-gray-200'} ${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-50'}`}
+                                                    className={`p-4 rounded-lg border ${match.status === 'running' ? 'border-red-500' : theme === 'dark' ? 'border-neutral-700' : 'border-gray-200'} ${theme === 'dark' ? 'bg-neutral-800' : 'bg-gray-50'}`}
                                                 >
                                                     <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-4">
                                                         <div className="flex items-center mb-2 md:mb-0">
@@ -272,14 +272,14 @@ export default function MatchesPage() {
                                                                     />
                                                                 </div>
                                                             ) : (
-                                                                <div className={`w-10 h-10 rounded-full flex items-center justify-center mr-3 ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-200'}`}>
-                                                                    <Trophy size={20} className={theme === 'dark' ? 'text-gray-400' : 'text-gray-500'} />
+                                                                <div className={`w-10 h-10 rounded-full flex items-center justify-center mr-3 ${theme === 'dark' ? 'bg-neutral-700' : 'bg-gray-200'}`}>
+                                                                    <Trophy size={20} className={theme === 'dark' ? 'text-neutral-400' : 'text-gray-500'} />
                                                                 </div>
                                                             )}
                                                             <div>
-                                                                <h3 className={`font-bold ${theme === 'dark' ? 'text-gray-100' : 'text-gray-800'}`}>{match.name}</h3>
+                                                                <h3 className={`font-bold ${theme === 'dark' ? 'text-neutral-100' : 'text-gray-800'}`}>{match.name}</h3>
                                                                 {match.league && (
-                                                                    <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>{match.league.name}</p>
+                                                                    <p className={`text-sm ${theme === 'dark' ? 'text-neutral-400' : 'text-gray-500'}`}>{match.league.name}</p>
                                                                 )}
                                                             </div>
                                                         </div>
@@ -309,7 +309,7 @@ export default function MatchesPage() {
                                                                     </div>
                                                                 ) : (
                                                                     <div className={`w-16 h-16 rounded-md flex items-center justify-center mb-2 ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-200'}`}>
-                                                                        <Users size={32} className={theme === 'dark' ? 'text-gray-400' : 'text-gray-500'} />
+                                                                        <Users size={32} className={theme === 'dark' ? 'text-neutral-400' : 'text-gray-500'} />
                                                                     </div>
                                                                 )}
                                                                 <span className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>{opponent.opponent.name}</span>
@@ -368,16 +368,16 @@ export default function MatchesPage() {
                                             <button 
                                                 onClick={handlePrevPage} 
                                                 disabled={currentPage <= 1}
-                                                className={`px-3 py-1 rounded-md ${currentPage <= 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-700'} ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-800'}`}
+                                                className={`px-3 py-1 rounded-md ${currentPage <= 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-neutral-700'} ${theme === 'dark' ? 'bg-neutral-800 text-white' : 'bg-gray-100 text-gray-800'}`}
                                             >
                                                 Anterior
                                             </button>
-                                            <span className={`px-3 py-1 rounded-md ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-800'}`}>
+                                            <span className={`px-3 py-1 rounded-md ${theme === 'dark' ? 'bg-neutral-800 text-white' : 'bg-gray-100 text-gray-800'}`}>
                                                 {currentPage}
                                             </span>
                                             <button 
                                                 onClick={handleNextPage}
-                                                className={`px-3 py-1 rounded-md ${theme === 'dark' ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
+                                                className={`px-3 py-1 rounded-md ${theme === 'dark' ? 'bg-neutral-800 text-white hover:bg-neutral-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
                                             >
                                                 Siguiente
                                             </button>
@@ -389,7 +389,7 @@ export default function MatchesPage() {
                     )}
                     
                     {viewMode === 'leagues' && (
-                        <div className={`p-6 rounded-lg ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'} shadow-md mb-6`}>
+                        <div className={`p-6 rounded-lg ${theme === 'dark' ? 'bg-neutral-900' : 'bg-white'} shadow-md mb-6`}>
                             {leaguesLoading ? (
                                 <LoadingState message="Cargando ligas..." />
                             ) : leaguesError ? (
@@ -403,7 +403,7 @@ export default function MatchesPage() {
                             ) : (
                                 <>
                                     <div className="flex justify-between items-center mb-4">
-                                        <h2 className={`text-xl font-bold ${theme === 'dark' ? 'text-gray-100' : 'text-gray-800'}`}>
+                                        <h2 className={`text-xl font-bold ${theme === 'dark' ? 'text-neutral-100' : 'text-gray-800'}`}>
                                             Ligas de {gameDisplayNames[selectedGame]}
                                         </h2>
                                     </div>
@@ -412,7 +412,7 @@ export default function MatchesPage() {
                                         {leagues.map((league) => (
                                             <div 
                                                 key={league.id} 
-                                                className={`p-4 rounded-lg border ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-gray-50 border-gray-200'} hover:shadow-md transition-shadow duration-200`}
+                                                className={`p-4 rounded-lg border ${theme === 'dark' ? 'bg-neutral-800 border-neutral-700' : 'bg-gray-50 border-gray-200'} hover:shadow-md transition-shadow duration-200`}
                                             >
                                                 <div className="flex items-center mb-3">
                                                     {league.image_url ? (
@@ -426,30 +426,30 @@ export default function MatchesPage() {
                                                             />
                                                         </div>
                                                     ) : (
-                                                        <div className={`w-12 h-12 rounded-md flex items-center justify-center mr-3 ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-200'}`}>
-                                                            <Award size={24} className={theme === 'dark' ? 'text-gray-400' : 'text-gray-500'} />
+                                                        <div className={`w-12 h-12 rounded-md flex items-center justify-center mr-3 ${theme === 'dark' ? 'bg-neutral-700' : 'bg-gray-200'}`}>
+                                                            <Award size={24} className={theme === 'dark' ? 'text-neutral-400' : 'text-gray-500'} />
                                                         </div>
                                                     )}
                                                     <div>
-                                                        <h3 className={`font-bold ${theme === 'dark' ? 'text-gray-100' : 'text-gray-800'}`}>{league.name}</h3>
-                                                        <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>{league.videogame.name}</p>
+                                                        <h3 className={`font-bold ${theme === 'dark' ? 'text-neutral-100' : 'text-gray-800'}`}>{league.name}</h3>
+                                                        <p className={`text-sm ${theme === 'dark' ? 'text-neutral-400' : 'text-gray-500'}`}>{league.videogame.name}</p>
                                                     </div>
                                                 </div>
                                                 
                                                 {league.series && league.series.length > 0 && (
                                                     <div className="mt-3">
-                                                        <h4 className={`text-sm font-semibold mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>Series</h4>
+                                                        <h4 className={`text-sm font-semibold mb-2 ${theme === 'dark' ? 'text-neutral-300' : 'text-gray-600'}`}>Series</h4>
                                                         <div className="flex flex-wrap gap-2">
                                                             {league.series.slice(0, 3).map((serie) => (
                                                                 <span 
                                                                     key={serie.id}
-                                                                    className={`text-xs px-2 py-1 rounded-full ${theme === 'dark' ? 'bg-gray-700 text-gray-300' : 'bg-gray-200 text-gray-700'}`}
+                                                                    className={`text-xs px-2 py-1 rounded-full ${theme === 'dark' ? 'bg-neutral-700 text-neutral-300' : 'bg-gray-200 text-gray-700'}`}
                                                                 >
                                                                     {serie.full_name || serie.name}
                                                                 </span>
                                                             ))}
                                                             {league.series.length > 3 && (
-                                                                <span className={`text-xs px-2 py-1 rounded-full ${theme === 'dark' ? 'bg-gray-700 text-gray-300' : 'bg-gray-200 text-gray-700'}`}>
+                                                                <span className={`text-xs px-2 py-1 rounded-full ${theme === 'dark' ? 'bg-neutral-700 text-neutral-300' : 'bg-gray-200 text-gray-700'}`}>
                                                                     +{league.series.length - 3} más
                                                                 </span>
                                                             )}
@@ -479,16 +479,16 @@ export default function MatchesPage() {
                                             <button 
                                                 onClick={handlePrevPage} 
                                                 disabled={leaguesPage <= 1}
-                                                className={`px-3 py-1 rounded-md ${leaguesPage <= 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-700'} ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-800'}`}
+                                                className={`px-3 py-1 rounded-md ${leaguesPage <= 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-neutral-700'} ${theme === 'dark' ? 'bg-neutral-800 text-white' : 'bg-gray-100 text-gray-800'}`}
                                             >
                                                 Anterior
                                             </button>
-                                            <span className={`px-3 py-1 rounded-md ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-800'}`}>
+                                            <span className={`px-3 py-1 rounded-md ${theme === 'dark' ? 'bg-neutral-800 text-white' : 'bg-gray-100 text-gray-800'}`}>
                                                 {leaguesPage}
                                             </span>
                                             <button 
                                                 onClick={handleNextPage}
-                                                className={`px-3 py-1 rounded-md ${theme === 'dark' ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
+                                                className={`px-3 py-1 rounded-md ${theme === 'dark' ? 'bg-neutral-800 text-white hover:bg-neutral-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
                                             >
                                                 Siguiente
                                             </button>

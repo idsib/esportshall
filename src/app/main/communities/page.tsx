@@ -204,24 +204,6 @@ export default function CommunitiesPage() {
 
           {/* Main Content */}
           <div className="flex-1">
-            {/* Search bar */}
-            <div className="mb-8">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" size={18} />
-                <input
-                  type="text"
-                  placeholder="Buscar comunidades..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className={`w-full pl-10 pr-4 py-2 rounded-lg border text-sm ${
-                    theme === 'dark'
-                      ? 'bg-gray-900 border-gray-700 text-white placeholder-gray-500'
-                      : 'bg-white border-gray-200 text-gray-900 placeholder-gray-400'
-                  }`}
-                />
-              </div>
-            </div>
-            
             {/* Game selection or Communities list */}
             {selectedGame ? (
               // Show communities for selected game
@@ -240,7 +222,7 @@ export default function CommunitiesPage() {
                   <button 
                     onClick={() => setSelectedGame('')}
                     className={`px-3 py-1 rounded-lg text-sm ${
-                      theme === 'dark' ? 'bg-gray-800 text-gray-300' : 'bg-gray-100 text-gray-600'
+                      theme === 'dark' ? 'bg-neutral-800 text-gray-300' : 'bg-gray-100 text-gray-600'
                     }`}
                   >
                     Volver a juegos
@@ -253,7 +235,7 @@ export default function CommunitiesPage() {
                     <div 
                       key={community.id} 
                       className={`p-6 rounded-xl transition-transform hover:scale-[1.02] ${
-                        theme === 'dark' ? 'bg-gray-900' : 'bg-white shadow-sm'
+                        theme === 'dark' ? 'bg-neutral-800' : 'bg-white shadow-sm'
                       }`}
                     >
                       <div className="flex items-center gap-4 mb-4">
@@ -267,7 +249,7 @@ export default function CommunitiesPage() {
                         <div>
                           <div className="flex items-center gap-2">
                             <h3 className={`font-semibold ${
-                              theme === 'dark' ? 'text-gray-100' : 'text-gray-900'
+                              theme === 'dark' ? 'text-white' : 'text-gray-900'
                             }`}>{community.name}</h3>
                             {community.trending && (
                               <span className="px-2 py-0.5 rounded-full bg-brand-yellow/10 text-brand-yellow text-xs font-medium">
@@ -288,7 +270,7 @@ export default function CommunitiesPage() {
                       }`}>{community.description}</p>
                       <button 
                         className={`w-full py-2 rounded-lg text-sm font-medium ${
-                          theme === 'dark' ? 'bg-gray-800 text-gray-200 hover:bg-gray-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
+                          theme === 'dark' ? 'bg-neutral-800 text-gray-200 hover:bg-neutral-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
                         }`}
                       >
                         Unirse
@@ -306,9 +288,7 @@ export default function CommunitiesPage() {
                     <div 
                       key={game.id} 
                       onClick={() => setSelectedGame(game.id)}
-                      className={`p-6 rounded-xl cursor-pointer transition-transform hover:scale-[1.02] ${
-                        theme === 'dark' ? 'bg-gray-900' : 'bg-white shadow-sm'
-                      }`}
+                      className={`p-6 rounded-xl cursor-pointer transition-transform hover:scale-[1.02] ${theme === 'dark' ? 'bg-neutral-900' : 'bg-white shadow-sm'}`}
                     >
                       <div className="aspect-video relative mb-4 rounded-lg overflow-hidden">
                         <img 
@@ -349,7 +329,7 @@ export default function CommunitiesPage() {
       {/* Game Selection Modal */}
       {showGameSelection && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className={`relative w-full max-w-lg p-6 rounded-xl ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'}`}>
+          <div className={`relative w-full max-w-lg p-6 rounded-xl ${theme === 'dark' ? 'bg-neutral-800' : 'bg-white'}`}>
             <button 
               onClick={() => {
                 setShowGameSelection(false);
@@ -368,7 +348,7 @@ export default function CommunitiesPage() {
                 <div 
                   key={game.id}
                   onClick={() => handleGameSelect(game.id)}
-                  className={`p-4 rounded-xl cursor-pointer flex items-center gap-4 transition-colors ${theme === 'dark' ? 'bg-gray-800 hover:bg-gray-700' : 'bg-gray-100 hover:bg-gray-200'}`}
+                  className={`p-4 rounded-xl cursor-pointer flex items-center gap-4 transition-colors ${theme === 'dark' ? 'bg-neutral-700 hover:bg-neutral-600' : 'bg-gray-100 hover:bg-gray-200'}`}
                 >
                   <div className="w-16 h-16 rounded-lg overflow-hidden">
                     <img src={game.icon} alt={game.name} className="w-full h-full object-cover" />
@@ -391,7 +371,7 @@ export default function CommunitiesPage() {
       {/* Create Community Modal */}
       {showCreateCommunity && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className={`relative w-full max-w-lg p-6 rounded-xl ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'}`}>
+          <div className={`relative w-full max-w-lg p-6 rounded-xl ${theme === 'dark' ? 'bg-neutral-800' : 'bg-white'}`}>
             <button 
               onClick={() => {
                 setShowCreateCommunity(false);

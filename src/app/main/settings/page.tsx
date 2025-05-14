@@ -172,47 +172,31 @@ export default function SettingsPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Sidebar de navegación */}
             <div className="md:col-span-1">
-              <div className={`rounded-lg overflow-hidden ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'} shadow-md`}>
+              <div className={`p-6 rounded-lg ${theme === 'dark' ? 'bg-neutral-800' : 'bg-white'} shadow-md mb-6`}>
                 <div className="p-4 border-b border-gray-700">
                   <h2 className={`text-xl font-semibold ${theme === 'dark' ? 'text-gray-100' : 'text-gray-900'}`}>Opciones</h2>
                 </div>
                 <div className="p-0">
                   <button 
-                    className={`w-full text-left px-4 py-3 flex items-center gap-3 ${
-                      theme === 'dark' 
-                        ? 'text-gray-100 hover:bg-gray-800' 
-                        : 'text-gray-800 hover:bg-gray-100'
-                    }`}
+                    className={`w-full text-left px-4 py-3 flex items-center gap-3 ${theme === 'dark' ? 'text-gray-100 hover:bg-neutral-700' : 'text-gray-800 hover:bg-gray-100'}`} 
                   >
                     {theme === 'dark' ? <Moon size={20} /> : <Sun size={20} />}
                     Apariencia
                   </button>
                   <button 
-                    className={`w-full text-left px-4 py-3 flex items-center gap-3 ${
-                      theme === 'dark' 
-                        ? 'text-gray-100 hover:bg-gray-800' 
-                        : 'text-gray-800 hover:bg-gray-100'
-                    }`}
+                    className={`w-full text-left px-4 py-3 flex items-center gap-3 ${theme === 'dark' ? 'text-gray-100 hover:bg-neutral-700' : 'text-gray-800 hover:bg-gray-100'}`} 
                   >
                     <Lock size={20} />
                     Contraseña
                   </button>
                   <button 
-                    className={`w-full text-left px-4 py-3 flex items-center gap-3 ${
-                      theme === 'dark' 
-                        ? 'text-gray-100 hover:bg-gray-800' 
-                        : 'text-gray-800 hover:bg-gray-100'
-                    }`}
+                    className={`w-full text-left px-4 py-3 flex items-center gap-3 ${theme === 'dark' ? 'text-gray-100 hover:bg-neutral-700' : 'text-gray-800 hover:bg-gray-100'}`} 
                   >
                     <User size={20} />
                     Cuenta
                   </button>
                   <button 
-                    className={`w-full text-left px-4 py-3 flex items-center gap-3 ${
-                      theme === 'dark' 
-                        ? 'text-gray-100 hover:bg-gray-800' 
-                        : 'text-gray-800 hover:bg-gray-100'
-                    }`}
+                    className={`w-full text-left px-4 py-3 flex items-center gap-3 ${theme === 'dark' ? 'text-gray-100 hover:bg-neutral-700' : 'text-gray-800 hover:bg-gray-100'}`} 
                   >
                     <Database size={20} />
                     Herramientas de Base de Datos
@@ -224,11 +208,11 @@ export default function SettingsPage() {
             {/* Contenido principal */}
             <div className="md:col-span-2">
               {/* Sección de Apariencia */}
-              <section className={`rounded-lg overflow-hidden shadow-md mb-6 ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'}`}>
+              <section className={`rounded-lg overflow-hidden shadow-md mb-6 ${theme === 'dark' ? 'bg-neutral-800' : 'bg-white'}`}>
                 <div className="p-6">
                   <h2 className={`text-xl font-semibold mb-4 ${theme === 'dark' ? 'text-gray-100' : 'text-gray-900'}`}>Apariencia</h2>
                   
-                  <div className="flex items-center justify-between p-4 rounded-lg mb-4 border ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-gray-50 border-gray-200'}">
+                  <div className="flex items-center justify-between p-4 rounded-lg mb-4 border ${theme === 'dark' ? 'bg-neutral-800 border-neutral-700' : 'bg-gray-50 border-gray-200'}">
                     <div>
                       <h3 className={`font-medium ${theme === 'dark' ? 'text-gray-100' : 'text-gray-900'}`}>Modo oscuro</h3>
                       <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
@@ -239,7 +223,7 @@ export default function SettingsPage() {
                       onClick={toggleTheme}
                       className={`p-2 rounded-md ${
                         theme === 'dark' 
-                          ? 'bg-gray-700 text-yellow-400 hover:bg-gray-600' 
+                          ? 'bg-neutral-700 text-yellow-400 hover:bg-neutral-600' 
                           : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
                       }`}
                     >
@@ -250,7 +234,7 @@ export default function SettingsPage() {
               </section>
               
               {/* Sección de Cambio de Contraseña */}
-              <section className={`rounded-lg overflow-hidden shadow-md mb-6 ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'}`}>
+              <section className={`rounded-lg overflow-hidden shadow-md mb-6 ${theme === 'dark' ? 'bg-neutral-800' : 'bg-white'}`}>
                 <div className="p-6">
                   <h2 className={`text-xl font-semibold mb-4 ${theme === 'dark' ? 'text-gray-100' : 'text-gray-900'}`}>
                     <div className="flex items-center gap-2">
@@ -276,7 +260,7 @@ export default function SettingsPage() {
                           type={showPassword ? "text" : "password"} 
                           value={currentPassword} 
                           onChange={(e) => setCurrentPassword(e.target.value)}
-                          className={`w-full px-4 py-2 rounded-lg border ${theme === 'dark' ? 'bg-gray-800 border-gray-700 text-gray-100' : 'bg-white border-gray-300 text-gray-800'}`}
+                          className={`w-full px-4 py-2 rounded-lg border ${theme === 'dark' ? 'bg-neutral-800 border-neutral-700 text-gray-100' : 'bg-white border-gray-300 text-gray-800'}`}
                           placeholder="Ingresa tu contraseña actual"
                         />
                         <button 
@@ -297,7 +281,7 @@ export default function SettingsPage() {
                         type={showPassword ? "text" : "password"} 
                         value={newPassword} 
                         onChange={(e) => setNewPassword(e.target.value)}
-                        className={`w-full px-4 py-2 rounded-lg border ${theme === 'dark' ? 'bg-gray-800 border-gray-700 text-gray-100' : 'bg-white border-gray-300 text-gray-800'}`}
+                        className={`w-full px-4 py-2 rounded-lg border ${theme === 'dark' ? 'bg-neutral-800 border-neutral-700 text-gray-100' : 'bg-white border-gray-300 text-gray-800'}`}
                         placeholder="Ingresa tu nueva contraseña"
                       />
                     </div>
@@ -310,7 +294,7 @@ export default function SettingsPage() {
                         type={showPassword ? "text" : "password"} 
                         value={confirmPassword} 
                         onChange={(e) => setConfirmPassword(e.target.value)}
-                        className={`w-full px-4 py-2 rounded-lg border ${theme === 'dark' ? 'bg-gray-800 border-gray-700 text-gray-100' : 'bg-white border-gray-300 text-gray-800'}`}
+                        className={`w-full px-4 py-2 rounded-lg border ${theme === 'dark' ? 'bg-neutral-800 border-neutral-700 text-gray-100' : 'bg-white border-gray-300 text-gray-800'}`}
                         placeholder="Confirma tu nueva contraseña"
                       />
                     </div>
@@ -327,7 +311,7 @@ export default function SettingsPage() {
               </section>
               
               {/* Sección de Eliminar Cuenta */}
-              <section className={`rounded-lg overflow-hidden shadow-md mb-6 ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'}`}>
+              <section className={`rounded-lg overflow-hidden shadow-md mb-6 ${theme === 'dark' ? 'bg-neutral-800' : 'bg-white'}`}>
                 <div className="p-6">
                   <h2 className={`text-xl font-semibold mb-4 ${theme === 'dark' ? 'text-gray-100' : 'text-gray-900'}`}>
                     <div className="flex items-center gap-2">
@@ -336,7 +320,7 @@ export default function SettingsPage() {
                     </div>
                   </h2>
                   
-                  <div className="p-4 rounded-lg border ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-gray-50 border-gray-200'} mb-4">
+                  <div className={`p-4 rounded-lg border ${theme === 'dark' ? 'bg-neutral-700 border-neutral-600' : 'bg-gray-50 border-gray-200'} mb-4`}>
                     <div className="flex items-center justify-between">
                       <div>
                         <h3 className={`font-medium flex items-center gap-2 ${theme === 'dark' ? 'text-red-400' : 'text-red-600'}`}>
@@ -357,7 +341,7 @@ export default function SettingsPage() {
                   </div>
                   
                   {showDeleteConfirmation && (
-                    <div className="p-4 rounded-lg border ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-gray-50 border-gray-200'} mb-4">
+                    <div className={`p-4 rounded-lg border ${theme === 'dark' ? 'bg-neutral-700 border-neutral-600' : 'bg-gray-50 border-gray-200'} mb-4`}>
                       <h3 className={`font-medium mb-3 ${theme === 'dark' ? 'text-red-400' : 'text-red-600'}`}>
                         Confirmar eliminación de cuenta
                       </h3>
@@ -377,7 +361,7 @@ export default function SettingsPage() {
                           type="text" 
                           value={deleteConfirm} 
                           onChange={(e) => setDeleteConfirm(e.target.value)}
-                          className={`w-full px-4 py-2 rounded-lg border ${theme === 'dark' ? 'bg-gray-800 border-gray-700 text-gray-100' : 'bg-white border-gray-300 text-gray-800'}`}
+                          className={`w-full px-4 py-2 rounded-lg border ${theme === 'dark' ? 'bg-neutral-800 border-neutral-700 text-gray-100' : 'bg-white border-gray-300 text-gray-800'}`}
                           placeholder="ELIMINAR"
                         />
                         
@@ -388,7 +372,7 @@ export default function SettingsPage() {
                           type="password" 
                           value={deletePassword} 
                           onChange={(e) => setDeletePassword(e.target.value)}
-                          className={`w-full px-4 py-2 rounded-lg border ${theme === 'dark' ? 'bg-gray-800 border-gray-700 text-gray-100' : 'bg-white border-gray-300 text-gray-800'}`}
+                          className={`w-full px-4 py-2 rounded-lg border ${theme === 'dark' ? 'bg-neutral-800 border-neutral-700 text-gray-100' : 'bg-white border-gray-300 text-gray-800'}`}
                           placeholder="Contraseña"
                         />
                         
@@ -408,7 +392,7 @@ export default function SettingsPage() {
                               setDeleteConfirm('');
                               setDeletePassword('');
                             }}
-                            className={`px-4 py-2 rounded-md ${theme === 'dark' ? 'bg-gray-700 text-gray-300 hover:bg-gray-600' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
+                            className={`px-4 py-2 rounded-md ${theme === 'dark' ? 'bg-neutral-800 text-white hover:bg-neutral-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
                             disabled={isLoading}
                           >
                             Cancelar
@@ -421,7 +405,7 @@ export default function SettingsPage() {
               </section>
               
               {/* Sección de Herramientas de Base de Datos */}
-              <section className={`rounded-lg overflow-hidden shadow-md ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'}`}>
+              <section className={`rounded-lg overflow-hidden shadow-md ${theme === 'dark' ? 'bg-neutral-800' : 'bg-white'}`}>
                 <div className="p-6">
                   <h2 className={`text-xl font-semibold mb-4 ${theme === 'dark' ? 'text-gray-100' : 'text-gray-900'}`}>
                     <div className="flex items-center gap-2">
@@ -430,7 +414,7 @@ export default function SettingsPage() {
                     </div>
                   </h2>
                   
-                  <div className="p-4 rounded-lg mb-4 border ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-gray-50 border-gray-200'}">
+                  <div className={`p-4 rounded-lg mb-4 border ${theme === 'dark' ? 'bg-neutral-700 border-neutral-600' : 'bg-gray-50 border-gray-200'}`}>
                     <h3 className={`font-medium mb-2 ${theme === 'dark' ? 'text-gray-100' : 'text-gray-900'}`}>Convertir JSON a SQL</h3>
                     <p className={`text-sm mb-4 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
                       Convierte los datos de noticias desde el archivo JSON a la base de datos SQL
