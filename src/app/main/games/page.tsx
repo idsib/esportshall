@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Nav from "../components/layout/nav";
-import { Footer } from "../components/layout/footer";
+import Nav from "../../components/layout/nav";
+import { Footer } from "../../components/layout/footer";
 
 const Games = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
