@@ -2,19 +2,18 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Nav from "../../components/layout/nav";
-import { Footer } from "../../components/layout/footer";
+import MainLayout from "../components/layout/mainLayout";
+import { Footer } from "@/app/components/layout/footer";
 
 const Games = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
 
-    // Aquí se añaden los juegos que se quieran mostrar en la página, si se quiere añadir un nuevo se tiene que hacer debajo de los demás con un id superior.
     const games = [
         {
             id: 1,
             title: 'AxoFlip',
             image: '/images/axoflip.png',
-            link: '/games/axoflip',
+            link: '/axoflip',
             genre: 'Action',
             description: 'Un juego de plataformas único con un axolotl como protagonista'
         },
@@ -60,12 +59,12 @@ const Games = () => {
         },
     ];
 
-    // Automatic Carousel
+    // Carrusel Automático
     useEffect(() => {
         const timer = setInterval(() => {
             setCurrentSlide((prev) => (prev + 1) % games.length);
-        }, 5000); // Change 5 seconds
-
+        }, 5000); // Cambia cada 5 segundos
+        
         return () => clearInterval(timer);
     }, [games.length]);
 
@@ -89,9 +88,8 @@ const Games = () => {
     ];
 
     return (
-        <>
-            <Nav />
-            <div className="min-h-screen bg-gray-50 dark:bg-dark-100">
+        <MainLayout>
+            <div className="min-h-screen">
                 {/* Hero Section with Carousel */}
                 <div className="relative h-[50vh] w-full">
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-50 dark:to-dark-100 z-10" />
@@ -140,16 +138,8 @@ const Games = () => {
                     </div>
                 </div>
 
-                {/* Back Button */}
+                {/* Categories */}
                 <div className="container mx-auto px-4 py-6">
-                    <Link
-                        href="/"
-                        className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-brand-yellow transition-colors mb-6"
-                    >
-                        <span>Volver al inicio</span>
-                    </Link>
-
-                    {/* Categories */}
                     {categories.map((category) => (
                         <section key={category.id} className="mb-12">
                             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
@@ -183,7 +173,7 @@ const Games = () => {
                 </div>
             </div>
             <Footer />
-        </>
+        </MainLayout>
     );
 };
 

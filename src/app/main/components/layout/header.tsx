@@ -19,8 +19,8 @@ export default function Header() {
   };
 
   const navItems = [
-    { name: 'Contacto', path: '/main/contact' },
     { name: 'Juegos', path: '/main/games' },
+    { name: 'Contacto', path: '/main/contact' },
   ];
 
   return (
@@ -30,7 +30,7 @@ export default function Header() {
         : 'bg-white/95 border-gray-100 text-gray-900 shadow-sm'
     }`}>
       <div className="flex items-center justify-between h-full px-4 max-w-7xl mx-auto">
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-6">
           <button onClick={() => router.push('/')} className="flex items-center">
             <Image src="/images/esportshall.png" alt="Esports Hall" width={40} height={40} className="rounded-lg" />
           </button>
@@ -41,7 +41,7 @@ export default function Header() {
               <button
                 key={item.path}
                 onClick={() => router.push(item.path)}
-                className={`transition-colors ${
+                className={`transition-colors font-medium ${
                   pathname === item.path
                     ? 'text-yellow-400'
                     : 'hover:text-yellow-400'
@@ -54,6 +54,7 @@ export default function Header() {
         </div>
         
         <div className="flex items-center gap-4">
+          
           <div className="flex items-center gap-2">
             <TwitchNotification />
             <button

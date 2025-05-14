@@ -1,9 +1,13 @@
 'use client';
 
 import React, { useEffect, useRef } from "react";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
+import { useTheme } from "@/context/theme-context";
 
 const AxoFlip: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const { theme } = useTheme();
 
   useEffect(() => {
     // Comprueba que el canvas exista
@@ -473,29 +477,39 @@ const AxoFlip: React.FC = () => {
   }, []);
 
   return (
-    <div
-      id="game"
-      style={{
-        width: "100%",
-        height: "100%",
-        margin: 0,
-        border: 0,
-        overflow: "hidden",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "rgba(0, 0, 0, 0)"
-      }}
-    >
-      <canvas
-        id="canvas"
-        ref={canvasRef}
-        width={800}
-        height={600}
-        style={{ width: "800px", height: "600px" }}
-      ></canvas>
+    <div className="relative min-h-screen bg-gray-900">
+      {/* Botón de regreso con flecha */}
+      <div className="absolute top-6 left-6 z-10">
+        <Link 
+          href="/main/games" 
+          className={`flex items-center gap-2 px-4 py-2 rounded-full transition-colors ${theme === 'dark' ? 'bg-gray-800 text-gray-100 hover:bg-gray-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
+        >
+          <ArrowLeft size={20} />
+          <span>Volver a Juegos</span>
+        </Link>
+      </div>
+      
+      <div 
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#000"
+        }}
+      >
+        <canvas
+          id="canvas"
+          ref={canvasRef}
+          width={800}
+          height={600}
+          style={{ maxWidth: "100%", maxHeight: "100vh" }}
+        ></canvas>
+      </div>
     </div>
   );
 };
-
-export default AxoFlip;

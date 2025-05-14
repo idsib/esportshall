@@ -24,7 +24,11 @@ interface Post {
   shares: number;
 }
 
-export default function Feed() {
+interface FeedProps {
+  className?: string;
+}
+
+export default function Feed({ className = '' }: FeedProps) {
   const { theme } = useTheme();
   
   const posts: Post[] = [
@@ -65,12 +69,12 @@ export default function Feed() {
   ];
 
   return (
-    <div>
+    <div className={`w-full ${className}`}>
       {posts.map((post) => (
         <article key={post.id} className={`mb-6 ${
           theme === 'dark'
-            ? 'bg-dark-200/95 border border-dark-300 hover:bg-dark-300/50 rounded-xl'
-            : 'bg-white hover:bg-gray-50/50'
+            ? 'bg-gray-900 border border-gray-700 hover:bg-gray-800 rounded-xl shadow-md'
+            : 'bg-white border border-gray-100 hover:bg-gray-50 rounded-xl shadow-sm'
         } transition-all duration-200 cursor-pointer`}>
           <div className="p-6">
             {/* Header del post */}
@@ -85,13 +89,13 @@ export default function Feed() {
                 />
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="font-bold">{post.user.name}</span>
-                    <span className={theme === 'dark' ? 'text-neutral-400' : 'text-gray-500'}>{post.user.username}</span>
+                    <span className="font-bold text-gray-100">{post.user.name}</span>
+                    <span className={theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}>{post.user.username}</span>
                   </div>
-                  <span className={`text-sm ${theme === 'dark' ? 'text-neutral-400' : 'text-gray-500'}`}>{post.timestamp}</span>
+                  <span className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>{post.timestamp}</span>
                 </div>
               </div>
-              <button className={`${theme === 'dark' ? 'text-neutral-400' : 'text-gray-400'} hover:text-yellow-400 transition-colors`}>
+              <button className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-400'} hover:text-yellow-400 transition-colors`}>
                 <MoreHorizontal size={20} />
               </button>
             </div>
@@ -100,12 +104,12 @@ export default function Feed() {
             <div className="mb-4">
               <span className="text-yellow-400 font-medium text-sm mb-2 block">{post.category}</span>
               <h2 className="text-xl font-bold mb-2">{post.title}</h2>
-              <p className={theme === 'dark' ? 'text-neutral-400' : 'text-gray-600'}>{post.content}</p>
+              <p className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>{post.content}</p>
             </div>
 
             {/* Imagen */}
             {post.image && (
-              <div className="relative w-full h-64 mb-4 rounded-xl overflow-hidden">
+              <div className="relative w-full h-48 sm:h-56 md:h-64 mb-4 rounded-lg overflow-hidden border border-gray-700">
                 <Image
                   src={post.image}
                   alt={post.title}
@@ -117,15 +121,15 @@ export default function Feed() {
 
             {/* Acciones */}
             <div className="flex items-center gap-6">
-              <button className={`flex items-center gap-2 ${theme === 'dark' ? 'text-neutral-400' : 'text-gray-500'} hover:text-yellow-400 transition-colors`}>
+              <button className={`flex items-center gap-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'} hover:text-yellow-400 transition-colors`}>
                 <Heart size={20} />
                 <span>{post.likes}</span>
               </button>
-              <button className={`flex items-center gap-2 ${theme === 'dark' ? 'text-neutral-400' : 'text-gray-500'} hover:text-yellow-400 transition-colors`}>
+              <button className={`flex items-center gap-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'} hover:text-yellow-400 transition-colors`}>
                 <MessageCircle size={20} />
                 <span>{post.comments}</span>
               </button>
-              <button className={`flex items-center gap-2 ${theme === 'dark' ? 'text-neutral-400' : 'text-gray-500'} hover:text-yellow-400 transition-colors`}>
+              <button className={`flex items-center gap-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'} hover:text-yellow-400 transition-colors`}>
                 <Share size={20} />
                 <span>{post.shares}</span>
               </button>

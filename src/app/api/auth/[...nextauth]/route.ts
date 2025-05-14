@@ -116,11 +116,22 @@ const authOptions: AuthOptions = {
         const expirationDate = new Date(Date.now() + oneMonth);
         
         try {
-          // Guardar token en la base de datos
-          await sql(
-            'INSERT INTO users_token (user_id, token, expiration_date) VALUES ($1, $2, $3) ON CONFLICT (user_id) DO UPDATE SET token = $2, expiration_date = $3',
-            [token.id, manualToken, expirationDate]
-          );
+          // Verificar si ya existe un token para este usuario
+          const existingToken = await sql('SELECT * FROM users_token WHERE user_id = $1', [token.id]);
+          
+          if (existingToken.length > 0) {
+            // Actualizar token existente
+            await sql(
+              'UPDATE users_token SET token = $1, expiration_date = $2 WHERE user_id = $3',
+              [manualToken, expirationDate, token.id]
+            );
+          } else {
+            // Crear nuevo token
+            await sql(
+              'INSERT INTO users_token (user_id, token, expiration_date) VALUES ($1, $2, $3)',
+              [token.id, manualToken, expirationDate]
+            );
+          }
           
           // Asignar el token manual a la sesión
           session.user.token = manualToken;
