@@ -118,7 +118,7 @@ export default function ResetPasswordConfirm() {
                             </div>
                         )}
 
-                        {isTokenValid && !message?.type === 'success' && (
+                        {isTokenValid && message?.type !== 'success' && (
                             <form onSubmit={handleSubmit} className="space-y-6">
                                 <div>
                                     <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
