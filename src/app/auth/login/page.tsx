@@ -119,7 +119,7 @@ export default function Login() {
                             </div>
 
                             <div className="flex items-center justify-between">
-                                <Link href="/auth/forgot-password" className="text-sm text-brand-yellow hover:text-brand-yellow-dark">
+                                <Link href="/auth/reset-password" className="text-sm text-brand-yellow hover:text-brand-yellow-dark">
                                     ¿Olvidaste tu contraseña?
                                 </Link>
                             </div>

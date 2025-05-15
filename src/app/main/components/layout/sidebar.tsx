@@ -24,12 +24,12 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className={`fixed left-0 top-16 h-[calc(100vh-4rem)] w-16 border-r flex flex-col items-center py-6 z-40 ${
+    <aside className={`fixed left-0 top-16 h-[calc(100vh-4rem)] w-20 border-r flex flex-col items-center py-8 z-40 ${
       theme === 'dark'
         ? 'bg-dark-200/95 border-dark-300'
         : 'bg-white/95 border-gray-200 shadow-sm'
     }`}>
-      <nav className="flex flex-col items-center gap-8">
+      <nav className="flex flex-col items-center gap-10 h-full justify-center">
         <button 
           onClick={() => router.push('/main')}
           className={`p-2 rounded-lg transition-colors ${
@@ -40,7 +40,7 @@ export default function Sidebar() {
                 : 'text-gray-500 hover:text-brand-yellow'
           }`}
         >
-          <Home size={24} />
+          <Home size={22} />
         </button>
         <button 
           onClick={() => router.push('/main/teams')}
@@ -52,7 +52,7 @@ export default function Sidebar() {
                 : 'text-gray-500 hover:text-brand-yellow'
           }`}
         >
-          <Users size={24} />
+          <Users size={22} />
         </button>
         <button 
           onClick={() => router.push('/main/players')}
@@ -64,7 +64,7 @@ export default function Sidebar() {
                 : 'text-gray-500 hover:text-brand-yellow'
           }`}
         >
-          <UserCircle size={24} />
+          <UserCircle size={22} />
         </button>
         <button 
           onClick={() => router.push('/main/tournaments')}
@@ -76,7 +76,7 @@ export default function Sidebar() {
                 : 'text-gray-500 hover:text-brand-yellow'
           }`}
         >
-          <Trophy size={24} />
+          <Trophy size={22} />
         </button>
         <button 
           onClick={() => router.push('/main/matches')}
@@ -88,7 +88,7 @@ export default function Sidebar() {
                 : 'text-gray-500 hover:text-brand-yellow'
           }`}
         >
-          <Calendar size={24} />
+          <Calendar size={22} />
         </button>
         <button 
           onClick={() => router.push('/main/news')}
@@ -100,7 +100,7 @@ export default function Sidebar() {
                 : 'text-gray-500 hover:text-brand-yellow'
           }`}
         >
-          <Newspaper size={24} />
+          <Newspaper size={22} />
         </button>
         <button 
           onClick={() => router.push('/main/communities')}
@@ -112,7 +112,7 @@ export default function Sidebar() {
                 : 'text-gray-500 hover:text-brand-yellow'
           }`}
         >
-          <MessageCircle size={24} />
+          <MessageCircle size={22} />
         </button>
       </nav>
       
@@ -127,7 +127,7 @@ export default function Sidebar() {
                 : 'text-gray-500 hover:text-brand-yellow'
           }`}
         >
-          <Settings size={24} />
+          <Settings size={22} />
         </button>
         <button 
           onClick={() => router.push('/main/profile')}
@@ -139,7 +139,7 @@ export default function Sidebar() {
                 : 'text-gray-500 hover:text-brand-yellow'
           }`}
         >
-          <User size={24} />
+          <User size={22} />
         </button>
         <div className="relative">
           <button 

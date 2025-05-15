@@ -5,6 +5,7 @@ import { ArrowLeft } from 'lucide-react'
 import Nav from "../../components/layout/nav"
 import { Footer } from "../../components/layout/footer"
 import { useState } from 'react'
+import { generateResetToken } from '../neon/resetPassword'
 
 export default function ResetPassword() {
     const [email, setEmail] = useState('')
@@ -15,16 +16,17 @@ export default function ResetPassword() {
         e.preventDefault()
         setIsSubmitting(true)
         try {
-            // Aquí iría la lógica para enviar el email de recuperación
-            console.log('Email para recuperación:', email)
+            const result = await generateResetToken(email)
+            
             setMessage({
-                type: 'success',
-                text: 'Se ha enviado un email con las instrucciones para restablecer tu contraseña'
+                type: result.success ? 'success' : 'error',
+                text: result.message
             })
         } catch (error) {
+            console.error('Error al solicitar restablecimiento de contraseña:', error)
             setMessage({
                 type: 'error',
-                text: 'Ha ocurrido un error al enviar el email'
+                text: 'Ha ocurrido un error al procesar tu solicitud. Por favor, intenta de nuevo más tarde.'
             })
         } finally {
             setIsSubmitting(false)
