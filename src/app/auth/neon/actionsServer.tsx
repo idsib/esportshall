@@ -84,7 +84,7 @@ export async function test() {
 
 export async function AllNoticias() {
  
-    type Noticia = {
+    interface Noticia {
         id: number;
         pagina: string;
         link_fuente: string;
