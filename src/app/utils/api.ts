@@ -4,9 +4,13 @@
  * Los datos no son nuestros, los recogemos de PandaScore con nuestro token
  */
 
-// Funcion que recoge la api en .env
-const getApiToken = (): string => {
-  return process.env.NEXT_PUBLIC_PANDASCORE_API_TOKEN || '';
+// Función para construir la URL del proxy de API
+const getProxyUrl = (endpoint: string, params: URLSearchParams): string => {
+  // Añadir el endpoint como parámetro
+  params.append('endpoint', endpoint);
+  
+  // Construir la URL del proxy
+  return `/api/pandascore?${params.toString()}`;
 };
 
 // API Opciones Base
@@ -14,8 +18,7 @@ const getApiOptions = () => {
   return {
     method: 'GET',
     headers: {
-      accept: 'application/json',
-      authorization: `Bearer ${getApiToken()}`
+      'Accept': 'application/json'
     }
   };
 };
@@ -39,42 +42,50 @@ export const fetchTeams = async (
   teamId?: number,
   location?: string
 ) => {
-  const options = getApiOptions();
-  let url = `https://api.pandascore.co/teams?sort=name&page=${page}&per_page=${perPage}`;
-
-  // Filtro de Videojuego - usando el parámetro correcto según la documentación
-  if (game) {
-    // Map CS2 to cs-go for the API (as PandaScore still uses cs-go endpoint)
-    const apiGame = game === 'cs2' ? 'csgo' : game;
-    // Usamos videogame_id para filtrar por juego
-    const videogameIds: Record<string, number> = {
-      'lol': 1,     // League of Legends
-      'csgo': 3,    // CS:GO/CS2
-      'valorant': 26 // Valorant
-    };
-    
-    // Verificamos que el juego exista en nuestro mapeo
-    if (videogameIds[apiGame] !== undefined) {
-      url += `&filter[videogame_id]=${videogameIds[apiGame]}`;
-    }
-  }
-
-  // Filtro por ID de equipo si se especifica
-  if (teamId) {
-    url += `&filter[id]=${teamId}`;
-  }
-
-  // Filtro por ubicación si se especifica
-  if (location) {
-    url += `&filter[location]=${encodeURIComponent(location)}`;
-  }
-
-  // Filtro de Search por nombre
-  if (search && search.trim() !== '') {
-    url += `&search[name]=${encodeURIComponent(search.trim())}`;
-  }
-
   try {
+    // Crear los parámetros de la consulta
+    const params = new URLSearchParams();
+    params.append('sort', 'name');
+    params.append('page', String(page));
+    params.append('per_page', String(perPage));
+
+    // Filtro de Videojuego - usando el parámetro correcto según la documentación
+    if (game) {
+      // Map CS2 to cs-go for the API (as PandaScore still uses cs-go endpoint)
+      const apiGame = game === 'cs2' ? 'csgo' : game;
+      // Usamos videogame_id para filtrar por juego
+      const videogameIds: Record<string, number> = {
+        'lol': 1,     // League of Legends
+        'csgo': 3,    // CS:GO/CS2
+        'valorant': 26 // Valorant
+      };
+      
+      // Verificamos que el juego exista en nuestro mapeo
+      if (videogameIds[apiGame] !== undefined) {
+        params.append('filter[videogame_id]', String(videogameIds[apiGame]));
+      }
+    }
+
+    // Filtro por ID de equipo si se especifica
+    if (teamId) {
+      params.append('filter[id]', String(teamId));
+    }
+
+    // Filtro por ubicación si se especifica
+    if (location) {
+      params.append('filter[location]', location);
+    }
+
+    // Filtro de Search por nombre
+    if (search && search.trim() !== '') {
+      params.append('search[name]', search.trim());
+    }
+
+    // Construir la URL del proxy
+    const url = getProxyUrl('teams', params);
+    const options = getApiOptions();
+
+    // Realizar la solicitud
     const response = await fetch(url, options);
 
     if (!response.ok) {
@@ -97,50 +108,53 @@ export const fetchPlayers = async (
   perPage = 50,
   game?: GameType,
   search?: string,
-  nationality?: string,
-  role?: string,
-  team_id?: number
+  playerId?: number,
+  nationality?: string
 ) => {
-  const options = getApiOptions();
-  let url = `https://api.pandascore.co/players?sort=name&page=${page}&per_page=${perPage}`;
-
-  // Añade filtro de videojuego - usando el parámetro correcto según la documentación
-  if (game) {
-    // Map CS2 to cs-go for the API (as PandaScore still uses cs-go endpoint)
-    const apiGame = game === 'cs2' ? 'csgo' : game;
-    const videogameIds: Record<string, number> = {
-      'lol': 1,     // League of Legends
-      'csgo': 3,    // CS:GO/CS2
-      'valorant': 26 // Valorant
-    };
-    
-    // Verificamos que el juego exista en nuestro mapeo
-    if (videogameIds[apiGame] !== undefined) {
-      url += `&filter[videogame_id]=${videogameIds[apiGame]}`;
-    }
-  }
-
-  // Añade filtro de nacionalidad si se especifica
-  if (nationality) {
-    url += `&filter[nationality]=${encodeURIComponent(nationality)}`;
-  }
-
-  // Añade filtro de rol si se especifica
-  if (role) {
-    url += `&filter[role]=${encodeURIComponent(role)}`;
-  }
-
-  // Añade filtro de equipo si se especifica
-  if (team_id) {
-    url += `&filter[team_id]=${team_id}`;
-  }
-
-  // Añade filtro de búsqueda
-  if (search && search.trim() !== '') {
-    url += `&search[name]=${encodeURIComponent(search.trim())}`;
-  }
-
   try {
+    // Crear los parámetros de la consulta
+    const params = new URLSearchParams();
+    params.append('sort', 'name');
+    params.append('page', String(page));
+    params.append('per_page', String(perPage));
+
+    // Filtro de Videojuego - usando el parámetro correcto según la documentación
+    if (game) {
+      // Map CS2 to cs-go for the API (as PandaScore still uses cs-go endpoint)
+      const apiGame = game === 'cs2' ? 'csgo' : game;
+      // Usamos videogame_id para filtrar por juego
+      const videogameIds: Record<string, number> = {
+        'lol': 1,     // League of Legends
+        'csgo': 3,    // CS:GO/CS2
+        'valorant': 26 // Valorant
+      };
+      
+      // Verificamos que el juego exista en nuestro mapeo
+      if (videogameIds[apiGame] !== undefined) {
+        params.append('filter[videogame_id]', String(videogameIds[apiGame]));
+      }
+    }
+
+    // Filtro por ID de jugador si se especifica
+    if (playerId) {
+      params.append('filter[id]', String(playerId));
+    }
+
+    // Filtro por nacionalidad si se especifica
+    if (nationality) {
+      params.append('filter[nationality]', nationality);
+    }
+
+    // Filtro de Search por nombre
+    if (search && search.trim() !== '') {
+      params.append('search[name]', search.trim());
+    }
+
+    // Construir la URL del proxy
+    const url = getProxyUrl('players', params);
+    const options = getApiOptions();
+
+    // Realizar la solicitud
     const response = await fetch(url, options);
 
     if (!response.ok) {
@@ -159,32 +173,39 @@ export const fetchPlayers = async (
 
 // Fetch del apartado Torneos con filtros
 export const fetchTournaments = async (page = 1, perPage = 50, game: GameType = 'valorant', search?: string) => {
-  const options = getApiOptions();
-
-  // Map CS2 to cs-go for the API (as PandaScore still uses cs-go endpoint)
-  const apiGame = game === 'cs2' ? 'csgo' : game;
-  
-  // Mapeo de juegos a sus respectivos endpoints en PandaScore
-  const gameEndpoints: Record<string, string> = {
-    'lol': 'lol',
-    'csgo': 'csgo',
-    'valorant': 'valorant'
-  };
-  
-  // Verificar que el juego exista en nuestro mapeo
-  if (!gameEndpoints[apiGame]) {
-    console.warn(`Game type '${game}' not found in gameEndpoints.`);
-    return [];
-  }
-  
-  let url = `https://api.pandascore.co/${gameEndpoints[apiGame]}/tournaments?page=${page}&per_page=${perPage}`;
-
-  // Add search filter if specified
-  if (search && search.trim() !== '') {
-    url += `&search[name]=${encodeURIComponent(search.trim())}`;
-  }
-
   try {
+    // Map CS2 to cs-go for the API (as PandaScore still uses cs-go endpoint)
+    const apiGame = game === 'cs2' ? 'csgo' : game;
+    
+    // Mapeo de juegos a sus respectivos endpoints en PandaScore
+    const gameEndpoints: Record<string, string> = {
+      'lol': 'lol',
+      'csgo': 'csgo',
+      'valorant': 'valorant'
+    };
+    
+    // Verificar que el juego exista en nuestro mapeo
+    if (!gameEndpoints[apiGame]) {
+      console.warn(`Game type '${game}' not found in gameEndpoints.`);
+      return [];
+    }
+    
+    // Crear los parámetros de la consulta
+    const params = new URLSearchParams();
+    params.append('page', String(page));
+    params.append('per_page', String(perPage));
+    
+    // Add search filter if specified
+    if (search && search.trim() !== '') {
+      params.append('search[name]', search.trim());
+    }
+    
+    // Construir la URL del proxy
+    const endpoint = `${gameEndpoints[apiGame]}/tournaments`;
+    const url = getProxyUrl(endpoint, params);
+    const options = getApiOptions();
+    
+    // Realizar la solicitud
     const response = await fetch(url, options);
 
     if (!response.ok) {
@@ -213,12 +234,7 @@ export const fetchMatches = async (
   sort?: string
 ) => {
   try {
-    const options = getApiOptions();
-
-    // Construir la URL base
-    let url = 'https://api.pandascore.co/matches';
-
-    // Añadir parámetros como query string
+    // Crear los parámetros de la consulta
     const params = new URLSearchParams();
 
     // Parámetros de paginación
@@ -268,18 +284,17 @@ export const fetchMatches = async (
       params.append('filter[team_id]', String(teamId));
     }
 
-    // Filtro de búsqueda
+    // Filtro de búsqueda por nombre
     if (search && search.trim() !== '') {
       params.append('search[name]', search.trim());
     }
 
-    // Añadir parámetros a la URL
-    url = `${url}?${params.toString()}`;
+    // Construir la URL del proxy
+    const url = getProxyUrl('matches', params);
+    const options = getApiOptions();
 
-    console.log('Fetching matches with URL:', url);
-
-    // Realizar la petición
-    const response = await fetch(url, options);
+    // Realizar la solicitud
+    const response = await fetch(url, options);    
 
     if (!response.ok) {
       const errorDetails = await response.text();
