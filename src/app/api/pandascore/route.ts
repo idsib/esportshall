@@ -1,5 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+// Configuración de CORS para la API
+const ALLOWED_ORIGIN = process.env.NODE_ENV === 'production' ? 'https://esportshall.es' : '*';
+
+// Manejador de OPTIONS para el preflight de CORS
+export async function OPTIONS() {
+  return new Response(null, {
+    status: 200,
+    headers: {
+      'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
+      'Access-Control-Allow-Methods': 'GET, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      'Access-Control-Allow-Credentials': 'true',
+    },
+  });
+}
+
 export async function GET(request: NextRequest) {
   try {
     // Obtener los parámetros de la URL
@@ -8,7 +24,15 @@ export async function GET(request: NextRequest) {
     
     // Verificar que se proporcionó un endpoint
     if (!endpoint) {
-      return NextResponse.json({ error: 'Endpoint parameter is required' }, { status: 400 });
+      return NextResponse.json({ error: 'Endpoint parameter is required' }, { 
+        status: 400,
+        headers: {
+          'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
+          'Access-Control-Allow-Methods': 'GET, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+          'Access-Control-Allow-Credentials': 'true',
+        }
+      });
     }
     
     // Construir la URL para la API de PandaScore
@@ -19,7 +43,15 @@ export async function GET(request: NextRequest) {
     
     if (!apiToken) {
       console.error('PANDASCORE_API_TOKEN is not defined in environment variables');
-      return NextResponse.json({ error: 'API token is not configured' }, { status: 500 });
+      return NextResponse.json({ error: 'API token is not configured' }, { 
+        status: 500,
+        headers: {
+          'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
+          'Access-Control-Allow-Methods': 'GET, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+          'Access-Control-Allow-Credentials': 'true',
+        }
+      });
     }
     
     // Preparar los parámetros para reenviar a la API de PandaScore
@@ -53,20 +85,43 @@ export async function GET(request: NextRequest) {
       console.error(`PandaScore API error (${response.status}):`, errorText);
       return NextResponse.json(
         { error: `PandaScore API error: ${response.statusText}`, details: errorText },
-        { status: response.status }
+        { 
+          status: response.status,
+          headers: {
+            'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
+            'Access-Control-Allow-Methods': 'GET, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+            'Access-Control-Allow-Credentials': 'true',
+          }
+        }
       );
     }
     
     // Obtener los datos de la respuesta
     const data = await response.json();
     
-    // Devolver los datos
-    return NextResponse.json(data);
+    // Devolver los datos con headers CORS
+    return NextResponse.json(data, {
+      headers: {
+        'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
+        'Access-Control-Allow-Methods': 'GET, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        'Access-Control-Allow-Credentials': 'true',
+      }
+    });
   } catch (error) {
     console.error('Error proxying request to PandaScore API:', error);
     return NextResponse.json(
       { error: 'Error proxying request to PandaScore API' },
-      { status: 500 }
+      { 
+        status: 500,
+        headers: {
+          'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
+          'Access-Control-Allow-Methods': 'GET, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+          'Access-Control-Allow-Credentials': 'true',
+        }
+      }
     );
   }
 }
