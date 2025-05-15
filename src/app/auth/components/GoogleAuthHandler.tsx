@@ -16,7 +16,9 @@ export default function GoogleAuthHandler() {
         
         console.log('Google authentication data stored in localStorage');
         
-        router.push('/main');
+        setTimeout(() => {
+          router.replace('/main');
+        }, 100);
       } catch (error) {
         console.error('Error executing localStorage script:', error);
       }
