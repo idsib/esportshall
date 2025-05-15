@@ -25,7 +25,7 @@ export default function NewsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Paginación de las noticas (10 por página)
+  // Paginación de las noticias (10 por página)
   const [currentPage, setCurrentPage] = useState(1);
   const noticiasPorPagina = 10;
 

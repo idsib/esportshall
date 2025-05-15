@@ -41,9 +41,9 @@ export default function CookieConsent() {
                         <X className="w-5 h-5" />
                     </button>
                 </div>
-                
+
                 <p className="text-sm text-gray-600 dark:text-gray-300 mb-6">
-                    Utilizamos cookies para mejorar tu experiencia en nuestra plataforma. 
+                    Utilizamos cookies para mejorar tu experiencia en nuestra plataforma.
                     Al continuar navegando, aceptas nuestra política de cookies.
                 </p>
 

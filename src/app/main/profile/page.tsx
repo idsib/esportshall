@@ -42,7 +42,7 @@ export default function ProfilePage() {
     },
     {
       id: 2,
-      content: 'Preparándome para el próximo torneo de Valorant. ¿Alguien quiere practicar? 🔫 #Valorant #EsportsHall',
+      content: 'Preparándome para el próximo torneo de Valorant. ¿Alguien quiere practicar? (solo mujeres)🔫 #Valorant #EsportsHall',
       timestamp: '2024-03-14T09:15:00Z',
       likes: 89,
       comments: 15,
@@ -191,11 +191,11 @@ export default function ProfilePage() {
               <button
                 onClick={() => setActiveTab('overview')}
                 className={`py-4 px-1 border-b-2 font-medium text-sm whitespace-nowrap ${activeTab === 'overview'
-                    ? 'border-brand-yellow text-brand-yellow'
-                    : `border-transparent ${theme === 'dark'
-                      ? 'text-gray-400 hover:text-gray-300'
-                      : 'text-gray-500 hover:text-gray-700'
-                    } hover:border-gray-300`
+                  ? 'border-brand-yellow text-brand-yellow'
+                  : `border-transparent ${theme === 'dark'
+                    ? 'text-gray-400 hover:text-gray-300'
+                    : 'text-gray-500 hover:text-gray-700'
+                  } hover:border-gray-300`
                   }`}
               >
                 Resumen
@@ -203,11 +203,11 @@ export default function ProfilePage() {
               <button
                 onClick={() => setActiveTab('posts')}
                 className={`py-4 px-1 border-b-2 font-medium text-sm whitespace-nowrap ${activeTab === 'posts'
-                    ? 'border-brand-yellow text-brand-yellow'
-                    : `border-transparent ${theme === 'dark'
-                      ? 'text-gray-400 hover:text-gray-300'
-                      : 'text-gray-500 hover:text-gray-700'
-                    } hover:border-gray-300`
+                  ? 'border-brand-yellow text-brand-yellow'
+                  : `border-transparent ${theme === 'dark'
+                    ? 'text-gray-400 hover:text-gray-300'
+                    : 'text-gray-500 hover:text-gray-700'
+                  } hover:border-gray-300`
                   }`}
               >
                 Publicaciones
@@ -215,11 +215,11 @@ export default function ProfilePage() {
               <button
                 onClick={() => setActiveTab('tournaments')}
                 className={`py-4 px-1 border-b-2 font-medium text-sm whitespace-nowrap ${activeTab === 'tournaments'
-                    ? 'border-brand-yellow text-brand-yellow'
-                    : `border-transparent ${theme === 'dark'
-                      ? 'text-gray-400 hover:text-gray-300'
-                      : 'text-gray-500 hover:text-gray-700'
-                    } hover:border-gray-300`
+                  ? 'border-brand-yellow text-brand-yellow'
+                  : `border-transparent ${theme === 'dark'
+                    ? 'text-gray-400 hover:text-gray-300'
+                    : 'text-gray-500 hover:text-gray-700'
+                  } hover:border-gray-300`
                   }`}
               >
                 Torneos
