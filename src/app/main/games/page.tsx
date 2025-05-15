@@ -13,7 +13,7 @@ const Games = () => {
             id: 1,
             title: 'AxoFlip',
             image: '/images/axoflip.png',
-            link: '/axoflip',
+            link: '/games/axoflip',
             genre: 'Action',
             description: 'Un juego de plataformas único con un axolotl como protagonista'
         },
