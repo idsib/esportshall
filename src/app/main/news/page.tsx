@@ -1,15 +1,10 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { formatDistanceToNow } from 'date-fns';
-import { es } from 'date-fns/locale';
 import MainLayout from '../components/layout/mainLayout';
 import { useTheme } from '@/context/theme-context';
 import { Loader2, Search } from 'lucide-react';
-import { games } from '@/utils/newsSources';
 import { AllNoticias } from "../../auth/neon/actionsServer"
-import internal from 'stream';
-
 
 interface Noticia {
   id: number;
@@ -30,42 +25,46 @@ export default function NewsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Paginación de las noticas (10 por página)
+  const [currentPage, setCurrentPage] = useState(1);
+  const noticiasPorPagina = 10;
+
   useEffect(() => {
     const cargarNoticias = async () => {
       try {
         // Intentar cargar desde la API
         try {
-          
-            const todasNoticias: Noticia[] = await AllNoticias();
 
-            /* // Aplanar todas las noticias en un solo array
-            const todasNoticias: Noticia[] = [];
-            Object.values(data.Noticias).forEach(fuente => {
-              todasNoticias.push(...fuente.articulos);
-            }); */
+          const todasNoticias: Noticia[] = await AllNoticias();
 
-            setNoticias(todasNoticias);
-            setLoading(false);
-            return;
-          
+          /* // Aplanar todas las noticias en un solo array
+          const todasNoticias: Noticia[] = [];
+          Object.values(data.Noticias).forEach(fuente => {
+            todasNoticias.push(...fuente.articulos);
+          }); */
+
+          setNoticias(todasNoticias);
+          setLoading(false);
+          return;
+
         } catch (apiErr) {
           console.log('Error al cargar desde API, intentando cargar desde archivo local:', apiErr);
         }
 
-         /* // Si falla la API, cargar desde el archivo local
-        const response = await fetch('/main/web-crawler/noticias.json');
-        if (!response.ok) {
-          throw new Error('Error al cargar las noticias');
-        }
-        const data: NoticiasData = await response.json();
+        /* // Si falla la API, cargar desde el archivo local
+       const response = await fetch('/main/web-crawler/noticias.json');
+       if (!response.ok) {
+         throw new Error('Error al cargar las noticias');
+       }
+       const data: NoticiasData = await response.json();
 
-        // Aplanar todas las noticias en un solo array
-        const todasNoticias: Noticia[] = [];
-        Object.values(data.Noticias).forEach(fuente => {
-          todasNoticias.push(...fuente.articulos);
-        });
+       // Aplanar todas las noticias en un solo array
+       const todasNoticias: Noticia[] = [];
+       Object.values(data.Noticias).forEach(fuente => {
+         todasNoticias.push(...fuente.articulos);
+       });
 
-        setNoticias(todasNoticias); */
+       setNoticias(todasNoticias); */
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Error desconocido');
       } finally {
@@ -74,9 +73,9 @@ export default function NewsPage() {
     };
 
     cargarNoticias();
-  }, []); 
-      
-  // Platforms for filtering
+  }, []);
+
+  // Filtro por plataformas
   const platforms = [
     { name: 'Todas', value: 'all' },
     { name: 'PC', value: 'pc' },
@@ -89,14 +88,33 @@ export default function NewsPage() {
   const filteredNews = noticias.filter(article => {
     const matchesSearch = article.titulo.toLowerCase().includes(searchQuery.toLowerCase()) ||
       article.texto.toLowerCase().includes(searchQuery.toLowerCase());
-    
+
     // Filter by platform if not 'all'
-    const matchesPlatform = selectedPlatform === 'all' || 
+    const matchesPlatform = selectedPlatform === 'all' ||
       article.titulo.toLowerCase().includes(platforms.find(p => p.value === selectedPlatform)?.name.toLowerCase() || '') ||
       article.texto.toLowerCase().includes(platforms.find(p => p.value === selectedPlatform)?.name.toLowerCase() || '');
-    
+
     return matchesSearch && matchesPlatform;
   });
+
+  const totalPages = Math.ceil(filteredNews.length / noticiasPorPagina);
+
+  // Noticias a mostrar en la página actual
+  const startIdx = (currentPage - 1) * noticiasPorPagina;
+  const endIdx = startIdx + noticiasPorPagina;
+  const paginatedNews = filteredNews.slice(startIdx, endIdx);
+  const handlePrevPage = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  };
+
+  // Reiniciar a la primera página si cambia el filtro o la búsqueda
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, selectedPlatform]);
 
   if (loading) {
     return (
@@ -138,7 +156,7 @@ export default function NewsPage() {
               />
             </div>
           </div>
-          
+
           {/* Platforms Filters */}
           <div>
             <h3 className={`text-sm font-medium mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>Plataformas</h3>
@@ -162,100 +180,128 @@ export default function NewsPage() {
             No se encontraron noticias para mostrar.
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Noticia destacada */}
-            {filteredNews[0] && (
-              <div className={`md:col-span-2 rounded-lg overflow-hidden ${theme === 'dark' ? 'bg-neutral-800' : 'bg-white shadow-sm'}`}>
-                {filteredNews[0].imagen && (
-                  <div className="w-full h-64 overflow-hidden">
-                    <img
-                      src={filteredNews[0].imagen}
-                      alt={filteredNews[0].titulo}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                )}
-                <div className="p-6">
-                  <h2 className={`text-2xl font-bold mt-2 mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
-                    }`}>
-                    {filteredNews[0].titulo}
-                  </h2>
-                  {filteredNews[0].fecha && (
-                    <p className={`text-sm mb-3 ${theme === 'dark' ? 'text-gray-500' : 'text-gray-500'
-                      }`}>
-                      {new Date(filteredNews[0].fecha).toLocaleDateString('es-ES', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                      })}
-                    </p>
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Noticia destacada */}
+              {paginatedNews[0] && (
+                <div className={`md:col-span-2 rounded-lg overflow-hidden ${theme === 'dark' ? 'bg-neutral-800' : 'bg-white shadow-sm'}`}>
+                  {paginatedNews[0].imagen && (
+                    <div className="w-full h-64 overflow-hidden">
+                      <img
+                        src={paginatedNews[0].imagen}
+                        alt={paginatedNews[0].titulo}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                   )}
-                  <p className={`mb-4 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-                    }`}>
-                    {filteredNews[0].texto.substring(0, 200)}...
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <a
-                      href={filteredNews[0].link_articulo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-yellow-400 hover:text-yellow-500"
-                    >
-                      Leer más →
-                    </a>
+                  <div className="p-6">
+                    <h2 className={`text-2xl font-bold mt-2 mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                      }`}>
+                      {paginatedNews[0].titulo}
+                    </h2>
+                    {paginatedNews[0].fecha && (
+                      <p className={`text-sm mb-3 ${theme === 'dark' ? 'text-gray-500' : 'text-gray-500'
+                        }`}>
+                        {new Date(paginatedNews[0].fecha).toLocaleDateString('es-ES', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        })}
+                      </p>
+                    )}
+                    <p className={`mb-4 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                      }`}>
+                      {paginatedNews[0].texto.substring(0, 200)}...
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <a
+                        href={paginatedNews[0].link_articulo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-yellow-400 hover:text-yellow-500"
+                      >
+                        Leer más →
+                      </a>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            {/* Noticias secundarias */}
-            {filteredNews.slice(1, 5).map((article, index) => (
-              <div key={index} className={`rounded-lg overflow-hidden ${theme === 'dark' ? 'bg-dark-200' : 'bg-white shadow-sm'
-                }`}>
-                {article.imagen && (
-                  <div className="w-full h-40 overflow-hidden">
-                    <img
-                      src={article.imagen}
-                      alt={article.titulo}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                )}
-                <div className="p-4">
-                  <h3 className={`text-xl font-bold mt-2 mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
-                    }`}>
-                    {article.titulo}
-                  </h3>
-                  {article.fecha && (
-                    <p className={`text-xs mb-2 ${theme === 'dark' ? 'text-gray-500' : 'text-gray-500'
-                      }`}>
-                      {new Date(article.fecha).toLocaleDateString('es-ES', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                      })}
-                    </p>
+              {/* Noticias secundarias */}
+              {paginatedNews.slice(1).map((article, index) => (
+                <div key={index} className={`rounded-lg overflow-hidden ${theme === 'dark' ? 'bg-dark-200' : 'bg-white shadow-sm'
+                  }`}>
+                  {article.imagen && (
+                    <div className="w-full h-40 overflow-hidden">
+                      <img
+                        src={article.imagen}
+                        alt={article.titulo}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                   )}
-                  <p className={`text-sm mb-4 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-                    }`}>
-                    {article.texto.substring(0, 150)}...
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <a
-                      href={article.link_articulo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-yellow-400 hover:text-yellow-500 text-sm"
-                    >
-                      Leer más →
-                    </a>
+                  <div className="p-4">
+                    <h3 className={`text-xl font-bold mt-2 mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                      }`}>
+                      {article.titulo}
+                    </h3>
+                    {article.fecha && (
+                      <p className={`text-xs mb-2 ${theme === 'dark' ? 'text-gray-500' : 'text-gray-500'
+                        }`}>
+                        {new Date(article.fecha).toLocaleDateString('es-ES', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        })}
+                      </p>
+                    )}
+                    <p className={`text-sm mb-4 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                      }`}>
+                      {article.texto.substring(0, 150)}...
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <a
+                        href={article.link_articulo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-yellow-400 hover:text-yellow-500 text-sm"
+                      >
+                        Leer más →
+                      </a>
+                    </div>
                   </div>
                 </div>
+              ))}
+            </div>
+
+            {/* PAGINACIÓN */}
+            <div className="flex justify-between mt-8">
+              <button
+                onClick={handlePrevPage}
+                disabled={currentPage === 1}
+                className={`px-4 py-2 rounded-md ${currentPage === 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-brand-yellow text-black hover:bg-brand-yellow/90'}`}
+              >
+                Anterior
+              </button>
+              <div className="flex items-center gap-2">
+                <span className={`py-2 px-4 ${theme === 'dark' ? 'bg-dark-300 text-white' : 'bg-gray-100 text-gray-800'} rounded-md`}>
+                  Página {currentPage} de {totalPages}
+                </span>
+                <span className="text-sm text-gray-400 dark:text-gray-400">
+                  {filteredNews.length} resultados
+                </span>
               </div>
-            ))}
-          </div>
+              <button
+                onClick={handleNextPage}
+                disabled={currentPage === totalPages}
+                className={`px-4 py-2 rounded-md ${currentPage === totalPages ? 'bg-gray-300 cursor-not-allowed' : 'bg-brand-yellow text-black hover:bg-brand-yellow/90'}`}
+              >
+                Siguiente
+              </button>
+            </div>
+          </>
         )}
       </div>
     </MainLayout>
   );
-} 
+}

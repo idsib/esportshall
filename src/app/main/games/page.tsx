@@ -64,7 +64,7 @@ const Games = () => {
         const timer = setInterval(() => {
             setCurrentSlide((prev) => (prev + 1) % games.length);
         }, 5000); // Cambia cada 5 segundos
-        
+
         return () => clearInterval(timer);
     }, [games.length]);
 
@@ -93,15 +93,14 @@ const Games = () => {
                 {/* Hero Section with Carousel */}
                 <div className="relative h-[50vh] w-full">
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-50 dark:to-dark-100 z-10" />
-                    
+
                     {/* Carousel */}
                     <div className="relative w-full h-full overflow-hidden">
                         {games.map((game, index) => (
                             <div
                                 key={game.id}
-                                className={`absolute w-full h-full transition-transform duration-700 ease-in-out ${
-                                    index === currentSlide ? 'translate-x-0' : index < currentSlide ? '-translate-x-full' : 'translate-x-full'
-                                }`}
+                                className={`absolute w-full h-full transition-transform duration-700 ease-in-out ${index === currentSlide ? 'translate-x-0' : index < currentSlide ? '-translate-x-full' : 'translate-x-full'
+                                    }`}
                             >
                                 <img
                                     src={game.image}
@@ -118,9 +117,8 @@ const Games = () => {
                             <button
                                 key={index}
                                 onClick={() => setCurrentSlide(index)}
-                                className={`w-2 h-2 rounded-full transition-colors ${
-                                    index === currentSlide ? 'bg-brand-yellow' : 'bg-white/50 hover:bg-white/75'
-                                }`}
+                                className={`w-2 h-2 rounded-full transition-colors ${index === currentSlide ? 'bg-brand-yellow' : 'bg-white/50 hover:bg-white/75'
+                                    }`}
                             />
                         ))}
                     </div>
