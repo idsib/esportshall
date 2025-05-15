@@ -47,12 +47,16 @@ export const fetchTeams = async (
     // Map CS2 to cs-go for the API (as PandaScore still uses cs-go endpoint)
     const apiGame = game === 'cs2' ? 'csgo' : game;
     // Usamos videogame_id para filtrar por juego
-    const videogameIds = {
+    const videogameIds: Record<string, number> = {
       'lol': 1,     // League of Legends
       'csgo': 3,    // CS:GO/CS2
       'valorant': 26 // Valorant
     };
-    url += `&filter[videogame_id]=${videogameIds[apiGame]}`;
+    
+    // Verificamos que el juego exista en nuestro mapeo
+    if (videogameIds[apiGame] !== undefined) {
+      url += `&filter[videogame_id]=${videogameIds[apiGame]}`;
+    }
   }
 
   // Filtro por ID de equipo si se especifica
@@ -104,13 +108,16 @@ export const fetchPlayers = async (
   if (game) {
     // Map CS2 to cs-go for the API (as PandaScore still uses cs-go endpoint)
     const apiGame = game === 'cs2' ? 'csgo' : game;
-    // Usamos videogame_id para filtrar por juego
-    const videogameIds = {
+    const videogameIds: Record<string, number> = {
       'lol': 1,     // League of Legends
       'csgo': 3,    // CS:GO/CS2
       'valorant': 26 // Valorant
     };
-    url += `&filter[videogame_id]=${videogameIds[apiGame]}`;
+    
+    // Verificamos que el juego exista en nuestro mapeo
+    if (videogameIds[apiGame] !== undefined) {
+      url += `&filter[videogame_id]=${videogameIds[apiGame]}`;
+    }
   }
 
   // Añade filtro de nacionalidad si se especifica
@@ -156,8 +163,21 @@ export const fetchTournaments = async (page = 1, perPage = 50, game: GameType = 
 
   // Map CS2 to cs-go for the API (as PandaScore still uses cs-go endpoint)
   const apiGame = game === 'cs2' ? 'csgo' : game;
-
-  let url = `https://api.pandascore.co/${apiGame}/tournaments?page=${page}&per_page=${perPage}`;
+  
+  // Mapeo de juegos a sus respectivos endpoints en PandaScore
+  const gameEndpoints: Record<string, string> = {
+    'lol': 'lol',
+    'csgo': 'csgo',
+    'valorant': 'valorant'
+  };
+  
+  // Verificar que el juego exista en nuestro mapeo
+  if (!gameEndpoints[apiGame]) {
+    console.warn(`Game type '${game}' not found in gameEndpoints.`);
+    return [];
+  }
+  
+  let url = `https://api.pandascore.co/${gameEndpoints[apiGame]}/tournaments?page=${page}&per_page=${perPage}`;
 
   // Add search filter if specified
   if (search && search.trim() !== '') {
@@ -224,10 +244,10 @@ export const fetchMatches = async (
       };
 
       // Verificar si el juego existe en nuestro mapeo
-      if (gameMapping[game]) {
+      const mappedGame = gameMapping[game];
+      if (mappedGame) {
         // Usar el slug del videojuego para filtrar
-        params.append('filter[videogame]', gameMapping[game]);
-        console.log(`Filtering matches by videogame: ${gameMapping[game]}`);
+        params.append('filter[videogame]', mappedGame);
       } else {
         console.warn(`Game type '${game}' not found in gameMapping.`);
       }
