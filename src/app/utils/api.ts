@@ -1,8 +1,10 @@
 /**
- * Utility functions for PandaScore API integration
+ * Este archivo se utiliza para recoger los parámetros de PandaScore API para que se puedan ver en nuestra web
+ * De aquí se sacan los datos de los equipos, jugadores, torneos y partidos
+ * Los datos no son nuestros, los recogemos de PandaScore con nuestro token
  */
 
-// Funcion que rege la api en env
+// Funcion que recoge la api en .env
 const getApiToken = (): string => {
   return process.env.NEXT_PUBLIC_PANDASCORE_API_TOKEN || '';
 };
@@ -21,7 +23,7 @@ const getApiOptions = () => {
 // Juegos que se muestran
 export type GameType = 'lol' | 'valorant' | 'cs2';
 
-// Game display names mapping
+// Se muestra al usuario los juegos disponibles
 export const gameDisplayNames: Record<GameType, string> = {
   lol: 'League of Legends',
   valorant: 'Valorant',
@@ -30,16 +32,16 @@ export const gameDisplayNames: Record<GameType, string> = {
 
 // Fetch de Teams con filtros
 export const fetchTeams = async (
-  page = 1, 
-  perPage = 50, 
-  game?: GameType, 
+  page = 1,
+  perPage = 50,
+  game?: GameType,
   search?: string,
   teamId?: number,
   location?: string
 ) => {
   const options = getApiOptions();
   let url = `https://api.pandascore.co/teams?sort=name&page=${page}&per_page=${perPage}`;
-  
+
   // Filtro de Videojuego - usando el parámetro correcto según la documentación
   if (game) {
     // Map CS2 to cs-go for the API (as PandaScore still uses cs-go endpoint)
@@ -52,17 +54,17 @@ export const fetchTeams = async (
     };
     url += `&filter[videogame_id]=${videogameIds[apiGame]}`;
   }
-  
+
   // Filtro por ID de equipo si se especifica
   if (teamId) {
     url += `&filter[id]=${teamId}`;
   }
-  
+
   // Filtro por ubicación si se especifica
   if (location) {
     url += `&filter[location]=${encodeURIComponent(location)}`;
   }
-  
+
   // Filtro de Search por nombre
   if (search && search.trim() !== '') {
     url += `&search[name]=${encodeURIComponent(search.trim())}`;
@@ -70,13 +72,13 @@ export const fetchTeams = async (
 
   try {
     const response = await fetch(url, options);
-    
+
     if (!response.ok) {
       const errorDetails = await response.text();
       console.error(`Error ${response.status}:`, errorDetails);
       throw new Error(`Error ${response.status}: ${errorDetails}`);
     }
-    
+
     const data = await response.json();
     return data;
   } catch (err) {
@@ -87,9 +89,9 @@ export const fetchTeams = async (
 
 // Fetch Jugadores API
 export const fetchPlayers = async (
-  page = 1, 
-  perPage = 50, 
-  game?: GameType, 
+  page = 1,
+  perPage = 50,
+  game?: GameType,
   search?: string,
   nationality?: string,
   role?: string,
@@ -97,7 +99,7 @@ export const fetchPlayers = async (
 ) => {
   const options = getApiOptions();
   let url = `https://api.pandascore.co/players?sort=name&page=${page}&per_page=${perPage}`;
-  
+
   // Añade filtro de videojuego - usando el parámetro correcto según la documentación
   if (game) {
     // Map CS2 to cs-go for the API (as PandaScore still uses cs-go endpoint)
@@ -110,22 +112,22 @@ export const fetchPlayers = async (
     };
     url += `&filter[videogame_id]=${videogameIds[apiGame]}`;
   }
-  
+
   // Añade filtro de nacionalidad si se especifica
   if (nationality) {
     url += `&filter[nationality]=${encodeURIComponent(nationality)}`;
   }
-  
+
   // Añade filtro de rol si se especifica
   if (role) {
     url += `&filter[role]=${encodeURIComponent(role)}`;
   }
-  
+
   // Añade filtro de equipo si se especifica
   if (team_id) {
     url += `&filter[team_id]=${team_id}`;
   }
-  
+
   // Añade filtro de búsqueda
   if (search && search.trim() !== '') {
     url += `&search[name]=${encodeURIComponent(search.trim())}`;
@@ -133,13 +135,13 @@ export const fetchPlayers = async (
 
   try {
     const response = await fetch(url, options);
-    
+
     if (!response.ok) {
       const errorDetails = await response.text();
       console.error(`Error ${response.status}:`, errorDetails);
       throw new Error(`Error ${response.status}: ${errorDetails}`);
     }
-    
+
     const data = await response.json();
     return data;
   } catch (err) {
@@ -151,12 +153,12 @@ export const fetchPlayers = async (
 // Fetch del apartado Torneos con filtros
 export const fetchTournaments = async (page = 1, perPage = 50, game: GameType = 'valorant', search?: string) => {
   const options = getApiOptions();
-  
+
   // Map CS2 to cs-go for the API (as PandaScore still uses cs-go endpoint)
   const apiGame = game === 'cs2' ? 'csgo' : game;
-  
+
   let url = `https://api.pandascore.co/${apiGame}/tournaments?page=${page}&per_page=${perPage}`;
-  
+
   // Add search filter if specified
   if (search && search.trim() !== '') {
     url += `&search[name]=${encodeURIComponent(search.trim())}`;
@@ -164,13 +166,13 @@ export const fetchTournaments = async (page = 1, perPage = 50, game: GameType = 
 
   try {
     const response = await fetch(url, options);
-    
+
     if (!response.ok) {
       const errorDetails = await response.text();
       console.error(`Error ${response.status}:`, errorDetails);
       throw new Error(`Error ${response.status}: ${errorDetails}`);
     }
-    
+
     const data = await response.json();
     return data;
   } catch (err) {
@@ -181,9 +183,9 @@ export const fetchTournaments = async (page = 1, perPage = 50, game: GameType = 
 
 // Fetch de Matches con filtros
 export const fetchMatches = async (
-  page = 1, 
-  perPage = 50, 
-  game?: GameType, 
+  page = 1,
+  perPage = 50,
+  game?: GameType,
   search?: string,
   status?: 'running' | 'not_started' | 'finished',
   tournamentId?: number,
@@ -192,17 +194,17 @@ export const fetchMatches = async (
 ) => {
   try {
     const options = getApiOptions();
-    
+
     // Construir la URL base
     let url = 'https://api.pandascore.co/matches';
-    
+
     // Añadir parámetros como query string
     const params = new URLSearchParams();
-    
+
     // Parámetros de paginación
     params.append('page', String(page));
     params.append('per_page', String(perPage));
-    
+
     // Parámetro de ordenación
     if (sort && typeof sort === 'string') {
       params.append('sort', sort);
@@ -210,7 +212,7 @@ export const fetchMatches = async (
       // Por defecto, ordenar por fecha de inicio (más recientes primero)
       params.append('sort', '-begin_at');
     }
-    
+
     // Filtro de Videojuego
     if (game) {
       // Mapear los slugs de videojuegos que espera la API
@@ -220,7 +222,7 @@ export const fetchMatches = async (
         'cs2': 'cs-go',  // CS2 se mapea a CS:GO en la API
         'valorant': 'valorant'
       };
-      
+
       // Verificar si el juego existe en nuestro mapeo
       if (gameMapping[game]) {
         // Usar el slug del videojuego para filtrar
@@ -230,41 +232,41 @@ export const fetchMatches = async (
         console.warn(`Game type '${game}' not found in gameMapping.`);
       }
     }
-    
+
     // Filtro por estado del partido
     if (status) {
       params.append('filter[status]', status);
     }
-    
+
     // Filtro por torneo
     if (tournamentId) {
       params.append('filter[tournament_id]', String(tournamentId));
     }
-    
+
     // Filtro por equipo
     if (teamId) {
       params.append('filter[team_id]', String(teamId));
     }
-    
+
     // Filtro de búsqueda
     if (search && search.trim() !== '') {
       params.append('search[name]', search.trim());
     }
-    
+
     // Añadir parámetros a la URL
     url = `${url}?${params.toString()}`;
-    
+
     console.log('Fetching matches with URL:', url);
-    
+
     // Realizar la petición
     const response = await fetch(url, options);
-    
+
     if (!response.ok) {
       const errorDetails = await response.text();
       console.error(`Error ${response.status}:`, errorDetails);
       throw new Error(`Error ${response.status}: ${errorDetails}`);
     }
-    
+
     const data = await response.json();
     console.log('Matches data received:', data.length);
     return data;
@@ -292,39 +294,39 @@ export interface Videogame {
 export const fetchVideogames = async (page = 1, perPage = 50, search?: string) => {
   try {
     const options = getApiOptions();
-    
+
     // Construir la URL base
     let url = 'https://api.pandascore.co/videogames';
-    
+
     // Añadir parámetros como query string
     const params = new URLSearchParams();
-    
+
     // Parámetros de paginación
     params.append('page', String(page));
     params.append('per_page', String(perPage));
-    
+
     // Parámetro de ordenación (por defecto, ordenar por nombre)
     params.append('sort', 'name');
-    
+
     // Filtro de búsqueda
     if (search && search.trim() !== '') {
       params.append('search[name]', search.trim());
     }
-    
+
     // Añadir parámetros a la URL
     url = `${url}?${params.toString()}`;
-    
+
     console.log('Fetching videogames with URL:', url);
-    
+
     // Realizar la petición
     const response = await fetch(url, options);
-    
+
     if (!response.ok) {
       const errorDetails = await response.text();
       console.error(`Error ${response.status}:`, errorDetails);
       throw new Error(`Error ${response.status}: ${errorDetails}`);
     }
-    
+
     const data = await response.json();
     console.log('Videogames data received:', data.length);
     return data as Videogame[];
@@ -344,13 +346,13 @@ export const fetchLeagues = async (
 ) => {
   try {
     const options = getApiOptions();
-    
+
     // Construir la URL base según el juego seleccionado
     const baseUrl = 'https://api.pandascore.co';
-    
+
     // Mapear los slugs de videojuegos que espera la API
     let endpoint = '/leagues';
-    
+
     if (game) {
       switch (game) {
         case 'valorant':
@@ -367,33 +369,33 @@ export const fetchLeagues = async (
     } else {
       console.warn('Using general leagues endpoint');
     }
-    
+
     // Añadir parámetros como query string
     const params = new URLSearchParams();
-    
+
     // Parámetros de paginación
     params.append('page', String(page));
     params.append('per_page', String(perPage));
-    
+
     // Parámetro de ordenación (por defecto, ordenar por nombre)
     params.append('sort', 'name');
-    
+
     // Filtro de búsqueda
     if (search) {
       params.append('search[name]', search);
     }
-    
+
     // Construir la URL final
     const finalUrl = `${baseUrl}${endpoint}?${params.toString()}`;
     console.log(`Requesting leagues from: ${finalUrl}`);
-    
+
     // Realizar la petición
     const response = await fetch(finalUrl, options);
-    
+
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    
+
     const data = await response.json();
     return data;
   } catch (err) {
@@ -406,38 +408,38 @@ export const fetchLeagues = async (
 export const fetchLiveMatches = async (game?: GameType) => {
   try {
     const options = getApiOptions();
-    
+
     // Construir la URL base
     let url = 'https://api.pandascore.co/lives';
-    
+
     // Añadir parámetros como query string
     const params = new URLSearchParams();
-    
+
     // Filtro de Videojuego si se especifica
     if (game) {
       // Map CS2 to cs-go for the API (as PandaScore still uses cs-go endpoint)
       const apiGame = game === 'cs2' ? 'csgo' : game;
-      
+
       // Filtrar por slug del videojuego
       params.append('filter[videogame]', apiGame);
     }
-    
+
     // Añadir parámetros a la URL si hay alguno
     if (params.toString()) {
       url = `${url}?${params.toString()}`;
     }
-    
+
     console.log('Fetching live matches with URL:', url);
-    
+
     // Realizar la petición
     const response = await fetch(url, options);
-    
+
     if (!response.ok) {
       const errorDetails = await response.text();
       console.error(`Error ${response.status}:`, errorDetails);
       throw new Error(`Error ${response.status}: ${errorDetails}`);
     }
-    
+
     const data = await response.json();
     console.log('Live matches data received:', data.length);
     return data;
@@ -448,7 +450,7 @@ export const fetchLiveMatches = async (game?: GameType) => {
   }
 };
 
-// Parametros API
+// API de ligas
 export interface League {
   id: number;
   name: string;
@@ -468,7 +470,7 @@ export interface League {
   }[];
   modified_at: string;
 }
-
+// API de equipos
 export interface Team {
   id: number;
   name: string;
@@ -484,7 +486,7 @@ export interface Team {
     slug: string;
   };
 }
-
+// API de jugadores
 export interface Player {
   id: number;
   name: string;
@@ -498,7 +500,7 @@ export interface Player {
   modified_at: string;
   team?: Team;
 }
-
+// API de torneos
 export interface Tournament {
   id: number;
   name: string;
@@ -522,7 +524,7 @@ export interface Tournament {
   region?: string;
   country?: string;
 }
-
+// API de partidos
 export interface Match {
   id: number;
   begin_at: string;
@@ -594,7 +596,7 @@ export interface Match {
   past?: boolean;
   running?: boolean;
 }
-
+// API de juegos
 export interface Game {
   begin_at?: string;
   complete?: boolean;

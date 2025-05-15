@@ -8,7 +8,6 @@ import { fetchMatches, fetchLeagues, GameType, gameDisplayNames, Match, League }
 import { LoadingState, ErrorState } from '@/app/components/ui/LoadingState';
 import { Search, Calendar, Clock, Trophy, Users, Award } from 'lucide-react';
 import { useTheme } from '@/context/theme-context';
-import Image from 'next/image';
 
 export default function MatchesPage() {
     const [matches, setMatches] = useState<Match[]>([]);
@@ -53,7 +52,7 @@ export default function MatchesPage() {
             setLoading(false);
         }
     };
-    
+
     const loadLeagues = async (page: number, game: GameType, search?: string) => {
         try {
             console.log(`Loading leagues: page=${page}, game=${game}, search=${search || 'none'}`);
@@ -114,7 +113,7 @@ export default function MatchesPage() {
         setStatusFilter(status);
         setCurrentPage(1); // Reset to first page when changing status
     };
-    
+
     const handleViewModeChange = (mode: 'calendar' | 'leagues') => {
         setViewMode(mode);
     };
@@ -155,18 +154,18 @@ export default function MatchesPage() {
                     <h1 className={`text-3xl font-bold mb-8 text-center ${theme === 'dark' ? 'text-gray-100' : 'text-gray-800'}`}>
                         Partidos de Esports
                     </h1>
-                    
+
                     {/* View Mode Selector */}
                     <div className="flex justify-center mb-6">
                         <div className="flex rounded-lg overflow-hidden">
-                            <button 
+                            <button
                                 onClick={() => handleViewModeChange('calendar')}
                                 className={`px-4 py-2 flex items-center ${viewMode === 'calendar' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-neutral-800 text-white hover:bg-neutral-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
                             >
                                 <Calendar size={18} className="mr-2" />
                                 Calendario
                             </button>
-                            <button 
+                            <button
                                 onClick={() => handleViewModeChange('leagues')}
                                 className={`px-4 py-2 flex items-center ${viewMode === 'leagues' ? 'bg-brand-yellow text-black' : theme === 'dark' ? 'bg-neutral-800 text-white hover:bg-neutral-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
                             >
@@ -175,15 +174,15 @@ export default function MatchesPage() {
                             </button>
                         </div>
                     </div>
-                    
+
                     {/* Search bar */}
                     <div className="mb-6">
                         <div className="max-w-md mx-auto relative">
                             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <Search size={18} className={theme === 'dark' ? 'text-neutral-400' : 'text-gray-500'} />
                             </div>
-                            <input 
-                                type="text" 
+                            <input
+                                type="text"
                                 placeholder="Buscar partidos..."
                                 value={searchTerm}
                                 onChange={handleSearchChange}
@@ -255,19 +254,19 @@ export default function MatchesPage() {
                                         {matches.map((match) => {
                                             const statusBadge = getStatusBadge(match);
                                             return (
-                                                <div 
-                                                    key={match.id} 
+                                                <div
+                                                    key={match.id}
                                                     className={`p-4 rounded-lg border ${match.status === 'running' ? 'border-red-500' : theme === 'dark' ? 'border-neutral-700' : 'border-gray-200'} ${theme === 'dark' ? 'bg-neutral-800' : 'bg-gray-50'}`}
                                                 >
                                                     <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-4">
                                                         <div className="flex items-center mb-2 md:mb-0">
                                                             {match.league && match.league.image_url ? (
                                                                 <div className="w-10 h-10 mr-3 overflow-hidden rounded-full">
-                                                                    <img 
-                                                                        src={match.league.image_url} 
-                                                                        alt={match.league.name} 
-                                                                        width={40} 
-                                                                        height={40} 
+                                                                    <img
+                                                                        src={match.league.image_url}
+                                                                        alt={match.league.name}
+                                                                        width={40}
+                                                                        height={40}
                                                                         className="w-full h-full object-cover"
                                                                     />
                                                                 </div>
@@ -283,7 +282,7 @@ export default function MatchesPage() {
                                                                 )}
                                                             </div>
                                                         </div>
-                                                        
+
                                                         <div className="flex items-center">
                                                             <span className={`px-2 py-1 rounded-full text-xs font-medium ${statusBadge.bgColor} ${statusBadge.textColor}`}>
                                                                 {statusBadge.text}
@@ -293,17 +292,17 @@ export default function MatchesPage() {
                                                             </span>
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                                                         {match.opponents && match.opponents.map((opponent, index) => (
                                                             <div key={index} className="flex flex-col items-center">
                                                                 {opponent.opponent.image_url ? (
                                                                     <div className="w-16 h-16 mb-2 overflow-hidden rounded-md">
-                                                                        <img 
-                                                                            src={opponent.opponent.image_url} 
-                                                                            alt={opponent.opponent.name} 
-                                                                            width={64} 
-                                                                            height={64} 
+                                                                        <img
+                                                                            src={opponent.opponent.image_url}
+                                                                            alt={opponent.opponent.name}
+                                                                            width={64}
+                                                                            height={64}
                                                                             className="w-full h-full object-cover"
                                                                         />
                                                                     </div>
@@ -315,7 +314,7 @@ export default function MatchesPage() {
                                                                 <span className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>{opponent.opponent.name}</span>
                                                             </div>
                                                         ))}
-                                                        
+
                                                         {/* Marcador o VS */}
                                                         <div className="flex items-center justify-center">
                                                             {match.results && match.results.length >= 2 ? (
@@ -329,7 +328,7 @@ export default function MatchesPage() {
                                                             )}
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                                                         <div className="flex items-center">
                                                             <Clock size={18} className={`mr-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`} />
@@ -337,7 +336,7 @@ export default function MatchesPage() {
                                                                 {formatDate(match.begin_at)}
                                                             </span>
                                                         </div>
-                                                        
+
                                                         {match.league && (
                                                             <div className="flex items-center">
                                                                 <Trophy size={18} className={`mr-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`} />
@@ -346,7 +345,7 @@ export default function MatchesPage() {
                                                                 </span>
                                                             </div>
                                                         )}
-                                                        
+
                                                         {match.tournament && (
                                                             <div className="flex items-center col-span-2">
                                                                 <span className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
@@ -360,13 +359,13 @@ export default function MatchesPage() {
                                         })}
                                     </div>
                                 )}
-                                
+
                                 {/* Pagination */}
                                 {!loading && !error && matches.length > 0 && (
                                     <div className="flex justify-center mt-6">
                                         <div className="flex items-center space-x-2">
-                                            <button 
-                                                onClick={handlePrevPage} 
+                                            <button
+                                                onClick={handlePrevPage}
                                                 disabled={currentPage <= 1}
                                                 className={`px-3 py-1 rounded-md ${currentPage <= 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-neutral-700'} ${theme === 'dark' ? 'bg-neutral-800 text-white' : 'bg-gray-100 text-gray-800'}`}
                                             >
@@ -375,7 +374,7 @@ export default function MatchesPage() {
                                             <span className={`px-3 py-1 rounded-md ${theme === 'dark' ? 'bg-neutral-800 text-white' : 'bg-gray-100 text-gray-800'}`}>
                                                 {currentPage}
                                             </span>
-                                            <button 
+                                            <button
                                                 onClick={handleNextPage}
                                                 className={`px-3 py-1 rounded-md ${theme === 'dark' ? 'bg-neutral-800 text-white hover:bg-neutral-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
                                             >
@@ -387,7 +386,7 @@ export default function MatchesPage() {
                             </div>
                         </>
                     )}
-                    
+
                     {viewMode === 'leagues' && (
                         <div className={`p-6 rounded-lg ${theme === 'dark' ? 'bg-neutral-900' : 'bg-white'} shadow-md mb-6`}>
                             {leaguesLoading ? (
@@ -398,7 +397,7 @@ export default function MatchesPage() {
                                 <div className="text-center py-8">
                                     <Award className={`w-12 h-12 mx-auto mb-4 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`} />
                                     <h3 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>No hay ligas disponibles</h3>
-                                    <p className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>No se encontraron ligas para el juego seleccionado. Intenta con otro juego o búsqueda.</p>
+                                    <p className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>No hay ligas para el juego seleccionado. Prueba con otro juego o búsqueda.</p>
                                 </div>
                             ) : (
                                 <>
@@ -407,21 +406,21 @@ export default function MatchesPage() {
                                             Ligas de {gameDisplayNames[selectedGame]}
                                         </h2>
                                     </div>
-                                    
+
                                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                                         {leagues.map((league) => (
-                                            <div 
-                                                key={league.id} 
+                                            <div
+                                                key={league.id}
                                                 className={`p-4 rounded-lg border ${theme === 'dark' ? 'bg-neutral-800 border-neutral-700' : 'bg-gray-50 border-gray-200'} hover:shadow-md transition-shadow duration-200`}
                                             >
                                                 <div className="flex items-center mb-3">
                                                     {league.image_url ? (
                                                         <div className="w-12 h-12 mr-3 overflow-hidden rounded-md">
-                                                            <img 
-                                                                src={league.image_url} 
-                                                                alt={league.name} 
-                                                                width={48} 
-                                                                height={48} 
+                                                            <img
+                                                                src={league.image_url}
+                                                                alt={league.name}
+                                                                width={48}
+                                                                height={48}
                                                                 className="w-full h-full object-cover"
                                                             />
                                                         </div>
@@ -435,13 +434,13 @@ export default function MatchesPage() {
                                                         <p className={`text-sm ${theme === 'dark' ? 'text-neutral-400' : 'text-gray-500'}`}>{league.videogame.name}</p>
                                                     </div>
                                                 </div>
-                                                
+
                                                 {league.series && league.series.length > 0 && (
                                                     <div className="mt-3">
                                                         <h4 className={`text-sm font-semibold mb-2 ${theme === 'dark' ? 'text-neutral-300' : 'text-gray-600'}`}>Series</h4>
                                                         <div className="flex flex-wrap gap-2">
                                                             {league.series.slice(0, 3).map((serie) => (
-                                                                <span 
+                                                                <span
                                                                     key={serie.id}
                                                                     className={`text-xs px-2 py-1 rounded-full ${theme === 'dark' ? 'bg-neutral-700 text-neutral-300' : 'bg-gray-200 text-gray-700'}`}
                                                                 >
@@ -456,12 +455,12 @@ export default function MatchesPage() {
                                                         </div>
                                                     </div>
                                                 )}
-                                                
+
                                                 {league.url && (
                                                     <div className="mt-3">
-                                                        <a 
-                                                            href={league.url} 
-                                                            target="_blank" 
+                                                        <a
+                                                            href={league.url}
+                                                            target="_blank"
                                                             rel="noopener noreferrer"
                                                             className={`text-sm ${theme === 'dark' ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-700'} hover:underline`}
                                                         >
@@ -472,12 +471,12 @@ export default function MatchesPage() {
                                             </div>
                                         ))}
                                     </div>
-                                    
+
                                     {/* Paginación */}
                                     <div className="flex justify-center mt-6">
                                         <div className="flex items-center space-x-2">
-                                            <button 
-                                                onClick={handlePrevPage} 
+                                            <button
+                                                onClick={handlePrevPage}
                                                 disabled={leaguesPage <= 1}
                                                 className={`px-3 py-1 rounded-md ${leaguesPage <= 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-neutral-700'} ${theme === 'dark' ? 'bg-neutral-800 text-white' : 'bg-gray-100 text-gray-800'}`}
                                             >
@@ -486,7 +485,7 @@ export default function MatchesPage() {
                                             <span className={`px-3 py-1 rounded-md ${theme === 'dark' ? 'bg-neutral-800 text-white' : 'bg-gray-100 text-gray-800'}`}>
                                                 {leaguesPage}
                                             </span>
-                                            <button 
+                                            <button
                                                 onClick={handleNextPage}
                                                 className={`px-3 py-1 rounded-md ${theme === 'dark' ? 'bg-neutral-800 text-white hover:bg-neutral-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
                                             >

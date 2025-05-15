@@ -160,8 +160,8 @@ export default function PlayersPage() {
                                                 <div className="flex items-center justify-center mt-3 space-x-2">
                                                     <div className="w-6 h-6 relative">
                                                         {player.team.image_url ? (
-                                                            <img 
-                                                                src={player.team.image_url} 
+                                                            <img
+                                                                src={player.team.image_url}
                                                                 alt={player.team.name}
                                                                 className="w-full h-full object-contain"
                                                             />
