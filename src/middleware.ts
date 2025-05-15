@@ -5,6 +5,11 @@ import { neon } from '@neondatabase/serverless';
 const sql = neon(`${process.env.DATABASE_URL}`);
 
 export async function middleware(request: NextRequest) {
+  // Desactivamos temporalmente las restricciones de autenticación
+  // para permitir el acceso a la página principal
+  return NextResponse.next();
+  
+  /* Código original comentado
   const isAuthPage = request.nextUrl.pathname.startsWith('/auth');
   const token = request.cookies.get('next-auth.session-token')?.value;
   const localStorageToken = request.headers.get('x-auth-token');
@@ -39,6 +44,7 @@ export async function middleware(request: NextRequest) {
   }
 
   return NextResponse.next();
+  */
 }
 
 export const config = {

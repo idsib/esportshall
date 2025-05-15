@@ -46,15 +46,17 @@ export default function MainPage() {
   const userImage = session?.user?.image || '/images/esportshall.png';
   const [tweets] = useState<Tweet[]>(initialTweets);
 
-  useEffect(() => {
-    if (!session) {
-      router.push('/auth/login');
-    }
-  }, [session, router]);
+  // Comentamos la redirección para permitir el acceso sin sesión
+  // useEffect(() => {
+  //   if (!session) {
+  //     router.push('/auth/login');
+  //   }
+  // }, [session, router]);
 
-  if (!session) {
-    return null;
-  }
+  // Permitimos renderizar la página incluso sin sesión
+  // if (!session) {
+  //   return null;
+  // }
 
   return (
     <MainLayout>
