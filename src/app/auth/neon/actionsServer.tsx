@@ -34,8 +34,27 @@ export async function register(formData: FormData) {
             'INSERT INTO users (name, email, password) VALUES ($1, $2, $3)',
             [completeName, email, hashPass]
         );
-        
+
+        const nickname = formData.get('nickname') as string; 
+        const bio = formData.get('bio') as string;
+        const location = formData.get('location') as string;
+        const website = formData.get('website') as string;
+        const x = formData.get('x') as string;
+        const instagram = formData.get('instagram') as string;
+        const twitch = formData.get('twitch') as string;
+        const favoriteCommunity = formData.get('favoriteCommunity') as string;
+
+        const user_id = await sql(
+            'SELECT id FROM users WHERE email = $1', [email]
+        );
+
+        await sql(
+            'INSERT INTO users_ai (user_id, nickname, bio, location, website, x, instagram, twitch, favoritecommunity) VALUES ($1, $2, $3, $4, $5, $6, $7, $8))', 
+            [user_id, nickname, bio, location, website, x, instagram, twitch, favoriteCommunity]
+        );
+
         return { success: true };
+        
     } catch (error) {
         console.error('Error en el registro:', error);
         return { 
