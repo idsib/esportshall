@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-// Configuración CORS simplificada - permitimos todos los orígenes
-const ALLOWED_ORIGIN = '*';
+// Configuración CORS - permitimos tanto el origen específico como localhost para desarrollo
+const ALLOWED_ORIGIN = 'https://esportshall.es, http://localhost:3000, https://esportshall.vercel.app';
 
 // Manejador de OPTIONS mejorado para el preflight de CORS
 export async function OPTIONS() {

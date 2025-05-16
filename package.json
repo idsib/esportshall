@@ -20,6 +20,7 @@
     "crypto": "^1.0.1",
     "date-fns": "^4.1.0",
     "drizzle-orm": "^0.29.3",
+    "esportshall": ".",
     "feedparser": "^2.2.10",
     "framer-motion": "latest",
     "hono": "^3.12.0",

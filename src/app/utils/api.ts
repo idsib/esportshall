@@ -9,16 +9,25 @@ const getApiToken = (): string => {
   return process.env.NEXT_PUBLIC_PANDASCORE_API_TOKEN || '';
 };
 
-
-// API Opciones Base
+// API Opciones Base - Ya no necesitamos enviar el token desde el cliente
+// porque lo hará nuestro proxy API
 const getApiOptions = () => {
   return {
     method: 'GET',
     headers: {
-      accept: 'application/json',
-      authorization: `Bearer ${getApiToken()}`
+      accept: 'application/json'
     }
   };
+};
+
+// Función para construir la URL de la API proxy
+const getProxyUrl = (endpoint: string, params: URLSearchParams) => {
+  // Usar nuestra API proxy en lugar de llamar directamente a PandaScore
+  const baseUrl = '/api/pandascore';
+  const queryParams = new URLSearchParams(params);
+  queryParams.set('endpoint', endpoint);
+  
+  return `${baseUrl}?${queryParams.toString()}`;
 };
 
 // Juegos que se muestran
@@ -41,7 +50,11 @@ export const fetchTeams = async (
   location?: string
 ) => {
   const options = getApiOptions();
-  let url = `https://api.pandascore.co/teams?sort=name&page=${page}&per_page=${perPage}`;
+  // Preparar los parámetros para la API
+  const params = new URLSearchParams();
+  params.append('sort', 'name');
+  params.append('page', page.toString());
+  params.append('per_page', perPage.toString());
 
   // Filtro de Videojuego - usando el parámetro correcto según la documentación
   if (game) {
@@ -56,27 +69,28 @@ export const fetchTeams = async (
     
     // Verificamos que el juego exista en nuestro mapeo
     if (videogameIds[apiGame] !== undefined) {
-      url += `&filter[videogame_id]=${videogameIds[apiGame]}`;
+      params.append('filter[videogame_id]', videogameIds[apiGame].toString());
     }
   }
 
   // Filtro por ID de equipo si se especifica
   if (teamId) {
-    url += `&filter[id]=${teamId}`;
+    params.append('filter[id]', teamId.toString());
   }
 
   // Filtro por ubicación si se especifica
   if (location) {
-    url += `&filter[location]=${encodeURIComponent(location)}`;
+    params.append('filter[location]', location);
   }
 
   // Filtro de Search por nombre
   if (search && search.trim() !== '') {
-    url += `&search[name]=${encodeURIComponent(search.trim())}`;
+    params.append('search[name]', search.trim());
   }
 
   try {
-    const response = await fetch(url, options);
+    const proxyUrl = getProxyUrl('teams', params);
+    const response = await fetch(proxyUrl, options);
 
     if (!response.ok) {
       const errorDetails = await response.text();
@@ -103,7 +117,11 @@ export const fetchPlayers = async (
   team_id?: number
 ) => {
   const options = getApiOptions();
-  let url = `https://api.pandascore.co/players?sort=name&page=${page}&per_page=${perPage}`;
+  // Preparar los parámetros para la API
+  const params = new URLSearchParams();
+  params.append('sort', 'name');
+  params.append('page', page.toString());
+  params.append('per_page', perPage.toString());
 
   // Añade filtro de videojuego - usando el parámetro correcto según la documentación
   if (game) {
@@ -117,32 +135,33 @@ export const fetchPlayers = async (
     
     // Verificamos que el juego exista en nuestro mapeo
     if (videogameIds[apiGame] !== undefined) {
-      url += `&filter[videogame_id]=${videogameIds[apiGame]}`;
+      params.append('filter[videogame_id]', videogameIds[apiGame].toString());
     }
   }
 
   // Añade filtro de nacionalidad si se especifica
   if (nationality) {
-    url += `&filter[nationality]=${encodeURIComponent(nationality)}`;
+    params.append('filter[nationality]', nationality);
   }
 
   // Añade filtro de rol si se especifica
   if (role) {
-    url += `&filter[role]=${encodeURIComponent(role)}`;
+    params.append('filter[role]', role);
   }
 
   // Añade filtro de equipo si se especifica
   if (team_id) {
-    url += `&filter[team_id]=${team_id}`;
+    params.append('filter[team_id]', team_id.toString());
   }
 
   // Añade filtro de búsqueda
   if (search && search.trim() !== '') {
-    url += `&search[name]=${encodeURIComponent(search.trim())}`;
+    params.append('search[name]', search.trim());
   }
 
   try {
-    const response = await fetch(url, options);
+    const proxyUrl = getProxyUrl('players', params);
+    const response = await fetch(proxyUrl, options);
 
     if (!response.ok) {
       const errorDetails = await response.text();
@@ -178,15 +197,19 @@ export const fetchTournaments = async (page = 1, perPage = 50, game: GameType = 
     return [];
   }
   
-  let url = `https://api.pandascore.co/${gameEndpoints[apiGame]}/tournaments?page=${page}&per_page=${perPage}`;
+  // Preparar los parámetros para la API
+  const params = new URLSearchParams();
+  params.append('page', page.toString());
+  params.append('per_page', perPage.toString());
 
   // Add search filter if specified
   if (search && search.trim() !== '') {
-    url += `&search[name]=${encodeURIComponent(search.trim())}`;
+    params.append('search[name]', search.trim());
   }
 
   try {
-    const response = await fetch(url, options);
+    const proxyUrl = getProxyUrl(gameEndpoints[apiGame] + '/tournaments', params);
+    const response = await fetch(proxyUrl, options);
 
     if (!response.ok) {
       const errorDetails = await response.text();
@@ -216,15 +239,10 @@ export const fetchMatches = async (
   try {
     const options = getApiOptions();
 
-    // Construir la URL base
-    let url = 'https://api.pandascore.co/matches';
-
-    // Añadir parámetros como query string
+    // Preparar los parámetros para la API
     const params = new URLSearchParams();
-
-    // Parámetros de paginación
-    params.append('page', String(page));
-    params.append('per_page', String(perPage));
+    params.append('page', page.toString());
+    params.append('per_page', perPage.toString());
 
     // Parámetro de ordenación
     if (sort && typeof sort === 'string') {
@@ -275,12 +293,11 @@ export const fetchMatches = async (
     }
 
     // Añadir parámetros a la URL
-    url = `${url}?${params.toString()}`;
-
-    console.log('Fetching matches with URL:', url);
+    const proxyUrl = getProxyUrl('matches', params);
+    console.log('Fetching matches with URL:', proxyUrl);
 
     // Realizar la petición
-    const response = await fetch(url, options);
+    const response = await fetch(proxyUrl, options);
 
     if (!response.ok) {
       const errorDetails = await response.text();
@@ -316,12 +333,9 @@ export const fetchVideogames = async (page = 1, perPage = 50, search?: string) =
   try {
     const options = getApiOptions();
 
-    // Construir la URL base
-    let url = 'https://api.pandascore.co/videogames';
-
-    // Añadir parámetros como query string
+    // Preparar los parámetros para la API
     const params = new URLSearchParams();
-
+    
     // Parámetros de paginación
     params.append('page', String(page));
     params.append('per_page', String(perPage));
@@ -335,12 +349,11 @@ export const fetchVideogames = async (page = 1, perPage = 50, search?: string) =
     }
 
     // Añadir parámetros a la URL
-    url = `${url}?${params.toString()}`;
-
-    console.log('Fetching videogames with URL:', url);
+    const proxyUrl = getProxyUrl('videogames', params);
+    console.log('Fetching videogames with URL:', proxyUrl);
 
     // Realizar la petición
-    const response = await fetch(url, options);
+    const response = await fetch(proxyUrl, options);
 
     if (!response.ok) {
       const errorDetails = await response.text();
@@ -369,7 +382,10 @@ export const fetchLeagues = async (
     const options = getApiOptions();
 
     // Construir la URL base según el juego seleccionado
-    const baseUrl = 'https://api.pandascore.co';
+    // Preparar los parámetros para la API
+    const params = new URLSearchParams();
+    params.append('page', page.toString());
+    params.append('per_page', perPage.toString());
 
     // Mapear los slugs de videojuegos que espera la API
     let endpoint = '/leagues';
@@ -391,12 +407,7 @@ export const fetchLeagues = async (
       console.warn('Using general leagues endpoint');
     }
 
-    // Añadir parámetros como query string
-    const params = new URLSearchParams();
-
-    // Parámetros de paginación
-    params.append('page', String(page));
-    params.append('per_page', String(perPage));
+    // Los parámetros de paginación ya están añadidos
 
     // Parámetro de ordenación (por defecto, ordenar por nombre)
     params.append('sort', 'name');
@@ -407,11 +418,11 @@ export const fetchLeagues = async (
     }
 
     // Construir la URL final
-    const finalUrl = `${baseUrl}${endpoint}?${params.toString()}`;
-    console.log(`Requesting leagues from: ${finalUrl}`);
+    const proxyUrl = getProxyUrl(endpoint.substring(1), params); // Quitamos el '/' inicial
+    console.log(`Requesting leagues from: ${proxyUrl}`);
 
     // Realizar la petición
-    const response = await fetch(finalUrl, options);
+    const response = await fetch(proxyUrl, options);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -430,12 +441,9 @@ export const fetchLiveMatches = async (game?: GameType) => {
   try {
     const options = getApiOptions();
 
-    // Construir la URL base
-    let url = 'https://api.pandascore.co/lives';
-
-    // Añadir parámetros como query string
+    // Preparar los parámetros para la API
     const params = new URLSearchParams();
-
+    
     // Filtro de Videojuego si se especifica
     if (game) {
       // Map CS2 to cs-go for the API (as PandaScore still uses cs-go endpoint)
@@ -443,27 +451,25 @@ export const fetchLiveMatches = async (game?: GameType) => {
 
       // Filtrar por slug del videojuego
       params.append('filter[videogame]', apiGame);
+      const proxyUrl = getProxyUrl('lives', params);
+      console.log('Fetching live matches with URL:', proxyUrl);
+
+      // Realizar la petición
+      const response = await fetch(proxyUrl, options);
+
+      if (!response.ok) {
+        const errorDetails = await response.text();
+        console.error(`Error ${response.status}:`, errorDetails);
+        throw new Error(`Error ${response.status}: ${errorDetails}`);
+      }
+
+      const data = await response.json();
+      console.log('Live matches data received:', data.length);
+      return data;
+    } else {
+      console.error("API Error: Game type is required for live matches");
+      return [];
     }
-
-    // Añadir parámetros a la URL si hay alguno
-    if (params.toString()) {
-      url = `${url}?${params.toString()}`;
-    }
-
-    console.log('Fetching live matches with URL:', url);
-
-    // Realizar la petición
-    const response = await fetch(url, options);
-
-    if (!response.ok) {
-      const errorDetails = await response.text();
-      console.error(`Error ${response.status}:`, errorDetails);
-      throw new Error(`Error ${response.status}: ${errorDetails}`);
-    }
-
-    const data = await response.json();
-    console.log('Live matches data received:', data.length);
-    return data;
   } catch (err) {
     console.error("API Error:", err);
     // Devolver un array vacío en caso de error para evitar que la UI se rompa
