@@ -1,7 +1,5 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-
 const CookiesPolicy = () => {
     return (
         <div className="pt-24 pb-12 px-4 min-h-screen bg-gray-50 dark:bg-dark-100">
@@ -9,7 +7,7 @@ const CookiesPolicy = () => {
                 <h1 className="text-4xl font-bold text-brand-yellow text-center mb-12">
                     Política de Cookies
                 </h1>
-                
+
                 <div className="space-y-8 text-gray-800 dark:text-gray-200 bg-white dark:bg-dark-200 p-8 rounded-xl shadow-lg">
                     <section>
                         <h3 className="text-2xl font-semibold text-brand-yellow mb-4">1. ¿Qué son las cookies?</h3>
