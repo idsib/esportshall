@@ -1,12 +1,14 @@
 "use server"
+// Función modular para actualizar usuarios, dependiendo de lo que le llegue a la función actualizara o no los datos correspondientes.
 import { neon } from '@neondatabase/serverless';
 
 const sql = neon(`${process.env.DATABASE_URL}`);
 
 export async function updateUserProfile(email : any, username : String, bio : String, location : String, website : String, x : String, instagram: string, twitch: string, favoriteCommunity: string) {
-
+    // Condicional para actualizar el nombre.
     if (username) {
         try {
+            // Actualiza el nombre del usuario en la base de datos utilizando el correo como filtro.
             await sql('UPDATE users SET name = $1 WHERE email = $2 ', [username, email]);
         } catch (error) {
             console.log(error)
@@ -14,6 +16,7 @@ export async function updateUserProfile(email : any, username : String, bio : St
     }
     if (bio) {
         try {
+            // Actualiza la bio del usuario en la base de datos haciendo como un inner join con las tablas users_ai y users utilizando el correo como filtro.
             await sql('UPDATE users_ai SET bio = $1 FROM users WHERE users_ai.user_id = users.id AND users.email = $2', [bio, email]);
         } catch (error) {
             console.log(error)
