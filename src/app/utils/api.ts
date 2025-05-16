@@ -161,7 +161,7 @@ export const fetchPlayers = async (
 export const fetchTournaments = async (page = 1, perPage = 50, game: GameType = 'valorant', search?: string) => {
   const options = getApiOptions();
 
-  // Map CS2 to cs-go for the API (as PandaScore still uses cs-go endpoint)
+  // Mapeo CS2 a CSGO para el uso que hace la API
   const apiGame = game === 'cs2' ? 'csgo' : game;
   
   // Mapeo de juegos a sus respectivos endpoints en PandaScore

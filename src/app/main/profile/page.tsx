@@ -357,7 +357,6 @@ export default function ProfilePage() {
         </div>
       </div>
 
-      {/* Edit Profile Modal */}
       <EditProfileModal
         isOpen={isEditModalOpen}
         onClose={() => setIsEditModalOpen(false)}

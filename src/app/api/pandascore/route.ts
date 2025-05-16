@@ -1,16 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-// Configuración de CORS para la API
-const ALLOWED_ORIGIN = process.env.NODE_ENV === 'production' ? 'https://esportshall.es' : '*';
+// Configuración CORS simplificada - permitimos todos los orígenes
+const ALLOWED_ORIGIN = '*';
 
-// Manejador de OPTIONS para el preflight de CORS
+// Manejador de OPTIONS mejorado para el preflight de CORS
 export async function OPTIONS() {
   return new Response(null, {
     status: 200,
     headers: {
       'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
       'Access-Control-Allow-Methods': 'GET, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization, authorization, x-auth-token',
       'Access-Control-Allow-Credentials': 'true',
     },
   });
@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
         headers: {
           'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
           'Access-Control-Allow-Methods': 'GET, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization, authorization, x-auth-token',
           'Access-Control-Allow-Credentials': 'true',
         }
       });
@@ -39,7 +39,7 @@ export async function GET(request: NextRequest) {
     const apiUrl = `https://api.pandascore.co/${endpoint}`;
     
     // Obtener el token de API del entorno
-    const apiToken = process.env.PANDASCORE_API_TOKEN;
+    const apiToken = process.env.NEXT_PUBLIC_PANDASCORE_API_TOKEN;
     
     if (!apiToken) {
       console.error('PANDASCORE_API_TOKEN is not defined in environment variables');
@@ -48,7 +48,7 @@ export async function GET(request: NextRequest) {
         headers: {
           'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
           'Access-Control-Allow-Methods': 'GET, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization, authorization, x-auth-token',
           'Access-Control-Allow-Credentials': 'true',
         }
       });
@@ -76,7 +76,7 @@ export async function GET(request: NextRequest) {
         'Accept': 'application/json',
         'Authorization': `Bearer ${apiToken}`
       },
-      next: { revalidate: 300 } // Caché de 5 minutos
+      cache: 'no-store' // Desactivar caché para evitar problemas con CORS
     });
     
     // Verificar si la respuesta es exitosa
@@ -90,7 +90,7 @@ export async function GET(request: NextRequest) {
           headers: {
             'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
             'Access-Control-Allow-Methods': 'GET, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization, authorization, x-auth-token',
             'Access-Control-Allow-Credentials': 'true',
           }
         }
@@ -105,7 +105,7 @@ export async function GET(request: NextRequest) {
       headers: {
         'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
         'Access-Control-Allow-Methods': 'GET, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, authorization, x-auth-token',
         'Access-Control-Allow-Credentials': 'true',
       }
     });
@@ -118,7 +118,7 @@ export async function GET(request: NextRequest) {
         headers: {
           'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
           'Access-Control-Allow-Methods': 'GET, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization, authorization, x-auth-token',
           'Access-Control-Allow-Credentials': 'true',
         }
       }

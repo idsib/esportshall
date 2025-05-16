@@ -90,7 +90,7 @@ export default function CommunitiesPage() {
   const [showGameSelection, setShowGameSelection] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   
-  // Form state for creating a new community
+  // Estado del formulario para crear una nueva comunidad
   const [newCommunity, setNewCommunity] = useState({
     name: '',
     description: '',
@@ -98,10 +98,10 @@ export default function CommunitiesPage() {
     icon: ''
   });
   
-  // Preview image for community icon
+  // Preview imagen de la comunidad
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   
-  // Function to handle image selection
+  // Función para manejar la selección de la imagen
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -114,7 +114,7 @@ export default function CommunitiesPage() {
     }
   };
   
-  // Function to handle form input changes
+  // Función para manejar los cambios en el formulario
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setNewCommunity({ ...newCommunity, [name]: value });
@@ -128,20 +128,20 @@ export default function CommunitiesPage() {
     setNewCommunity({ ...newCommunity, game: gameId });
   };
   
-  // Function to start the community creation process
+  // Función para iniciar el proceso de creación de comunidad
   const startCreateCommunity = () => {
     setShowGameSelection(true);
   };
-  
-  // Function to create a new community
+
+  // Función para crear una nueva comunidad
   const handleCreateCommunity = () => {
-    // Validate form
+    // Validar el formulario
     if (!newCommunity.name || !newCommunity.description || !newCommunity.game) {
       alert('Por favor completa todos los campos');
       return;
     }
     
-    // Create a new community object
+    // Crear un nuevo objeto de comunidad
     const community: Community = {
       id: `${newCommunity.game}-${Date.now()}`,
       name: newCommunity.name,
@@ -152,10 +152,10 @@ export default function CommunitiesPage() {
       game: newCommunity.game
     };
     
-    // Add the new community to the list (in a real app, this would be an API call)
+    // Añadir la nueva comunidad a la lista
     communities.push(community);
     
-    // Reset form and close modal
+    // Resetea el formulario y cierra el modal
     setNewCommunity({
       name: '',
       description: '',

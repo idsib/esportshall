@@ -50,7 +50,6 @@ export default function Register() {
         }
     }
     
-    // Check if email is unique when user finishes typing
     const handleEmailBlur = async () => {
         if (formData.email && formData.email.includes('@')) {
             setIsCheckingEmail(true)
@@ -76,7 +75,7 @@ export default function Register() {
             return
         }
         
-        // Check for email error before submitting
+        // Verifica si hay errores de correo antes de enviar
         if (emailError) {
             alert('Por favor utiliza un correo electrónico diferente')
             return

@@ -27,7 +27,7 @@ export default function MatchesPage() {
     const pathname = usePathname();
     const { theme } = useTheme();
 
-    // Debounce search term to avoid too many API calls
+    // Eliminar debounce de búsqueda para evitar demasiadas llamadas a la API
     useEffect(() => {
         const timer = setTimeout(() => {
             setDebouncedSearchTerm(searchTerm);
@@ -100,31 +100,31 @@ export default function MatchesPage() {
 
     const handleGameChange = (game: GameType) => {
         setSelectedGame(game);
-        setCurrentPage(1); // Reset to first page when changing game
-        setLeaguesPage(1); // Reset leagues page as well
+        setCurrentPage(1); // Restablece a la primera página al cambiar de juego
+        setLeaguesPage(1); // Restablece a la primera página de ligas
     };
 
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(e.target.value);
-        setCurrentPage(1); // Reset to first page when searching
+        setCurrentPage(1); // Restablece a la primera página al buscar
     };
 
     const handleStatusChange = (status?: 'running' | 'not_started' | 'finished') => {
         setStatusFilter(status);
-        setCurrentPage(1); // Reset to first page when changing status
+        setCurrentPage(1); // Restablece a la primera página al cambiar de estado
     };
 
     const handleViewModeChange = (mode: 'calendar' | 'leagues') => {
         setViewMode(mode);
     };
 
-    // Format date to a more readable format
+    // Formatear fecha para un formato más legible
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
         return date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     };
 
-    // Get status badge color and text
+    // Obtener color y texto del badge de estado
     const getStatusBadge = (match: Match) => {
         if (match.status === 'running') {
             return {

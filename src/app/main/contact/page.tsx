@@ -23,17 +23,7 @@ interface CsgoFields {
     peakRank: string;
 }
 
-interface RocketLeagueFields {
-    position: string;
-    car: string;
-    peakRank: string;
-}
 
-interface FifaFields {
-    formation: string;
-    playStyle: string;
-    peakRank: string;
-}
 
 interface FormData {
     type: string;
@@ -47,8 +37,6 @@ interface FormData {
     valorant: ValorantFields;
     lol: LolFields;
     csgo: CsgoFields;
-    'rocket-league': RocketLeagueFields;
-    fifa: FifaFields;
     teamName: string;
     teamSize: string;
     teamDescription: string;
@@ -81,16 +69,6 @@ export default function Contact() {
             weapons: '',
             peakRank: ''
         },
-        'rocket-league': {
-            position: '',
-            car: '',
-            peakRank: ''
-        },
-        fifa: {
-            formation: '',
-            playStyle: '',
-            peakRank: ''
-        },
         teamName: '',
         teamSize: '',
         teamDescription: '',
@@ -106,7 +84,7 @@ export default function Contact() {
         if (name.includes('.')) {
             const [gameKey, field] = name.split('.')
             setFormData(prev => {
-                const game = gameKey as keyof Pick<FormData, 'valorant' | 'lol' | 'csgo' | 'rocket-league' | 'fifa'>
+                const game = gameKey as keyof Pick<FormData, 'valorant' | 'lol' | 'csgo'>
                 return {
                     ...prev,
                     [game]: {
@@ -188,16 +166,7 @@ export default function Contact() {
                     weapons: '',
                     peakRank: ''
                 },
-                'rocket-league': {
-                    position: '',
-                    car: '',
-                    peakRank: ''
-                },
-                fifa: {
-                    formation: '',
-                    playStyle: '',
-                    peakRank: ''
-                },
+
                 teamName: '',
                 teamSize: '',
                 teamDescription: '',
@@ -427,8 +396,7 @@ export default function Contact() {
                                                 formData.game === 'valorant' ? formData.valorant.peakRank :
                                                 formData.game === 'lol' ? formData.lol.peakRank :
                                                 formData.game === 'csgo' ? formData.csgo.peakRank :
-                                                formData.game === 'rocket-league' ? formData['rocket-league'].peakRank :
-                                                formData.game === 'fifa' ? formData.fifa.peakRank : ''
+                                                ''
                                             }
                                             onChange={handleInputChange}
                                             className="w-full px-4 py-2 rounded-lg border dark:border-dark-300 bg-white dark:bg-dark-300 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-colors"

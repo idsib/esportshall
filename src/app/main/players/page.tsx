@@ -21,7 +21,7 @@ export default function PlayersPage() {
     const pathname = usePathname();
     const { theme } = useTheme();
 
-    // Debounce search term to avoid too many API calls
+    // Eliminar debounce de búsqueda para evitar demasiadas llamadas a la API
     useEffect(() => {
         const timer = setTimeout(() => {
             setDebouncedSearchTerm(searchTerm);
@@ -60,12 +60,12 @@ export default function PlayersPage() {
 
     const handleGameChange = (game?: GameType) => {
         setSelectedGame(game);
-        setCurrentPage(1); // Reset to first page when changing game
+        setCurrentPage(1); // Restablece a la primera página al cambiar de juego
     };
 
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(e.target.value);
-        setCurrentPage(1); // Reset to first page when searching
+        setCurrentPage(1); // Restablece a la primera página al buscar
     };
 
     return (
