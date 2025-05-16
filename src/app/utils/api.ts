@@ -9,6 +9,7 @@ const getApiToken = (): string => {
   return process.env.NEXT_PUBLIC_PANDASCORE_API_TOKEN || '';
 };
 
+
 // API Opciones Base
 const getApiOptions = () => {
   return {
