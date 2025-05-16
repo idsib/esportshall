@@ -38,11 +38,14 @@ export async function GET(request: NextRequest) {
     // Construir la URL para la API de PandaScore
     const apiUrl = `https://api.pandascore.co/${endpoint}`;
     
-    // Obtener el token de API del entorno
-    const apiToken = process.env.NEXT_PUBLIC_PANDASCORE_API_TOKEN;
+    // Obtener el token de API del entorno - intentamos ambas versiones de la variable
+    // Primero intentamos la versión sin prefijo (mejor para servidor)
+    // Si no existe, usamos la versión con prefijo NEXT_PUBLIC_
+    const apiToken = process.env.PANDASCORE_API_TOKEN || process.env.NEXT_PUBLIC_PANDASCORE_API_TOKEN;
     
     if (!apiToken) {
-      console.error('PANDASCORE_API_TOKEN is not defined in environment variables');
+      console.error('No se encontró el token de API de PandaScore en las variables de entorno');
+      console.error('Variables disponibles:', Object.keys(process.env).filter(key => key.includes('PANDA')));
       return NextResponse.json({ error: 'API token is not configured' }, { 
         status: 500,
         headers: {
