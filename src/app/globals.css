@@ -5,6 +5,14 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --brand-color: #000000; /* Color negro para el tema claro */
+  }
+
+  .dark {
+    --brand-color: #FFD700; /* Color amarillo para el tema oscuro */
+  }
+
   body {
     @apply min-h-screen bg-light-200 dark:bg-dark-100 text-gray-900 dark:text-white;
   }
@@ -73,7 +81,7 @@ html {
 
 /* Mejoras para el contraste y legibilidad */
 .text-brand-yellow {
-  color: #FFD700;
+  color: var(--brand-color);
   text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
 }
 

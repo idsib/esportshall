@@ -9,7 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'brand-yellow': '#FFD700',
+        'brand-yellow': 'var(--brand-color)',
         'background': '#000000',
       },
     },
