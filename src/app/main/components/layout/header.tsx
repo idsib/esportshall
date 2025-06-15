@@ -29,67 +29,61 @@ export default function Header() {
         ? 'bg-dark-200/95 border-dark-300 text-white' 
         : 'bg-white/95 border-gray-100 text-gray-900 shadow-sm'
     }`}>
-      <div className="flex items-center justify-between h-full px-4 max-w-7xl mx-auto">
-        <div className="flex items-center gap-6">
-          <button onClick={() => router.push('/')} className="flex items-center">
-            <Image src="/images/esportshall.png" alt="Esports Hall" width={40} height={40} className="rounded-lg" />
-          </button>
-          
-          {/* Navegación para desktop */}
-          <nav className="hidden md:flex items-center gap-6">
-            {navItems.map((item) => (
-              <button
-                key={item.path}
-                onClick={() => router.push(item.path)}
-                className={`transition-colors font-medium ${
-                  pathname === item.path
-                    ? 'text-yellow-400'
-                    : 'hover:text-yellow-400'
-                }`}
-              >
-                {item.name}
-              </button>
-            ))}
-          </nav>
-        </div>
-        
-        <div className="flex items-center gap-4">
-          
-          <div className="flex items-center gap-2">
-            <TwitchNotification />
-            <button
-              onClick={toggleTheme}
-              className="p-2 text-neutral-400 hover:text-yellow-400 transition-colors"
-            >
-              {theme === 'dark' ? <Moon size={20} /> : <Sun size={20} />}
+      <div className="flex items-center h-full">
+        <div className="w-20 flex-shrink-0 flex justify-center items-center">
+            <button onClick={() => router.push('/')} className="flex items-center">
+                <Image src="/images/esportshall.png" alt="Esports Hall" width={40} height={40} className="rounded-lg" />
             </button>
-          </div>
-
-          {/* Barra de búsqueda */}
-          <div className="relative hidden sm:block">
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Buscar"
-              className={`rounded-full px-4 py-2 pl-10 w-[300px] focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-all ${
-                theme === 'dark'
-                  ? 'bg-dark-300 text-white placeholder-gray-400 border border-dark-300'
-                  : 'bg-gray-50 text-gray-900 placeholder-gray-500 border border-gray-200'
-              }`}
-            />
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={18} />
-          </div>
-
-          {/* Botón de menú móvil */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 text-neutral-400 hover:text-yellow-400 transition-colors"
-          >
-            <Menu size={24} />
-          </button>
         </div>
-      </div>
+        <div className="flex-grow flex items-center justify-between h-full px-6">
+            <nav className="hidden md:flex items-center gap-6">
+                {navItems.map((item) => (
+                    <button
+                    key={item.path}
+                    onClick={() => router.push(item.path)}
+                    className={`transition-colors font-medium ${
+                        pathname === item.path
+                        ? 'text-yellow-400'
+                        : 'hover:text-yellow-400'
+                    }`}
+                    >
+                    {item.name}
+                    </button>
+                ))}
+            </nav>
+            <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
+                    <TwitchNotification />
+                    <button
+                    onClick={toggleTheme}
+                    className="p-2 text-neutral-400 hover:text-yellow-400 transition-colors"
+                    >
+                    {theme === 'dark' ? <Moon size={20} /> : <Sun size={20} />}
+                    </button>
+                </div>
+                <div className="relative hidden sm:block">
+                    <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Buscar"
+                    className={`rounded-full px-4 py-2 pl-10 w-[300px] focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-all ${
+                        theme === 'dark'
+                        ? 'bg-dark-300 text-white placeholder-gray-400 border border-dark-300'
+                        : 'bg-gray-50 text-gray-900 placeholder-gray-500 border border-gray-200'
+                    }`}
+                    />
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={18} />
+                </div>
+                <button
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    className="md:hidden p-2 text-neutral-400 hover:text-yellow-400 transition-colors"
+                >
+                    <Menu size={24} />
+                </button>
+            </div>
+        </div>
+    </div>
 
       {/* Menú móvil */}
       {isMenuOpen && (

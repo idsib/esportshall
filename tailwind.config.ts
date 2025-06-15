@@ -12,6 +12,9 @@ const config: Config = {
         'brand-yellow': 'var(--brand-color)',
         'background': '#000000',
       },
+      transitionTimingFunction: {
+        'smooth-out': 'cubic-bezier(0.25, 1, 0.5, 1)',
+      },
     },
   },
   plugins: [],

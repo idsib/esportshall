@@ -1,12 +1,29 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
-import { Home, Gamepad2, Bell, Settings, Mail, Newspaper, User, Users, Trophy, UserCircle, MessageCircle, Calendar } from 'lucide-react';
+import { Home, Settings, User, Users, Trophy, UserCircle, MessageCircle, Calendar, Newspaper } from 'lucide-react';
 import { useTheme } from '@/context/theme-context';
 import { useRouter } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
+
+const mainNavItems = [
+  { path: '/main', icon: Home },
+  { path: '/main/teams', icon: Users },
+  { path: '/main/players', icon: UserCircle },
+  { path: '/main/tournaments', icon: Trophy },
+  { path: '/main/matches', icon: Calendar },
+  { path: '/main/news', icon: Newspaper },
+  { path: '/main/communities', icon: MessageCircle },
+];
+
+const bottomNavItems = [
+    { path: '/main/settings', icon: Settings },
+    { path: '/main/profile', icon: User },
+]
+
+const allNavItems = [...mainNavItems, ...bottomNavItems];
 
 export default function Sidebar() {
   const { theme } = useTheme();
@@ -14,6 +31,48 @@ export default function Sidebar() {
   const pathname = usePathname();
   const { data: session } = useSession();
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [indicatorStyle, setIndicatorStyle] = useState({ top: '0px', opacity: 0 });
+  
+  const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const asideRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    itemRefs.current = itemRefs.current.slice(0, allNavItems.length);
+  }, []);
+
+  const activeItemIndex = useMemo(() => {
+    let bestMatchIndex = -1;
+    let bestMatchLength = -1;
+
+    allNavItems.forEach((item, index) => {
+        if (pathname.startsWith(item.path)) {
+            if (item.path.length > bestMatchLength) {
+                bestMatchLength = item.path.length;
+                bestMatchIndex = index;
+            }
+        }
+    });
+    return bestMatchIndex;
+  }, [pathname]);
+
+  useEffect(() => {
+    if (activeItemIndex !== -1 && itemRefs.current[activeItemIndex] && asideRef.current) {
+      const activeItem = itemRefs.current[activeItemIndex]!;
+      const asideRect = asideRef.current.getBoundingClientRect();
+      const itemRect = activeItem.getBoundingClientRect();
+      
+      const indicatorHeight = 40; // h-10
+      const itemHeight = itemRect.height;
+      const indicatorOffset = (itemHeight - indicatorHeight) / 2;
+
+      setIndicatorStyle({
+        top: `${itemRect.top - asideRect.top + indicatorOffset}px`,
+        opacity: 1,
+      });
+    } else {
+      setIndicatorStyle(prev => ({ ...prev, opacity: 0 }));
+    }
+  }, [activeItemIndex]);
 
   if (!session) {
     return null;
@@ -23,124 +82,47 @@ export default function Sidebar() {
     await signOut({ callbackUrl: '/auth/login' });
   };
 
+  const NavButton = ({ item, index }: { item: { path: string, icon: React.ElementType }, index: number }) => {
+    const isActive = index === activeItemIndex;
+    return (
+        <button
+            ref={el => { itemRefs.current[index] = el; }}
+            onClick={() => router.push(item.path)}
+            className={`w-12 h-12 flex items-center justify-center rounded-lg transition-colors relative z-10 ${
+            isActive
+                ? 'text-black'
+                : theme === 'dark'
+                ? 'text-neutral-400 hover:text-brand-yellow'
+                : 'text-gray-500 hover:text-brand-yellow'
+            }`}
+        >
+            <item.icon size={22} />
+        </button>
+    );
+  }
+
   return (
-    <aside className={`fixed left-0 top-16 h-[calc(100vh-4rem)] w-20 border-r flex flex-col items-center py-8 z-40 ${
+    <aside 
+        ref={asideRef}
+        className={`fixed left-0 top-16 h-[calc(100vh-4rem)] w-20 border-r flex flex-col items-center py-8 z-40 ${
       theme === 'dark'
         ? 'bg-dark-200/95 border-dark-300'
         : 'bg-white/95 border-gray-200 shadow-sm'
     }`}>
-      <nav className="flex flex-col items-center gap-10 h-full justify-center">
-        <button 
-          onClick={() => router.push('/main')}
-          className={`p-2 rounded-lg transition-colors ${
-            pathname === '/main' 
-              ? 'text-brand-yellow' 
-              : theme === 'dark'
-                ? 'text-neutral-400 hover:text-brand-yellow'
-                : 'text-gray-500 hover:text-brand-yellow'
-          }`}
-        >
-          <Home size={22} />
-        </button>
-        <button 
-          onClick={() => router.push('/main/teams')}
-          className={`p-2 rounded-lg transition-colors ${
-            pathname === '/main/teams' 
-              ? 'text-brand-yellow' 
-              : theme === 'dark'
-                ? 'text-neutral-400 hover:text-brand-yellow'
-                : 'text-gray-500 hover:text-brand-yellow'
-          }`}
-        >
-          <Users size={22} />
-        </button>
-        <button 
-          onClick={() => router.push('/main/players')}
-          className={`p-2 rounded-lg transition-colors ${
-            pathname === '/main/players' 
-              ? 'text-brand-yellow' 
-              : theme === 'dark'
-                ? 'text-neutral-400 hover:text-brand-yellow'
-                : 'text-gray-500 hover:text-brand-yellow'
-          }`}
-        >
-          <UserCircle size={22} />
-        </button>
-        <button 
-          onClick={() => router.push('/main/tournaments')}
-          className={`p-2 rounded-lg transition-colors ${
-            pathname === '/main/tournaments' 
-              ? 'text-brand-yellow' 
-              : theme === 'dark'
-                ? 'text-neutral-400 hover:text-brand-yellow'
-                : 'text-gray-500 hover:text-brand-yellow'
-          }`}
-        >
-          <Trophy size={22} />
-        </button>
-        <button 
-          onClick={() => router.push('/main/matches')}
-          className={`p-2 rounded-lg transition-colors ${
-            pathname === '/main/matches' 
-              ? 'text-brand-yellow' 
-              : theme === 'dark'
-                ? 'text-neutral-400 hover:text-brand-yellow'
-                : 'text-gray-500 hover:text-brand-yellow'
-          }`}
-        >
-          <Calendar size={22} />
-        </button>
-        <button 
-          onClick={() => router.push('/main/news')}
-          className={`p-2 rounded-lg transition-colors ${
-            pathname === '/main/news' 
-              ? 'text-brand-yellow' 
-              : theme === 'dark'
-                ? 'text-neutral-400 hover:text-brand-yellow'
-                : 'text-gray-500 hover:text-brand-yellow'
-          }`}
-        >
-          <Newspaper size={22} />
-        </button>
-        <button 
-          onClick={() => router.push('/main/communities')}
-          className={`p-2 rounded-lg transition-colors ${
-            pathname === '/main/communities' 
-              ? 'text-brand-yellow' 
-              : theme === 'dark'
-                ? 'text-neutral-400 hover:text-brand-yellow'
-                : 'text-gray-500 hover:text-brand-yellow'
-          }`}
-        >
-          <MessageCircle size={22} />
-        </button>
+        <div 
+          className="absolute left-1/2 -translate-x-1/2 w-10 h-10 bg-brand-yellow rounded-full transition-all duration-500 ease-smooth-out z-0"
+          style={indicatorStyle}
+        />
+      <nav className="flex flex-col items-center gap-6 h-full justify-center">
+        {mainNavItems.map((item, index) => (
+            <NavButton key={item.path} item={item} index={index} />
+        ))}
       </nav>
       
       <div className="mt-auto flex flex-col items-center gap-6">
-        <button 
-          onClick={() => router.push('/main/settings')}
-          className={`p-2 rounded-lg transition-colors ${
-            pathname === '/main/settings' 
-              ? 'text-brand-yellow' 
-              : theme === 'dark'
-                ? 'text-neutral-400 hover:text-brand-yellow'
-                : 'text-gray-500 hover:text-brand-yellow'
-          }`}
-        >
-          <Settings size={22} />
-        </button>
-        <button 
-          onClick={() => router.push('/main/profile')}
-          className={`p-2 rounded-lg transition-colors ${
-            pathname === '/main/profile' 
-              ? 'text-brand-yellow' 
-              : theme === 'dark'
-                ? 'text-neutral-400 hover:text-brand-yellow'
-                : 'text-gray-500 hover:text-brand-yellow'
-          }`}
-        >
-          <User size={22} />
-        </button>
+        {bottomNavItems.map((item, index) => (
+            <NavButton key={item.path} item={item} index={mainNavItems.length + index} />
+        ))}
         <div className="relative">
           <button 
             onClick={() => setShowProfileMenu(!showProfileMenu)}
