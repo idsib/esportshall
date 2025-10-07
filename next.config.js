@@ -6,10 +6,19 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
-    domains: [
-      'lh3.googleusercontent.com', // Para imágenes de Google
-      'avatars.githubusercontent.com', // Para imágenes de GitHub
-      'platform-lookaside.fbsbx.com', // Para imágenes de Facebook
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'platform-lookaside.fbsbx.com',
+      },
     ],
   },
 }
