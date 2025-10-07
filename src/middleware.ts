@@ -16,7 +16,7 @@ export async function middleware(request: NextRequest) {
 
   if (isAuthPage) {
     if (token || localStorageToken) {
-      return NextResponse.redirect(new URL('/main', request.url));
+      return NextResponse.redirect(new URL('/', request.url));
     }
     return NextResponse.next();
   }

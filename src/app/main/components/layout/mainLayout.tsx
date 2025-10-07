@@ -15,7 +15,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
       <Header />
       <Sidebar />
 
-      <main className={`pt-16 pl-16 ${theme === 'dark'
+      <main className={`pt-16 pl-20 ${theme === 'dark'
           ? 'bg-dark-100'
           : 'bg-gray-50'
         }`}>

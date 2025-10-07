@@ -1,189 +1,160 @@
-"use client"
-import { Suspense } from "react"
-import dynamic from "next/dynamic"
-import Image from "next/image"
-import Link from "next/link"
-import { motion, AnimatePresence } from "framer-motion"
-import { Trophy, Users, Gamepad2, ArrowRight } from "lucide-react"
-import Nav from "./components/layout/nav"
-import { AnimatedBackground } from "./components/ui/animated-background"
-import { converter } from "./main/web-crawler/JSONtoSQL"
+"use client";
 
-//-backend-//
-import { hashMD5 } from './auth/neon/hashPass'
-//-backend-//
+import { useState } from "react";
+import { useSession } from "next-auth/react";
+import MainLayout from "./main/components/layout/mainLayout";
+import { Footer } from "./components/layout/footer";
+import { MessageSquare, Heart, MoreHorizontal, Repeat2 } from "lucide-react";
+import { useTheme } from "../context/theme-context";
+import Image from "next/image";
+import { AllNoticias } from "./auth/neon/actionsServer";
 
-// Carga dinámica del Footer
-const Footer = dynamic(() => import("./components/layout/footer").then(mod => mod.Footer), {
-  ssr: false,
-  loading: () => <div className="h-[300px] bg-gradient-to-t from-gray-900/50 to-transparent" />
-})
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
+interface Tweet {
+  id: number;
+  user: {
+    name: string;
+    username: string;
+    avatar: string;
+  };
+  content: string;
+  timestamp: string;
+  likes: number;
+  replies: number;
+  retweets: number;
 }
 
-const pageTransition = {
-  hidden: { opacity: 0 },
-  visible: { 
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2
-    }
-  }
-}
+const initialTweets: Tweet[] = [
+  {
+    id: 1,
+    user: {
+      name: "EsportsHall",
+      username: "@esportshall",
+      avatar: "/images/esportshall.png",
+    },
+    content: "¡Nuevo torneo de League of Legends anunciado! 🎮",
+    timestamp: "2h",
+    likes: 42,
+    replies: 12,
+    retweets: 8,
+  },
+];
 
 export default function Home() {
+  const { theme } = useTheme();
+  const { data: session } = useSession();
+  const userImage = session?.user?.image || '/images/esportshall.png';
+  const [tweets] = useState<Tweet[]>(initialTweets);
+
   return (
-    <AnimatePresence>
-      <motion.div
-        initial="hidden"
-        animate="visible"
-        variants={pageTransition}
-      >
-        <Suspense fallback={null}>
-          <AnimatedBackground />
-        </Suspense>
-        
-        <Nav />
-        
-        <main className="min-h-screen">
-          {/* Hero Section */}
-          <section className="relative pt-32 pb-16 md:pt-40 md:pb-20">
-            <div className="container mx-auto px-4 relative z-10">
-              <motion.div
-                className="text-center space-y-6"
-                variants={fadeInUp}
-              >
-                <motion.div
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
-                >
-                  <Image
-                    src="/images/esportshall.png"
-                    alt="EsportsHall Logo"
-                    width={120}
-                    height={120}
-                    className="mx-auto mb-8"
-                    priority
-                  />
-                </motion.div>
-                <motion.h1 
-                  className="text-4xl md:text-6xl font-bold leading-tight"
-                  variants={fadeInUp}
-                >
-                  La Nueva Era del <span className="text-brand-yellow">Esport Español</span>
-                </motion.h1>
-                <motion.p 
-                  className="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto"
-                  variants={fadeInUp}
-                >
-                  Únete a la plataforma centralizada de esports en España. Compite, conecta y crece con la comunidad.
-                </motion.p>
-                <motion.div 
-                  className="flex justify-center gap-4 pt-8"
-                  variants={fadeInUp}
-                >
-                  <Link 
-                    href="/auth/login"
-                    className="btn-primary"
-                  >
-                    Empezar Ahora
-                  </Link>
-                  <Link 
-                    href="/about"
-                    className="btn-secondary"
-                  >
-                    Saber Más
-                  </Link>
-                </motion.div>
-              </motion.div>
+    <MainLayout>
+      <div className="max-w-2xl mx-auto">
+        {/* Tweet Composer */}
+        <div className={`p-4 ${theme === 'dark' ? 'bg-dark-200/95' : 'bg-white'}`}>
+          <div className="flex gap-4">
+            <div className="relative w-12 h-12">
+              <Image
+                src={userImage}
+                alt="Profile"
+                className="rounded-full object-cover"
+                fill
+                sizes="48px"
+                priority
+              />
             </div>
-          </section>
-
-          {/* Features Section */}
-          <Suspense fallback={<div className="h-[400px]" />}>
-            <section className="py-20">
-              <div className="container mx-auto px-4">
-                <motion.div
-                  className="grid md:grid-cols-3 gap-8"
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, margin: "-100px" }}
-                  variants={{
-                    visible: {
-                      transition: {
-                        staggerChildren: 0.2
-                      }
-                    }
-                  }}
-                >
-                  <motion.div className="card" variants={fadeInUp}>
-                    <Trophy className="w-12 h-12 text-brand-yellow mb-4" />
-                    <h3 className="text-xl font-bold mb-2">Torneos Oficiales</h3>
-                    <p className="text-gray-400">
-                      Participa en torneos verificados con premios reales y reconocimiento oficial.
-                    </p>
-                  </motion.div>
-                  <motion.div className="card" variants={fadeInUp}>
-                    <Users className="w-12 h-12 text-brand-yellow mb-4" />
-                    <h3 className="text-xl font-bold mb-2">Equipos Profesionales</h3>
-                    <p className="text-gray-400">
-                      Conecta con equipos profesionales y desarrolla tu carrera en los esports.
-                    </p>
-                  </motion.div>
-                  <motion.div className="card" variants={fadeInUp}>
-                    <Gamepad2 className="w-12 h-12 text-brand-yellow mb-4" />
-                    <h3 className="text-xl font-bold mb-2">Comunidad Activa</h3>
-                    <p className="text-gray-400">
-                      Forma parte de una comunidad apasionada por los deportes electrónicos.
-                    </p>
-                  </motion.div>
-                </motion.div>
+            <div className="flex-1">
+              <textarea
+                placeholder="¿Qué está pasando en el mundo de los esports?"
+                className={`w-full bg-transparent border-none focus:outline-none resize-none ${theme === 'dark'
+                    ? 'text-white placeholder-neutral-500'
+                    : 'text-gray-900 placeholder-gray-500'
+                  }`}
+                rows={3}
+              />
+              <div className="flex justify-between items-center pt-4">
+                <div className="ml-auto">
+                  <button className="bg-yellow-400 text-black px-4 py-2 rounded-full font-bold hover:bg-yellow-500">
+                    Postear
+                  </button>
+                </div>
+                <button onClick={() => AllNoticias()}> pruebita</button>
               </div>
-            </section>
-          </Suspense>
+            </div>
+          </div>
+        </div>
 
-          {/* CTA Section */}
-          <Suspense fallback={<div className="h-[300px]" />}>
-            <section className="py-20">
-              <div className="container mx-auto px-4">
-                <motion.div
-                  className="max-w-4xl mx-auto text-center space-y-8"
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <h2 className="text-3xl md:text-5xl font-bold">
-                    ¿Listo para ser parte del futuro?
-                  </h2>
-                  <p className="text-xl text-gray-400">
-                    Únete a miles de jugadores y equipos que ya son parte de la revolución del esport español.
-                  </p>
-                  <div className="flex flex-col items-center gap-4">
-                    <Link 
-                      href="/auth/login"
-                      className="btn-primary inline-flex items-center gap-2 group"
-                    >
-                      Comenzar Ahora
-                      <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-                    </Link>
+        {/* Tweet Feed */}
+        <div>
+          {tweets.map((tweet) => (
+            <div
+              key={tweet.id}
+              className={`p-4 ${theme === 'dark'
+                  ? 'hover:bg-dark-300/50 bg-dark-200/95'
+                  : 'hover:bg-gray-50 bg-white'
+                }`}
+            >
+              <div className="flex gap-4">
+                <div className="relative w-12 h-12">
+                  <Image
+                    src={tweet.user.avatar}
+                    alt={tweet.user.name}
+                    className="rounded-full object-cover"
+                    fill
+                    sizes="48px"
+                  />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <span className={theme === 'dark' ? 'text-white' : 'text-gray-900 font-bold'}>
+                      {tweet.user.name}
+                    </span>
+                    <span className={theme === 'dark' ? 'text-neutral-500' : 'text-gray-500'}>
+                      {tweet.user.username}
+                    </span>
+                    <span className={theme === 'dark' ? 'text-neutral-500' : 'text-gray-500'}>·</span>
+                    <span className={theme === 'dark' ? 'text-neutral-500' : 'text-gray-500'}>
+                      {tweet.timestamp}
+                    </span>
+                    <button className={`ml-auto ${theme === 'dark'
+                        ? 'text-neutral-500 hover:text-yellow-400'
+                        : 'text-gray-500 hover:text-yellow-500'
+                      }`}>
+                      <MoreHorizontal size={20} />
+                    </button>
                   </div>
-                </motion.div>
+                  <p className={`mt-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                    {tweet.content}
+                  </p>
+                  <div className="flex gap-6 mt-4">
+                    <button className={`flex items-center gap-2 ${theme === 'dark'
+                        ? 'text-neutral-500 hover:text-yellow-400'
+                        : 'text-gray-500 hover:text-yellow-500'
+                      }`}>
+                      <MessageSquare size={20} />
+                      <span>{tweet.replies}</span>
+                    </button>
+                    <button className={`flex items-center gap-2 ${theme === 'dark'
+                        ? 'text-neutral-500 hover:text-yellow-400'
+                        : 'text-gray-500 hover:text-yellow-500'
+                      }`}>
+                      <Heart size={20} />
+                      <span>{tweet.likes}</span>
+                    </button>
+                    <button className={`flex items-center gap-2 ${theme === 'dark'
+                        ? 'text-neutral-500 hover:text-yellow-400'
+                        : 'text-gray-500 hover:text-yellow-500'
+                      }`}>
+                      <Repeat2 size={20} />
+                      <span>{tweet.retweets}</span>
+                    </button>
+                  </div>
+                </div>
               </div>
-            </section>
-          </Suspense>
-        </main>
-
-        <Suspense fallback={<div className="h-[300px]" />}>
-          <Footer />
-        </Suspense>
-      </motion.div>
-    </AnimatePresence>
-  )
+            </div>
+          ))}
+        </div>
+      </div>
+      <Footer />
+    </MainLayout>
+  );
 }
 

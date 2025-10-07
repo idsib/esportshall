@@ -36,7 +36,6 @@ export function Footer() {
             <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Enlaces Rápidos</h3>
             <ul className="space-y-2">
               <li><Link href="/esports" className="nav-link">Esports</Link></li>
-              <li><Link href="/games" className="nav-link">Juegos</Link></li>
               <li><Link href="/teams" className="nav-link">Equipos</Link></li>
               <li><Link href="/comunidad" className="nav-link">Comunidad</Link></li>
             </ul>

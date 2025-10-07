@@ -1,16 +1,77 @@
 "use client"
 
 import { useState } from 'react'
+import { Send, Upload, ArrowLeft } from 'lucide-react'
+import MainLayout from '../main/components/layout/mainLayout'
 import Link from 'next/link'
-import { ArrowLeft, Send, Upload } from 'lucide-react'
-import Nav from "../components/layout/nav"
-import { Footer } from "../components/layout/footer"
+
+interface ValorantFields {
+    agent: string;
+    role: string;
+    peakRank: string;
+}
+
+interface LolFields {
+    role: string;
+    champions: string;
+    peakRank: string;
+}
+
+interface CsgoFields {
+    role: string;
+    weapons: string;
+    peakRank: string;
+}
+
+
+
+interface FormData {
+    type: string;
+    name: string;
+    email: string;
+    phone: string;
+    game: string;
+    nickname: string;
+    rank: string;
+    experience: string;
+    valorant: ValorantFields;
+    lol: LolFields;
+    csgo: CsgoFields;
+    teamName: string;
+    teamSize: string;
+    teamDescription: string;
+    message: string;
+    newsletter: boolean;
+}
 
 export default function Contact() {
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<FormData>({
+        type: '',
         name: '',
         email: '',
-        role: '',
+        phone: '',
+        game: '',
+        nickname: '',
+        rank: '',
+        experience: '',
+        valorant: {
+            agent: '',
+            role: '',
+            peakRank: ''
+        },
+        lol: {
+            role: '',
+            champions: '',
+            peakRank: ''
+        },
+        csgo: {
+            role: '',
+            weapons: '',
+            peakRank: ''
+        },
+        teamName: '',
+        teamSize: '',
+        teamDescription: '',
         message: '',
         newsletter: false
     })
@@ -18,11 +79,26 @@ export default function Contact() {
     const [isSubmitting, setIsSubmitting] = useState(false)
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-        const { name, value, type } = e.target
-        setFormData(prev => ({
-            ...prev,
-            [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
-        }))
+        const { name, value } = e.target
+        
+        if (name.includes('.')) {
+            const [gameKey, field] = name.split('.')
+            setFormData(prev => {
+                const game = gameKey as keyof Pick<FormData, 'valorant' | 'lol' | 'csgo'>
+                return {
+                    ...prev,
+                    [game]: {
+                        ...prev[game],
+                        [field]: value
+                    }
+                }
+            })
+        } else {
+            setFormData(prev => ({
+                ...prev,
+                [name]: value
+            }))
+        }
     }
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,29 +112,85 @@ export default function Contact() {
         e.preventDefault()
         setIsSubmitting(true)
         try {
-            // Aquí iría la lógica para enviar los datos al backend
+            // Aquí va la lógica para enviar los datos al backend
             const formDataToSend = new FormData()
-            Object.entries(formData).forEach(([key, value]) => {
-                formDataToSend.append(key, value.toString())
-            })
+            
+            // Aplanar los datos del formulario para enviarlos
+            const flattenFormData = (obj: any, prefix = '') => {
+                Object.keys(obj).forEach(key => {
+                    if (typeof obj[key] === 'object' && obj[key] !== null) {
+                        flattenFormData(obj[key], `${prefix}${key}.`)
+                    } else {
+                        formDataToSend.append(`${prefix}${key}`, obj[key].toString())
+                    }
+                })
+            }
+            
+            flattenFormData(formData)
+            
             if (file) {
                 formDataToSend.append('file', file)
             }
+            
             console.log('Datos del formulario:', formData)
             console.log('Archivo:', file)
+            
+            // Aquí iría la llamada a la API
+            // await fetch('/api/contact', {
+            //     method: 'POST',
+            //     body: formDataToSend
+            // })
+            
+            // Resetear el formulario después del envío exitoso
+            setFormData({
+                type: '',
+                name: '',
+                email: '',
+                phone: '',
+                game: '',
+                nickname: '',
+                rank: '',
+                experience: '',
+                valorant: {
+                    agent: '',
+                    role: '',
+                    peakRank: ''
+                },
+                lol: {
+                    role: '',
+                    champions: '',
+                    peakRank: ''
+                },
+                csgo: {
+                    role: '',
+                    weapons: '',
+                    peakRank: ''
+                },
+
+                teamName: '',
+                teamSize: '',
+                teamDescription: '',
+                message: '',
+                newsletter: false
+            })
+            setFile(null)
+            
+            // Mostrar mensaje de éxito (puedes implementar un sistema de notificaciones)
+            alert('Formulario enviado con éxito')
+            
         } catch (error) {
             console.error('Error al enviar el formulario:', error)
+            alert('Error al enviar el formulario. Por favor, inténtalo de nuevo.')
         } finally {
             setIsSubmitting(false)
         }
     }
 
     return (
-        <>
-            <Nav />
-            <div className="pt-24 pb-12 px-4 min-h-screen bg-gray-50 dark:bg-dark-100">
-                <div className="max-w-2xl mx-auto">
-                    <div className="flex justify-start mb-8">
+        <MainLayout>
+            <div className="pt-0 pb-0 px-4 min-h-screen bg-gray-50 dark:bg-dark-100">
+                <div className="max-w-1xl mx-auto">
+                    <div className="flex justify-start mb-4">
                         <Link
                             href="/"
                             className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-brand-yellow transition-colors"
@@ -71,14 +203,32 @@ export default function Contact() {
                     <div className="bg-white dark:bg-dark-200 rounded-xl shadow-lg p-8">
                         <div className="text-center mb-8">
                             <h1 className="text-3xl font-bold text-brand-yellow mb-2">
-                                Únete al Equipo
+                                Inscripción para Jugadores y Equipos
                             </h1>
                             <p className="text-gray-600 dark:text-gray-300">
-                                ¿Quieres formar parte del futuro de los esports en España?
+                                Únete a nuestra comunidad de esports y comienza tu carrera competitiva
                             </p>
                         </div>
 
                         <form onSubmit={handleSubmit} className="space-y-6">
+                            <div>
+                                <label htmlFor="type" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Tipo de Inscripción
+                                </label>
+                                <select
+                                    id="type"
+                                    name="type"
+                                    value={formData.type}
+                                    onChange={handleInputChange}
+                                    className="w-full px-4 py-2 rounded-lg border dark:border-dark-300 bg-white dark:bg-dark-300 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-colors"
+                                    required
+                                >
+                                    <option value="">Selecciona una opción</option>
+                                    <option value="player">Jugador Individual</option>
+                                    <option value="team">Equipo</option>
+                                </select>
+                            </div>
+
                             <div>
                                 <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                     Nombre completo
@@ -106,65 +256,193 @@ export default function Contact() {
                                     value={formData.email}
                                     onChange={handleInputChange}
                                     className="w-full px-4 py-2 rounded-lg border dark:border-dark-300 bg-white dark:bg-dark-300 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-colors"
-                                    placeholder="tu@email.com"
                                     required
                                 />
                             </div>
 
                             <div>
-                                <label htmlFor="role" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                    Rol de interés
+                                <label htmlFor="game" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Juego
                                 </label>
                                 <select
-                                    id="role"
-                                    name="role"
-                                    value={formData.role}
+                                    id="game"
+                                    name="game"
+                                    value={formData.game}
                                     onChange={handleInputChange}
                                     className="w-full px-4 py-2 rounded-lg border dark:border-dark-300 bg-white dark:bg-dark-300 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-colors"
                                     required
                                 >
-                                    <option value="">Selecciona un rol</option>
-                                    <option value="admin">Administrador</option>
-                                    <option value="moderator">Moderador</option>
-                                    <option value="content">Creador de contenido</option>
-                                    <option value="tournament">Organizador de torneos</option>
-                                    <option value="other">Otro</option>
+                                    <option value="">Selecciona un juego</option>
+                                    <option value="valorant">Valorant</option>
+                                    <option value="lol">League of Legends</option>
+                                    <option value="csgo">CS:GO</option>
                                 </select>
                             </div>
 
-                            <div>
-                                <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                    ¿Por qué quieres unirte?
-                                </label>
-                                <textarea
-                                    id="message"
-                                    name="message"
-                                    value={formData.message}
-                                    onChange={handleInputChange}
-                                    rows={4}
-                                    className="w-full px-4 py-2 rounded-lg border dark:border-dark-300 bg-white dark:bg-dark-300 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-colors"
-                                    placeholder="Cuéntanos sobre tu experiencia y motivación..."
-                                    required
-                                />
-                            </div>
+                            {formData.type === 'player' && formData.game && (
+                                <>
+                                    {formData.game === 'valorant' && (
+                                        <>
+                                            <div>
+                                                <label htmlFor="valorant-agent" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                                    Agente Principal
+                                                </label>
+                                                <select
+                                                    id="valorant-agent"
+                                                    name="valorant.agent"
+                                                    value={formData.valorant.agent}
+                                                    onChange={handleInputChange}
+                                                    className="w-full px-4 py-2 rounded-lg border dark:border-dark-300 bg-white dark:bg-dark-300 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-colors"
+                                                    required
+                                                >
+                                                    <option value="">Selecciona un agente</option>
+                                                    <option value="duelist">Duelista</option>
+                                                    <option value="sentinel">Centinela</option>
+                                                    <option value="initiator">Iniciador</option>
+                                                    <option value="controller">Controlador</option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <label htmlFor="valorant-role" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                                    Rol Preferido
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    id="valorant-role"
+                                                    name="valorant.role"
+                                                    value={formData.valorant.role}
+                                                    onChange={handleInputChange}
+                                                    className="w-full px-4 py-2 rounded-lg border dark:border-dark-300 bg-white dark:bg-dark-300 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-colors"
+                                                    placeholder="Ej: Entry Fragger, Support"
+                                                    required
+                                                />
+                                            </div>
+                                        </>
+                                    )}
 
-                            <div className="flex items-center">
-                                <input
-                                    type="checkbox"
-                                    id="newsletter"
-                                    name="newsletter"
-                                    checked={formData.newsletter}
-                                    onChange={handleInputChange}
-                                    className="h-4 w-4 text-brand-yellow focus:ring-brand-yellow border-gray-300 rounded"
-                                />
-                                <label htmlFor="newsletter" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
-                                    Suscribirme al newsletter para recibir actualizaciones
-                                </label>
-                            </div>
+                                    {formData.game === 'lol' && (
+                                        <>
+                                            <div>
+                                                <label htmlFor="lol-role" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                                    Rol Principal
+                                                </label>
+                                                <select
+                                                    id="lol-role"
+                                                    name="lol.role"
+                                                    value={formData.lol.role}
+                                                    onChange={handleInputChange}
+                                                    className="w-full px-4 py-2 rounded-lg border dark:border-dark-300 bg-white dark:bg-dark-300 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-colors"
+                                                    required
+                                                >
+                                                    <option value="">Selecciona un rol</option>
+                                                    <option value="top">Top</option>
+                                                    <option value="jungle">Jungla</option>
+                                                    <option value="mid">Mid</option>
+                                                    <option value="adc">ADC</option>
+                                                    <option value="support">Support</option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <label htmlFor="lol-champions" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                                    Campeones Principales
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    id="lol-champions"
+                                                    name="lol.champions"
+                                                    value={formData.lol.champions}
+                                                    onChange={handleInputChange}
+                                                    className="w-full px-4 py-2 rounded-lg border dark:border-dark-300 bg-white dark:bg-dark-300 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-colors"
+                                                    placeholder="Ej: Yasuo, Zed, Fizz"
+                                                    required
+                                                />
+                                            </div>
+                                        </>
+                                    )}
 
+                                    {formData.game === 'csgo' && (
+                                        <>
+                                            <div>
+                                                <label htmlFor="csgo-role" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                                    Rol en el Equipo
+                                                </label>
+                                                <select
+                                                    id="csgo-role"
+                                                    name="csgo.role"
+                                                    value={formData.csgo.role}
+                                                    onChange={handleInputChange}
+                                                    className="w-full px-4 py-2 rounded-lg border dark:border-dark-300 bg-white dark:bg-dark-300 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-colors"
+                                                    required
+                                                >
+                                                    <option value="">Selecciona un rol</option>
+                                                    <option value="awper">Awper</option>
+                                                    <option value="rifler">Rifler</option>
+                                                    <option value="support">Support</option>
+                                                    <option value="igl">IGL</option>
+                                                </select>
+                                            </div>
+                                        </>
+                                    )}
+
+                                    <div>
+                                        <label htmlFor="peakRank" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                            Rango Máximo Alcanzado
+                                        </label>
+                                        <input
+                                            type="text"
+                                            id="peakRank"
+                                            name={`${formData.game}.peakRank`}
+                                            value={
+                                                formData.game === 'valorant' ? formData.valorant.peakRank :
+                                                formData.game === 'lol' ? formData.lol.peakRank :
+                                                formData.game === 'csgo' ? formData.csgo.peakRank :
+                                                ''
+                                            }
+                                            onChange={handleInputChange}
+                                            className="w-full px-4 py-2 rounded-lg border dark:border-dark-300 bg-white dark:bg-dark-300 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-colors"
+                                            required
+                                        />
+                                    </div>
+                                </>
+                            )}
+
+                            {formData.type === 'team' && (
+                                <>
+                                    <div>
+                                        <label htmlFor="teamName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                            Nombre del Equipo
+                                        </label>
+                                        <input
+                                            type="text"
+                                            id="teamName"
+                                            name="teamName"
+                                            value={formData.teamName}
+                                            onChange={handleInputChange}
+                                            className="w-full px-4 py-2 rounded-lg border dark:border-dark-300 bg-white dark:bg-dark-300 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-colors"
+                                            required
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label htmlFor="teamDescription" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                            Descripción del Equipo
+                                        </label>
+                                        <textarea
+                                            id="teamDescription"
+                                            name="teamDescription"
+                                            value={formData.teamDescription}
+                                            onChange={handleInputChange}
+                                            className="w-full px-4 py-2 rounded-lg border dark:border-dark-300 bg-white dark:bg-dark-300 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-colors"
+                                            rows={3}
+                                            required
+                                        />
+                                    </div>
+                                </>
+                            )}
+                            
                             <div className="space-y-2">
                                 <label htmlFor="file" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                    Adjuntar CV o Portfolio (opcional)
+                                    Adjuntar CV o Portfolio
                                 </label>
                                 <div className="flex items-center justify-center w-full">
                                     <label className="w-full flex flex-col items-center px-4 py-6 bg-white dark:bg-dark-300 text-gray-700 dark:text-gray-300 rounded-lg border-2 border-dashed border-gray-300 dark:border-dark-400 cursor-pointer hover:border-brand-yellow dark:hover:border-brand-yellow transition-colors">
@@ -174,7 +452,7 @@ export default function Contact() {
                                             type="file" 
                                             id="file" 
                                             className="hidden" 
-                                            accept=".pdf,.doc,.docx"
+                                            accept=".pdf,.doc,.docx,.jpeg,.jpg,.png"
                                             onChange={handleFileChange}
                                         />
                                     </label>
@@ -186,14 +464,13 @@ export default function Contact() {
                                 className="w-full btn-primary py-2 flex items-center justify-center space-x-2"
                                 disabled={isSubmitting}
                             >
-                                <span>{isSubmitting ? 'Enviando...' : 'Enviar Solicitud'}</span>
+                                <span>{isSubmitting ? 'Enviando...' : 'Enviar Inscripción'}</span>
                                 <Send className="w-4 h-4" />
                             </button>
                         </form>
                     </div>
                 </div>
             </div>
-            <Footer />
-        </>
+        </MainLayout>
     )
 } 

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { usePathname } from "next/navigation";
-import MainLayout from '../components/layout/mainLayout';
+import MainLayout from '../main/components/layout/mainLayout';
 import { Footer } from '@/app/components/layout/footer';
 import { fetchPlayers, GameType, gameDisplayNames } from '@/app/utils/api';
 import { Player } from '@/app/utils/api';

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { X, Camera } from 'lucide-react';
 import { useTheme } from '@/context/theme-context';
 import { useSession } from 'next-auth/react';
-import {updateUserProfile} from "../../../auth/neon/updateUser";
+import {updateUserProfile} from "../../auth/neon/updateUser";
 
 interface EditProfileModalProps {
   isOpen: boolean;

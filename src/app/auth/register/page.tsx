@@ -33,7 +33,7 @@ export default function Register() {
 
     useEffect(() => {
         if (session) {
-            redirect('/main')
+            redirect('/')
         }
     }, [session])
 

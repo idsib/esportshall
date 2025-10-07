@@ -3,7 +3,7 @@
 import { useState, useRef } from 'react';
 import Image from 'next/image';
 import { useTheme } from '@/context/theme-context';
-import MainLayout from '../components/layout/mainLayout';
+import MainLayout from '../main/components/layout/mainLayout';
 import { Plus, Search, TrendingUp, Clock, Star, Users, X, Camera } from 'lucide-react';
 import Link from 'next/link';
 

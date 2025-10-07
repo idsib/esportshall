@@ -9,18 +9,18 @@ import { useRouter } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
 
 const mainNavItems = [
-  { path: '/main', icon: Home },
-  { path: '/main/teams', icon: Users },
-  { path: '/main/players', icon: UserCircle },
-  { path: '/main/tournaments', icon: Trophy },
-  { path: '/main/matches', icon: Calendar },
-  { path: '/main/news', icon: Newspaper },
-  { path: '/main/communities', icon: MessageCircle },
+  { path: '/', icon: Home },
+  { path: '/teams', icon: Users },
+  { path: '/players', icon: UserCircle },
+  { path: '/tournaments', icon: Trophy },
+  { path: '/matches', icon: Calendar },
+  { path: '/news', icon: Newspaper },
+  { path: '/communities', icon: MessageCircle },
 ];
 
 const bottomNavItems = [
-    { path: '/main/settings', icon: Settings },
-    { path: '/main/profile', icon: User },
+    { path: '/settings', icon: Settings },
+    { path: '/profile', icon: User },
 ]
 
 const allNavItems = [...mainNavItems, ...bottomNavItems];
@@ -74,10 +74,6 @@ export default function Sidebar() {
     }
   }, [activeItemIndex]);
 
-  if (!session) {
-    return null;
-  }
-
   const handleLogout = async () => {
     await signOut({ callbackUrl: '/auth/login' });
   };
@@ -125,7 +121,7 @@ export default function Sidebar() {
         ))}
         <div className="relative">
           <button 
-            onClick={() => setShowProfileMenu(!showProfileMenu)}
+            onClick={() => session ? setShowProfileMenu(!showProfileMenu) : router.push('/auth/login')}
             className={`w-10 h-10 rounded-full overflow-hidden border-2 transition-colors ${
               showProfileMenu
                 ? 'border-brand-yellow'
@@ -143,7 +139,7 @@ export default function Sidebar() {
             />
           </button>
 
-          {showProfileMenu && (
+          {showProfileMenu && session && (
             <>
               <div 
                 className="fixed inset-0 z-40"
@@ -158,7 +154,7 @@ export default function Sidebar() {
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full overflow-hidden">
                       <Image
-                        src={session?.user?.image || '/images/esportshall.png'}
+                        src={session.user.image || '/images/esportshall.png'}
                         alt="Profile"
                         width={40}
                         height={40}
@@ -168,8 +164,8 @@ export default function Sidebar() {
                     <div>
                       <p className={`font-semibold ${
                         theme === 'dark' ? 'text-white' : 'text-gray-900'
-                      }`}>{session?.user?.name}</p>
-                      <p className="text-sm text-gray-500">@{session?.user?.email?.split('@')[0]}</p>
+                      }`}>{session.user.name}</p>
+                      <p className="text-sm text-gray-500">@{session.user.email?.split('@')[0]}</p>
                     </div>
                   </div>
                 </div>
@@ -180,7 +176,7 @@ export default function Sidebar() {
                       theme === 'dark' ? 'text-white' : 'text-gray-900'
                     }`}
                   >
-                    Cerrar la sesión de @{session?.user?.email?.split('@')[0]}
+                    Cerrar la sesión de @{session.user.email?.split('@')[0]}
                   </button>
                 </div>
               </div>

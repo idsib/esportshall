@@ -2,15 +2,17 @@
 
 import { useState } from "react";
 import Image from 'next/image';
-import { Search, Sun, Moon, Menu } from 'lucide-react';
+import Link from 'next/link';
+import { Sun, Moon, Menu } from 'lucide-react';
 import { useTheme } from '@/context/theme-context';
 import { useRouter, usePathname } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import TwitchNotification from '../../components/twitch-notification';
 
 export default function Header() {
-  const [searchQuery, setSearchQuery] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
+  const { data: session } = useSession();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -19,8 +21,7 @@ export default function Header() {
   };
 
   const navItems = [
-    { name: 'Juegos', path: '/main/games' },
-    { name: 'Contacto', path: '/main/contact' },
+    { name: 'Contacto', path: '/contact' },
   ];
 
   return (
@@ -61,20 +62,14 @@ export default function Header() {
                     {theme === 'dark' ? <Moon size={20} /> : <Sun size={20} />}
                     </button>
                 </div>
-                <div className="relative hidden sm:block">
-                    <input
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Buscar"
-                    className={`rounded-full px-4 py-2 pl-10 w-[300px] focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-all ${
-                        theme === 'dark'
-                        ? 'bg-dark-300 text-white placeholder-gray-400 border border-dark-300'
-                        : 'bg-gray-50 text-gray-900 placeholder-gray-500 border border-gray-200'
-                    }`}
-                    />
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={18} />
-                </div>
+                {!session && (
+                  <Link 
+                    href="/auth/login" 
+                    className="hidden sm:block bg-brand-yellow text-black px-4 py-2 rounded-full font-bold hover:bg-yellow-500 transition-colors"
+                  >
+                    Empezar Ahora
+                  </Link>
+                )}
                 <button
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
                     className="md:hidden p-2 text-neutral-400 hover:text-yellow-400 transition-colors"
@@ -109,21 +104,15 @@ export default function Header() {
                 {item.name}
               </button>
             ))}
-            {/* Barra de búsqueda móvil */}
-            <div className="relative sm:hidden pt-2">
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Buscar"
-                className={`w-full rounded-full px-4 py-2 pl-10 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-all ${
-                  theme === 'dark'
-                    ? 'bg-dark-300 text-white placeholder-gray-400 border border-dark-300'
-                    : 'bg-gray-50 text-gray-900 placeholder-gray-500 border border-gray-200'
-                }`}
-              />
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={18} />
-            </div>
+            {!session && (
+              <Link 
+                href="/auth/login" 
+                className="bg-brand-yellow text-black px-4 py-2 rounded-full font-bold hover:bg-yellow-500 transition-colors text-center"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Empezar Ahora
+              </Link>
+            )}
           </div>
         </div>
       )}

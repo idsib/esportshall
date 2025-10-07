@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import MainLayout from '../components/layout/mainLayout';
+import MainLayout from '../main/components/layout/mainLayout';
 import { useTheme } from '@/context/theme-context';
 import { Loader2, Search } from 'lucide-react';
-import { AllNoticias } from "../../auth/neon/actionsServer"
+import { AllNoticias } from "../auth/neon/actionsServer"
 
 interface Noticia {
   id: number;

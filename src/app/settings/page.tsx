@@ -2,11 +2,11 @@
 
 import { useState } from 'react';
 import { usePathname, useRouter } from "next/navigation";
-import MainLayout from '../components/layout/mainLayout';
+import MainLayout from '../main/components/layout/mainLayout';
 import { Footer } from '@/app/components/layout/footer';
 import { useTheme } from '@/context/theme-context';
 import { signOut } from "next-auth/react";
-import { converter } from '../web-crawler/JSONtoSQL';
+import { converter } from '../main/web-crawler/JSONtoSQL';
 import { 
   Moon, 
   Sun, 

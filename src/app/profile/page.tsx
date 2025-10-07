@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { useTheme } from '@/context/theme-context';
 import EditProfileModal from './components/edit-profile-modal';
-import MainLayout from '../components/layout/mainLayout'
+import MainLayout from '../main/components/layout/mainLayout'
 import { Twitter, Instagram, Twitch, MapPin, Link as LinkIcon, Calendar, Trophy, Users, Settings, MessageCircle, Heart, Share2 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';

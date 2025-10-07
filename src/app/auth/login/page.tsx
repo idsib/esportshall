@@ -28,7 +28,7 @@ export default function Login() {
 
     useEffect(() => {
         if (session) {
-            router.replace('/main')
+            router.replace('/')
         }
     }, [session, router])
 
@@ -55,7 +55,7 @@ export default function Login() {
                 return
             }
 
-            router.replace('/main')
+            router.replace('/')
         } catch (error) {
             console.error('Error al iniciar sesión:', error)
             alert('Error al iniciar sesión')
@@ -146,7 +146,7 @@ export default function Login() {
 
                             <div className="mt-6">
                                 <button
-                                    onClick={() => signIn('google', { callbackUrl: `${window.location.origin}/main` })}
+                                    onClick={() => signIn('google', { callbackUrl: `${window.location.origin}/` })}
                                     className="w-full flex items-center justify-center space-x-2 px-4 py-2 border border-gray-300 dark:border-dark-300 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-dark-300 transition-colors"
                                 >
                                     <Image
